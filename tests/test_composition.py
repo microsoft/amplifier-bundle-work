@@ -20,6 +20,13 @@ async def test_root_loads_from_an_unrelated_workspace(tmp_path, monkeypatch):
     assert patch['config'] == {'engine': 'native'}
     assert not bundle.providers
     assert "agent: self" in bundle.instruction
+    assert plan['session']['orchestrator']['config']['programmatic_dispatch'] is True
+    bash = next(tool for tool in bundle.tools if tool['module'] == 'tool-bash')
+    assert bash['config']['managed_processes'] is True
+    assert bash['config']['managed_stdin'] is True
+    assert {'tool-exec', 'tool-web'} <= {tool['module'] for tool in bundle.tools}
+    web = next(tool for tool in bundle.tools if tool['module'] == 'tool-web')
+    assert web['config']['search_engine'] == 'ddgs'
 
 
 @pytest.mark.asyncio
@@ -43,6 +50,8 @@ async def test_anchors_work_preserves_anchors_capabilities(tmp_path, monkeypatch
     assert bundle.session['context']['module'] == 'context-managed'
     assert bundle.session['orchestrator']['module'] == 'loop-live'
     assert bundle.session['orchestrator']['config']['background_delegate'] is False
+    assert bundle.session['orchestrator']['config']['programmatic_dispatch'] is True
+    assert next(row for row in bundle.tools if row['module'] == 'tool-web')['config']['search_engine'] == 'ddgs'
     assert {row['module'] for row in bundle.tools} >= {'tool-web', 'tool-todo', 'tool-delegate', 'tool-transcript', 'tool-skills'}
     assert bundle.agents
     assert '@anchors:context/system.md' in bundle.instruction

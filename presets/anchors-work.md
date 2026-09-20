@@ -8,6 +8,7 @@ bundle:
 includes:
   - bundle: git+https://github.com/microsoft/amplifier-foundation@main#subdirectory=bundles/anchors/bundle.md
   - bundle: work:behaviors/work-local.yaml
+  - bundle: work:behaviors/work-execution.yaml
 ---
 
 @anchors:context/system.md

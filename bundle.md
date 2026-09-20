@@ -7,6 +7,7 @@ bundle:
 
 includes:
   - bundle: work:behaviors/work-local.yaml
+  - bundle: work:behaviors/work-execution.yaml
 
 tools:
   - module: tool-filesystem
@@ -15,8 +16,6 @@ tools:
     source: git+https://github.com/microsoft/amplifier-bundle-filesystem@main#subdirectory=modules/tool-apply-patch
     config:
       engine: native
-  - module: tool-bash
-    source: git+https://github.com/microsoft/amplifier-module-tool-bash@main
   - module: tool-search
     source: git+https://github.com/microsoft/amplifier-module-tool-search@main
   - module: tool-delegate

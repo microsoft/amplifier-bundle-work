@@ -21,8 +21,9 @@ advance them together. Hosts should stage and validate updates before activation
 and retain the installed revisions for rollback. A local checkout can also be
 selected by its absolute `bundle.md` path.
 
-The root contributes six tool modules, including `apply_patch`, `delegate`, and
-`read_transcript`. Modules may expose more than one callable tool.
+The root contributes eight tool modules, including `apply_patch`, `delegate`,
+`read_transcript`, managed `bash`, `tool_exec`, `web_search` and `web_fetch`.
+Modules may expose more than one callable tool.
 It does not select a provider, model, or reasoning effort. Other capabilities
 must be composed explicitly.
 
@@ -64,9 +65,25 @@ install the root's filesystem, shell, search, or delegate tools. Its sources als
   are discovered from the host when present. The root does not emulate those
   application services or assume every host supplies them.
 
-The profile does not add managed process input/output, a portable child registry,
-durable compaction checkpoints, or a persistent asynchronous-question ledger.
-It is an experimental composition, not evidence of ChatGPT quality parity.
+The root and Anchors preset also include `behaviors/work-execution.yaml`. It
+opts into managed Bash handles and approved programmatic dispatch, and configures
+real DDGS web search. The lightweight `work-local.yaml` overlay remains limited
+to the loop, context and transcript tool; include `work-execution.yaml` after it
+when these additional tools are wanted. Existing tool safety policies still apply.
+Raw interpreter stdin requires an unrestricted trusted host policy. Managed
+processes do not provide PTY support or survive owner death as live handles.
+
+Programmatic JavaScript runs in a fresh bounded process and calls only through
+normal tool permissions, with attributable call receipts. It cannot delegate,
+run background calls or retain variables. Durable operation records, asynchronous
+questions, saved task state and derived compaction persistence are optional host
+services discovered through shared actions. Unknown effects are never replayed.
+This composition alone is not evidence of ChatGPT output-quality parity.
+
+This change requires the managed-process, truthful-web and approved-dispatch
+upstream changes to be merged before publication. Draft integration uses reviewed
+local overrides; maintained sources stay on `main`. Tested revision receipts are
+evidence, never source pins. See `docs/EXECUTION-VALIDATION.md` for acceptance state.
 
 ## Ownership and validation
 
