@@ -29,6 +29,11 @@ formats, frozen headers where helpful, filters, and charts tied to actual data.
 For charts, match labels to the displayed orientation: the numeric axis carries
 the value/unit and the category axis identifies the items. Verify this after
 conversion; correct source cells do not prove the rendered labels are correct.
+In openpyxl `BarChart`, `x_axis` is the category (`TextAxis`) object and
+`y_axis` is the value (`NumericAxis`) object even with `type = "bar"`.
+For horizontal revenue-by-item bars, use `chart.x_axis.title = "Item"` and
+`chart.y_axis.title = "Revenue (USD)"`; do not swap these properties to match
+physical screen directions. See the [bar chart documentation](https://openpyxl.readthedocs.io/en/3.1/charts/bar.html).
 Choose formulas supported by the intended engine. Do not replace native Excel
 Data Tables, iterative models, dynamic arrays, or pivot behavior with static
 values without the user's agreement.

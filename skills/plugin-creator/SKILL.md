@@ -72,6 +72,8 @@ print(plan)
 ```
 
 Check the module ID, source, and configured namespace in the resulting plan.
+Write any validation receipt to the user's requested output path; the example
+bundle location does not determine the receipt location.
 Then register the authored skills directory with the current `load_skill`
 tool's advertised source schema, load the new skill, and execute a small case.
 Do not mistake configuration parsing for installed module or host acceptance.
