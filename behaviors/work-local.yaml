@@ -1,5 +1,6 @@
 bundle:
   name: work-local
+  display_name: Work · Local execution
   version: 0.2.0
   description: Opt-in Work profile with pinned live execution, boundary context, and transcript retrieval.
 
