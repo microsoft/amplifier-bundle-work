@@ -26,6 +26,9 @@ to test the logic that matters. Reconcile important totals independently.
 
 Use readable column widths, wrapped headings, suitable date/currency/percentage
 formats, frozen headers where helpful, filters, and charts tied to actual data.
+For charts, match labels to the displayed orientation: the numeric axis carries
+the value/unit and the category axis identifies the items. Verify this after
+conversion; correct source cells do not prove the rendered labels are correct.
 Choose formulas supported by the intended engine. Do not replace native Excel
 Data Tables, iterative models, dynamic arrays, or pivot behavior with static
 values without the user's agreement.
@@ -42,6 +45,12 @@ chart labels, truncation, and page breaks. After adding rows, extend print areas
 tables, filters, formula ranges, and chart series where needed. A blank template
 may print only its header until its print area is expanded; verify populated
 rows appear in the exported pages, not just in the editable workbook.
+Include floating chart bounds in the intended print view; worksheet cell
+dimensions alone omit charts. For a one-page summary, choose a suitable paper
+orientation, set `page_setup.fitToWidth = 1`, `fitToHeight = 1`, and enable
+`sheet_properties.pageSetUpPr.fitToPage`. Long tables may need multiple pages
+in height instead. Check the exported page count against the intended views and
+ensure no chart or title is split across pages. Keep text readable when scaling.
 Return the requested workbook and
 describe what was checked. Native Google Sheets delivery requires a real import
 connector. Do not call a static XLSX preview a live Excel session.

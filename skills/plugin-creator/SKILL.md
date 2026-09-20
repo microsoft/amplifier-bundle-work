@@ -12,8 +12,8 @@ for guidance, a behavior for composition, a tool module for runtime operations,
 or an MCP server for an external integration. Keep application-specific setup
 in the consuming host; keep execution implementations in their module repos.
 
-Create `bundle.md` with YAML frontmatter including `bundle.name`, `version`, and
-`description`. Add explicit `includes`, `tools`, `context`, or skills sources as
+Create `bundle.md` with YAML frontmatter including `bundle.name`, `bundle.version`,
+and `bundle.description`. Add explicit `includes`, `tools`, `context`, or skills sources as
 needed. Use branch-tracking sources for runtime modules, record tested revisions
 in validation evidence without constraining future updates, and use
 bundle-relative namespace paths for resources. Reuse existing capabilities

@@ -1,7 +1,7 @@
 ---
 name: openai-docs
 description: Research OpenAI APIs, models, and product behavior using current official documentation. Use for OpenAI integration or product questions, not Amplifier self-knowledge.
-compatibility: "Requires an available web search or fetch tool for current official OpenAI documentation."
+compatibility: "Requires authorized HTTPS retrieval through a web tool, documentation connector, or process tool with network access. Search discovery needs a search capability."
 user-invocable: true
 ---
 
@@ -11,6 +11,12 @@ Use mounted search/fetch tools or an authorized documentation connector to find
 the user's specific topic on official OpenAI sources. Fetch the supporting page,
 not only its search snippet. Prefer developers.openai.com and platform.openai.com
 for APIs; use the product's official documentation for ChatGPT and Codex.
+
+If no fetch tool is mounted but an authorized process tool has network access,
+retrieve a known official HTTPS page with `curl` or Python's `urllib.request`.
+Check status and final URL, retain the supporting response for inspection, and
+verify redirects remain on an official documentation domain. This provides
+direct retrieval, not a search engine or an authenticated product connector.
 
 Preserve explicitly requested models, endpoint versions, and product context.
 Check changing details such as models, prices, limits, and supported parameters
