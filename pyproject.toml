@@ -7,7 +7,7 @@ dependencies = []
 
 [dependency-groups]
 dev = [
-  "amplifier-foundation @ git+https://github.com/microsoft/amplifier-foundation@695f875c0908f45f8dc78b1fcde80ecddebffd7c",
+  "amplifier-foundation @ git+https://github.com/microsoft/amplifier-foundation@main",
   "pytest>=8,<10",
   "pytest-asyncio>=0.24,<2",
 ]
