@@ -72,3 +72,18 @@ uv run --no-sync pytest -q
 
 No provider calls are made by these tests. For initial Amplifier setup, see
 [the ecosystem entry point](https://github.com/microsoft/amplifier).
+
+## Anchors + Work preset
+
+Use `presets/anchors-work.md` as a root to retain Anchors tools, agents, and
+principles while applying Work execution and managed context:
+
+```text
+git+https://github.com/bkrabach/amplifier-bundle-work@main#subdirectory=presets/anchors-work.md
+```
+
+Register it as `anchors-work` in a consuming host. This preset selects a reviewed
+Anchors root revision and composes the Work behavior last. Anchors still owns its
+transitive dependencies and routing policy; the preset does not freeze every
+Anchors dependency or force worker models to match the parent. Configured host
+providers and policies remain in effect.
