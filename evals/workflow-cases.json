@@ -1,0 +1,170 @@
+{
+  "cases": [
+    {
+      "id": "documents",
+      "skill": "documents",
+      "prompt": "Create outputs/result.docx, a one-page synthetic project memo titled 'Juniper launch decision', dated20 September2026. Audience: Operations. Owner: Maya Chen. Decision: approve a2-week pilot. Evidence:30 tickets inspected,12 needed a second lookup. Include a2-column risk/mitigation table with 'Delayed status / Display freshness timestamp' and 'Missing owner / Require owner field'. Include a clearly labelled source note 'Synthetic acceptance brief'. Reopen and verify all content, render to outputs/qa, report visual inspection availability honestly.",
+      "required_evidence": [
+        "Editable DOCX contains supplied facts and requested risk table.",
+        "Source note and semantic title preserved.",
+        "PDF/PNG generated; every page reviewed independently."
+      ]
+    },
+    {
+      "id": "pdf",
+      "skill": "pdf",
+      "prompt": "Create an editable AcroForm reference PDF outputs/source.pdf with text field project and checkbox approved, then fill a copy outputs/result.pdf with project='Juniper' and approved checked. Use actual checkbox export state. Verify both fields after reopening, source remains blank/unchecked, and render result to outputs/qa. Caption the page 'Synthetic pilot approval'. Do not flatten.",
+      "required_evidence": [
+        "Original blank form unchanged.",
+        "Text field Juniper and checkbox actual export state checked.",
+        "Interactive widgets retained; rendered appearances reviewed."
+      ]
+    },
+    {
+      "id": "presentations",
+      "skill": "presentations",
+      "prompt": "Create outputs/result.pptx with3 editable slides for a synthetic Operations audience:1 'Juniper pilot'\u2014Decision: approve2 weeks, owner Maya Chen;2 'Evidence'\u201430 tickets inspected,12 required a second lookup,40 percent of inspected tickets;3 'Next steps'\u2014Maya begins pilot27 September2026, review11 October2026. Include speaker notes on all3 slides. Reopen and check shapes within bounds, render every slide to outputs/qa. No invented data or cloud import.",
+      "required_evidence": [
+        "Three editable slides, supplied facts and notes.",
+        "Shapes within page bounds.",
+        "Every rendered slide reviewed independently."
+      ]
+    },
+    {
+      "id": "spreadsheets",
+      "skill": "spreadsheets",
+      "prompt": "Create outputs/result.xlsx with Inputs and Summary sheets. Inputs rows headers Item,Units,Unit price,Revenue; rows Alpha,3,12.5 and Beta,2,20 and Zero,0,8. Revenue must be formulas. Summary uses formulas for total revenue and total units. Include a source note 'Synthetic acceptance brief', clear units/currency, frozen header and a chart tied to data. Recalculate through LibreOffice and deliver recalculated result.xlsx retaining formulas plus numeric caches. Independently reconcile total revenue and units; change Alpha units to4 in disposable outputs/changed.xlsx, recalculate, and confirm summaries update. Render the result to outputs/qa. Keep the changed scenario separate.",
+      "required_evidence": [
+        "Revenue formula caches37.5,40,0; summary77.5 and5.",
+        "Changed Alpha units4 recalculates summary90 and6.",
+        "Chart and formulae retained; print layout and axis labels reviewed."
+      ]
+    },
+    {
+      "id": "skill-creator",
+      "skill": "skill-creator",
+      "prompt": "Create project skill .amplifier/skills/brief-audit with portable SKILL.md and references/checklist.txt. The workflow should audit a supplied brief for named owner, decision and source; absent values must be 'unspecified'. Reference checklist should contain those3 fields. Register/refresh this source via actual load_skill supported source parameter, then load brief-audit and actually apply it to fixture brief.txt. Write outputs/audit.json with owner='Maya',decision='approve pilot',source='unspecified'. Verify frontmatter/resources and report load evidence. Do not call missing skills-assist repeatedly.",
+      "fixtures": [
+        {
+          "path": "brief.txt",
+          "content": "Owner: Maya\nDecision: approve pilot\n"
+        }
+      ],
+      "required_evidence": [
+        "Valid metadata and linked checklist.",
+        "Actual source registration and load of newly created skill.",
+        "Executed audit ownerMaya, decisionapprove pilot, sourceunspecified."
+      ]
+    },
+    {
+      "id": "skill-installer",
+      "skill": "skill-installer",
+      "prompt": "Inspect permitted fixture source-skills/status-brief and its license/resource links, then install complete package to project .agents/skills/status-brief. Keep source unchanged. Register/refresh the destination using load_skill's supported source parameter, load installed status-brief and execute it for project Juniper with status On track. Save outputs/status.txt. Record outputs/install-receipt.json with installed name/path and source unchanged boolean. Do not use home dirs or external repos.",
+      "fixtures": [
+        {
+          "path": "source-skills/status-brief/SKILL.md",
+          "content": "---\nname: status-brief\ndescription: Write a short project status from provided facts.\n---\nRead `${SKILL_DIR}/references/format.txt`. Write requested status using that exact format.\n"
+        },
+        {
+          "path": "source-skills/status-brief/references/format.txt",
+          "content": "Project: <project>\nStatus: <status>\n"
+        },
+        {
+          "path": "source-skills/status-brief/LICENSE",
+          "content": "Copyright2026 Synthetic Acceptance Fixture Authors\nPermission is granted to use, copy, modify and distribute this fixture without restriction.\n"
+        }
+      ],
+      "required_evidence": [
+        "Entire licensed fixture package copied without source changes.",
+        "Actual installed source registration and skill load.",
+        "Output follows exact supplied project/status format."
+      ]
+    },
+    {
+      "id": "plugin-creator",
+      "skill": "plugin-creator",
+      "prompt": "Create an original Amplifier skill collection under extension/ named juniper-tools. Include bundle.md with tool-skills source git+https://github.com/microsoft/amplifier-bundle-skills@main#subdirectory=modules/tool-skills and namespaced @juniper-tools:skills, plus skills/juniper-status/SKILL.md with description and simple synthetic status workflow. Do not pin sources or create Codex marketplace files. Add README.md setup/provenance. Validate with actual Foundation load from an unrelated cwd and actual namespace resolution; use existing artifact Python (Foundation installed) and write outputs/validation.json with bundle_name, module name, source, resolved skill directory, and checks. Runtime module need not be installed again. All writes stay workspace.",
+      "required_evidence": [
+        "Separate tool-skills module ID and branch-tracking source.",
+        "Namespaced skill source resolves to created directory.",
+        "Actual Foundation load from unrelated cwd; validation receipt."
+      ]
+    },
+    {
+      "id": "template-creator",
+      "skill": "template-creator",
+      "prompt": "Use my original permitted reference.txt message fixture to create a reusable project skill artifact-template-pilot-update under .amplifier/skills using this skill's actual create_template.py helper. I authorize reuse. Verify copied reference hash and no changes to original. Register/refresh the new source via load_skill source parameter, load the new skill, and apply it to produce outputs/update.txt with Project: Juniper, Status: On track, Next: Review11 October2026. Preserve reference structure. Show actual creation/load/use evidence.",
+      "fixtures": [
+        {
+          "path": "reference.txt",
+          "content": "Project: <project>\nStatus: <status>\nNext: <next step>\n"
+        }
+      ],
+      "required_evidence": [
+        "Helper creates retained reference and matchingSHA256.",
+        "Original unchanged; actual newskill load.",
+        "Executed output follows reference structure with supplied facts."
+      ]
+    },
+    {
+      "id": "visualize",
+      "skill": "visualize",
+      "prompt": "Create outputs/comparison.html, an accessible standalone interactive capacity calculator with labelled number input 'Hours per week' default10,min0,max40 and rate3 tasks/hour. Show total30 tasks at initial value; show0 when input0 and60 when20. Discover real app_control canvas.apps schema and publish a persistent canvas app linked to same data, using actual manifest event/state contract. Exercise its change event through app_control for20 hours, inspect resulting persisted state and write outputs/canvas-receipt.json with returned app ID and observed hours=20,tasks=60, plus initial/boundary assertions. Do not claim browser visual inspection without browser access. All content synthetic. Do not change real session draft.",
+      "required_evidence": [
+        "StandaloneHTML initial30, boundary0, changed60 tasks.",
+        "Actual canvas create/event/inspect; persisted hours20/tasks60.",
+        "Attached browser render, user change, persistence and smallwidth tested separately."
+      ]
+    },
+    {
+      "id": "openai-docs",
+      "skill": "openai-docs",
+      "prompt": "Research current official OpenAI Responses API documentation at https://developers.openai.com/api/reference/resources/responses/methods/create/ (or redirect/official canonical equivalent). Use an available fetch capability; shell HTTPS read is authorized. Save outputs/research.md with2 supported concrete API facts about input and instructions, adjacent direct official citations, retrieval date, and a short distinction between API capability and ChatGPT subscription. Save retrieved page to outputs/source.html and outputs/fetch-receipt.json with actual final URL and HTTP status. Do not use credentials or test paid API calls. If network genuinely unavailable, explicitly report incomplete research.",
+      "required_evidence": [
+        "Actual official HTTPS response saved with URL/status/date.",
+        "Two supported facts with adjacent official citations.",
+        "Direct shell fetch distinguished from mounted web-tool capability."
+      ]
+    },
+    {
+      "id": "imagegen",
+      "skill": "imagegen",
+      "prompt": "Attempt the workflow needed to generate a square raster illustration of a blue bicycle on cream background. First inspect actual mounted capabilities. There is no authorization to install, add credentials or choose another paid provider. If no image-generation adapter exists, explicitly state CAPABILITY_UNAVAILABLE and write outputs/capability.json with required='image-generation',available=false,evidence listing actual inspected tool names. Do not generate an SVG/placeholder or claim an image exists.",
+      "expect_unavailable": true,
+      "required_evidence": [
+        "Inspect actual tools; no adapter means explicit unavailable.",
+        "No placeholder or claimed image output."
+      ]
+    },
+    {
+      "id": "excel-live-control",
+      "skill": "excel-live-control",
+      "prompt": "Attempt live Excel workflow to inspect connected workbook 'Synthetic Juniper Budget' and identify B2. Discover actual live Excel adapter capabilities first; do not open/read any unrelated real workbook. If no adapter exists, report CAPABILITY_UNAVAILABLE and write outputs/capability.json with required='live-excel',available=false,evidence listing actual inspected tool names. Do not make a file-based substitute or edits.",
+      "expect_unavailable": true,
+      "required_evidence": [
+        "Inspect actual adapter capabilities without accessing unrelatedworkbooks.",
+        "No adapter means explicit unavailable; no file substitute."
+      ]
+    },
+    {
+      "id": "plugin-management",
+      "skill": "plugin-management",
+      "prompt": "Inspect actual Unified bundle/SmartTool management schemas and inventory read-only. Determine whether an authenticated Google Drive import/export connector is mounted for a synthetic document. Do not install/connect/remove services or access an account. Save outputs/capability.json with required='google-drive-connector',available=false if missing, and evidence including actual discovered management action names and mounted tool names. Clearly distinguish SmartTool package catalog from authenticated Google Drive connector; use CAPABILITY_UNAVAILABLE if required connector absent.",
+      "expect_unavailable": true,
+      "required_evidence": [
+        "Actual management schema discovery.",
+        "Distinguish package catalog from authenticatedconnector.",
+        "No connector means explicit unavailable; no install/accountmutation."
+      ]
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Explicit-load model execution with synthetic inputs; automatic routing and baseline quality are separate evaluations.",
+  "harness_requirements": [
+    "Fresh isolated session/workspace per case; project and user skill roots isolated.",
+    "Use configured provider identity without embedding settings or credentials.",
+    "Provide an existing artifact interpreter through the harness; no fixed runtime path in manifest.",
+    "Require actual load_skill before each task; retain trace and independent validators.",
+    "Missing image/Excel/connector adapters are unavailable outcomes, not functional successes."
+  ]
+}

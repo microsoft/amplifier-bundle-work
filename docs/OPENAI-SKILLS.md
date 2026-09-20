@@ -21,7 +21,7 @@ inventory, OpenAI portability guidance, provenance, and layered validation.
 | visualize | Standalone HTML plus optional Unified canvas adapter | No OpenAI widget globals, CDN assumption, or automatic follow-up calls |
 | plugin-management, plugin-creator | Amplifier bundles/MCP/Smart Tool workflows | No Codex marketplace or account connection transfer |
 | skill-creator, skill-installer | Amplifier authoring and installation guidance | Uses real skill loader and bundle namespaces |
-| openai-docs | Official-source research workflow | Needs mounted search/fetch capability |
+| openai-docs | Official-source research workflow | Needs search/fetch or authorized direct HTTPS access |
 | imagegen | Generation/edit workflow with capability checks | Needs an actual image generator; none is bundled |
 | excel-live-control | Live-workbook workflow with capability checks | Needs an actual Excel adapter; none is bundled |
 
@@ -65,9 +65,11 @@ hash and test requested edits against the chosen engine's preservation limits.
 The deterministic suite exercises Foundation composition, the real kernel and
 skill tool, all skill loads, resource hashes, template packaging, collision
 refusal, and missing-renderer behavior. Separate artifact smoke checks exercise
-Office generation, rendering and spreadsheet recalculation. Host acceptance
-uses an isolated Unified instance with no production state or provider calls.
-See [validation evidence](SKILLS-VALIDATION.md) for exact revisions and results.
+Office generation, rendering and spreadsheet recalculation. Initial host
+acceptance used an isolated Unified instance without provider calls. Follow-up
+[execution acceptance](SKILL-EXECUTION.md) runs all 33 skills in real model
+sessions with synthetic data and records missing adapters separately.
+See [validation evidence](SKILLS-VALIDATION.md) for revisions and results.
 
 No test here proves general language-model quality parity, native Office feature
 parity, connected Excel behavior, image-provider execution, or cloud-import
