@@ -9,7 +9,9 @@ import shutil
 
 KINDS = {'.docx': ('document', 'documents'), '.pptx': ('presentation', 'presentations'),
          '.xlsx': ('spreadsheet', 'spreadsheets'), '.pdf': ('pdf', 'pdf'),
-         '.png': ('image', 'imagegen'), '.txt': ('message', None)}
+         '.png': ('image', 'imagegen'), '.jpg': ('image', 'imagegen'),
+         '.jpeg': ('image', 'imagegen'), '.webp': ('image', 'imagegen'),
+         '.txt': ('message', None), '.md': ('message', None)}
 
 
 def create(reference, name, description, destination, preview=None):

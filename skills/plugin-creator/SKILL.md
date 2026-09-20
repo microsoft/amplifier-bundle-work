@@ -13,7 +13,8 @@ in the consuming host; keep execution implementations in their module repos.
 
 Create `bundle.md` with YAML frontmatter including `bundle.name`, `version`, and
 `description`. Add explicit `includes`, `tools`, `context`, or skills sources as
-needed. Use immutable source revisions for distributed runtime modules, and
+needed. Use branch-tracking sources for runtime modules, record tested revisions
+in validation evidence without constraining future updates, and use
 bundle-relative namespace paths for resources. Reuse existing capabilities
 before implementing a new module. Preserve provider neutrality.
 

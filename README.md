@@ -90,7 +90,7 @@ includes:
   - bundle: git+https://github.com/bkrabach/amplifier-bundle-work@main#subdirectory=behaviors/work-skills.yaml
 ```
 
-Pin a reviewed commit for reproducibility. This behavior preserves existing
+This behavior follows current ecosystem branches and preserves existing
 runtime, provider, agent, and skill-source configuration. `work-local.yaml`
 remains the execution-only overlay.
 

@@ -3,6 +3,7 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+import re
 
 import pytest
 
@@ -74,3 +75,20 @@ def test_render_reports_missing_dependency_without_claiming_success(tmp_path, mo
     with pytest.raises(RuntimeError, match='Missing pdftoppm'):
         renderer.render(source, tmp_path / 'qa')
     assert not (tmp_path / 'qa').exists()
+
+
+def test_explicit_skill_directory_resources_resolve_in_shipped_collection():
+    for skill in (ROOT / 'skills').glob('*/SKILL.md'):
+        for relative in re.findall(r'\$\{SKILL_DIR\}/([^`\s]+)', skill.read_text()):
+            resource = (skill.parent / relative).resolve()
+            assert resource.is_relative_to((ROOT / 'skills').resolve())
+            assert resource.exists(), (skill, relative)
+
+
+@pytest.mark.parametrize('extension', ['.jpg', '.jpeg', '.webp', '.md'])
+def test_template_supported_reference_extensions(tmp_path, extension):
+    source = tmp_path / f'reference{extension}'
+    source.write_bytes(b'retained-reference')
+    result = creator.create(source, 'sample', 'Sample format', tmp_path / 'skills')
+    retained = Path(result['directory']) / result['manifest']['reference']
+    assert retained.read_bytes() == source.read_bytes()

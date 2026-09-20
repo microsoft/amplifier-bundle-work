@@ -43,10 +43,16 @@ Select the absolute path to this checkout's `bundle.md` in Unified, or compose
 source-base-path mapping when preparing the bundle; flattening its mount plan
 into an unrelated file loses namespaced resources.
 
-The `load_skill` module is pinned to the inspected upstream commit. It supports
+The `load_skill` source follows `main`, consistent with Work's update policy.
+Exact tested revisions are recorded as validation evidence. It supports
 both immediate resolver registration and the deferred request-hook path. Skills
 remain inline; loading them does not invoke child agents or change the provider.
 The catalog has a bounded visibility budget and bodies load on demand.
+
+The collection's Office skills share the `skills/_shared` directory. Install
+the behavior/collection as a unit; copying a leaf skill without its referenced
+siblings is incomplete. The personal template helper creates self-contained
+reference packages but still requires the matching authoring skill to be loaded.
 
 Provision artifact dependencies only in a suitable task environment. LibreOffice
 and Poppler are external executables, not vendored into the repository. Use the
@@ -61,7 +67,7 @@ skill tool, all skill loads, resource hashes, template packaging, collision
 refusal, and missing-renderer behavior. Separate artifact smoke checks exercise
 Office generation, rendering and spreadsheet recalculation. Host acceptance
 uses an isolated Unified instance with no production state or provider calls.
-See the final validation report for the exact revision and results.
+See [validation evidence](SKILLS-VALIDATION.md) for exact revisions and results.
 
 No test here proves general language-model quality parity, native Office feature
 parity, connected Excel behavior, image-provider execution, or cloud-import

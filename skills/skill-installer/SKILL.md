@@ -19,7 +19,13 @@ silent collisions. Copy the whole permitted package while excluding repository
 metadata, credentials, generated caches, and dependency directories. Reject
 symlinks escaping the package and keep originals intact.
 
-For Git sources, pin a reviewed commit and register through the host's real
+Check resource closure before copying an individual skill. Work's Office skills
+share `../_shared` helpers, so install the collection through its behavior or
+include that sibling directory without overwriting an existing different version.
+A lone `SKILL.md` or leaf directory is not the complete package in this case.
+
+For Git sources, follow the requested branch and record the tested revision in
+validation evidence. Do not pin bundle or module source declarations. Register through the host's real
 skill-source configuration when that is preferable to copying. Namespaced bundle
 sources are resolved through Foundation; relative `./skills` is unsafe when the
 host starts elsewhere. Refresh discovery through the supported tool or a fresh
