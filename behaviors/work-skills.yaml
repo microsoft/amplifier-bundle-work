@@ -1,0 +1,25 @@
+bundle:
+  name: work-skills
+  display_name: Work skills
+  version: 0.1.0
+  description: Portable Work skill library with on-demand discovery and loading.
+  namespace_root: ..
+
+tools:
+  - module: tool-skills
+    source: git+https://github.com/microsoft/amplifier-bundle-skills@main#subdirectory=modules/tool-skills
+    config:
+      skills:
+        - .amplifier/skills
+        - ~/.amplifier/skills
+        - "@work-skills:skills"
+      visibility:
+        enabled: true
+        inject_role: user
+        visibility_token_budget: 2500
+        ephemeral: true
+        priority: 20
+
+context:
+  include:
+    - work-skills:context/work-skills.md

@@ -1,0 +1,694 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-20",
+  "scope": "28 plugin skills plus five core skills from the referenced task",
+  "source_thread": "01a0bf27-863e-73f1-ae35-b35a954ae44b",
+  "skills_upstream_revision": "57f082c7b91147a53f476e28aa6aaa4b3e1d85a0",
+  "work_base_revision": "c23bc55fb66d5bb2546087abe015a066aba63816",
+  "source_policy": "Original Amplifier workflows and newly authored reference templates. No OpenAI scripts, prose resources, private runtimes, or retained binary assets copied. Exact package or feature parity is not claimed.",
+  "skills": [
+    {
+      "target": "visualize",
+      "source_kind": "plugin",
+      "source_path": "openai-bundled/visualize/1.0.38/skills/visualize/SKILL.md",
+      "source_skill_sha256": "b595a97b177137e0c2fe92cbc47a7ba637343608602ace9366f36bc475b34d80",
+      "implementation": "original-portable-workflow",
+      "copied_source_files": [],
+      "source_package_file_count": 8,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill"
+      ],
+      "limitations": [
+        "Uses optional Unified canvas bridge; OpenAI widget APIs are not provided."
+      ],
+      "source_plugin": {
+        "name": "visualize",
+        "version": "1.0.38",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-analytics-dashboard",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-analytics-dashboard/SKILL.md",
+      "source_skill_sha256": "cf5360fd8b197673bb237c52c603c97fa319c875c3dfa2cd8efff52d4422f513",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-business-review",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-business-review/SKILL.md",
+      "source_skill_sha256": "27721fc1d67d1b41949caa75ac8f94f81952ff124406878af6524047929e60d2",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-design-report",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-design-report/SKILL.md",
+      "source_skill_sha256": "563722f53854e606f8a9f87e37e72d7ef70a22d46d5836b8e4d6abfb1b79e9e0",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-experiment-analysis",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-experiment-analysis/SKILL.md",
+      "source_skill_sha256": "0b05effc47df0a14f8e0c3e3597e6722224747435546385d38a2cae279bd20b9",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-financial-budget",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-financial-budget/SKILL.md",
+      "source_skill_sha256": "c0b6b7a62a15597aaf2b1ec679e21da48f533b756127f0aef957cdfe9f3da738",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-investment-committee-memo",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-investment-committee-memo/SKILL.md",
+      "source_skill_sha256": "68abd08cfe5e073e3c446a3f675f44c5bf98f57434dba679e8acd8a763379a8b",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-legal-memorandum",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-legal-memorandum/SKILL.md",
+      "source_skill_sha256": "51fb9d21baf6119c4ccb1903638a6bac0e859210de63460fffa7025d52e997e0",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-market-trends-report",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-market-trends-report/SKILL.md",
+      "source_skill_sha256": "d58d019b89cb6f292ac3ab991d561489eef477ff53ce05fb024a0c936f5af26a",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-minimal-letterhead",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-minimal-letterhead/SKILL.md",
+      "source_skill_sha256": "880ef094d4d0c89a7bde5ce9bbe4086625c186651e9e6efc8ba8bdd7cc77f9d5",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-operating-calendar",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-operating-calendar/SKILL.md",
+      "source_skill_sha256": "33bb660791a0b9a21628a42c34934932220203b6aabd84e98cb1b45327d0384c",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-operating-review",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-operating-review/SKILL.md",
+      "source_skill_sha256": "6d63c5cd025ffe936e7bab5db3023672bbaec26af55c2bb8b057d38c202c9c32",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-project-kickoff",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-project-kickoff/SKILL.md",
+      "source_skill_sha256": "aa893ebd89e7c8d1db4261d01cc2b1add35d78d00785871ccaaa5fc8db783ec9",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-project-tracker",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-project-tracker/SKILL.md",
+      "source_skill_sha256": "d97d5be20189b7f53dd269b6e1c5f694eaf53e5a72f6559fcb1578911b7cda82",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-sales-pipeline",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-sales-pipeline/SKILL.md",
+      "source_skill_sha256": "15cfeeedf440021f16ed3f3ad8c7c1ef6d48898b9447741e223d2fb41cfc9800",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-simple-dark-mode",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-simple-dark-mode/SKILL.md",
+      "source_skill_sha256": "b7c8d0c05f75878b9bc21e56a57c41ec1aa29700aca0a24822be0f9f1bd53207",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-simple-light-mode",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-simple-light-mode/SKILL.md",
+      "source_skill_sha256": "7c68430c6cf57b55b457d4735dbd1a46b889bef135a32222902dd0848b6e1752",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-strategy-memorandum",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-strategy-memorandum/SKILL.md",
+      "source_skill_sha256": "51d7882ac94e8e57b323394825728c33925af878806e37277217c2dc12a912e5",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-system-design",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-system-design/SKILL.md",
+      "source_skill_sha256": "87f7b7ed1b0d8410f5e5971cd7f7db9a4165e2f37069e97e52dbfb469b75a57c",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-team-alignment",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-team-alignment/SKILL.md",
+      "source_skill_sha256": "26d7cafdcd1899a937b325c5d02ac57c162d45002153be33a934d35f81eb6110",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "artifact-template-three-statement-forecast",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/openai-templates/0.1.1/skills/artifact-template-three-statement-forecast/SKILL.md",
+      "source_skill_sha256": "74f4a5cccec0107b861548b157e04c51d9b58ec13a990c86394b4c529b8ecf41",
+      "implementation": "original-reference-template",
+      "copied_source_files": [],
+      "source_package_file_count": 5,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill",
+        "office-render"
+      ],
+      "limitations": [
+        "Original Work reference; does not reproduce OpenAI template layout, formulas, or retained assets."
+      ],
+      "source_plugin": {
+        "name": "openai-templates",
+        "version": "0.1.1",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "plugin-management",
+      "source_kind": "plugin",
+      "source_path": "openai-curated-remote/plugin-management/0.1.0/skills/plugin-management/SKILL.md",
+      "source_skill_sha256": "653841cc21205269f08b0ce135891e1518dac616a766bcfb0b57d788d3f68b10",
+      "implementation": "original-portable-workflow",
+      "copied_source_files": [],
+      "source_package_file_count": 1,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill"
+      ],
+      "limitations": [],
+      "source_plugin": {
+        "name": "plugin-management",
+        "version": "0.1.0",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "documents",
+      "source_kind": "plugin",
+      "source_path": "openai-primary-runtime/documents/26.909.11814/skills/documents/SKILL.md",
+      "source_skill_sha256": "db351f7db520a130f33227999e55d9cc61a95b93660e1506d9a9a9fe90c9f916",
+      "implementation": "original-portable-workflow",
+      "copied_source_files": [],
+      "source_package_file_count": 80,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill"
+      ],
+      "limitations": [
+        "Public Python implementation; private artifact-tool API and source helper parity are not claimed.",
+        "Native Office and cloud connector acceptance depend on the consuming host."
+      ],
+      "source_plugin": {
+        "name": "documents",
+        "version": "26.909.11814",
+        "license": "MIT"
+      }
+    },
+    {
+      "target": "pdf",
+      "source_kind": "plugin",
+      "source_path": "openai-primary-runtime/pdf/26.909.11814/skills/pdf/SKILL.md",
+      "source_skill_sha256": "ad8f71918a43d2175cc32b9d14022e99028592b3a57a57d57d046fabcb3078f1",
+      "implementation": "original-portable-workflow",
+      "copied_source_files": [],
+      "source_package_file_count": 4,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill"
+      ],
+      "limitations": [
+        "Public Python implementation; private artifact-tool API and source helper parity are not claimed.",
+        "Native Office and cloud connector acceptance depend on the consuming host."
+      ],
+      "source_plugin": {
+        "name": "pdf",
+        "version": "26.909.11814",
+        "license": "MIT"
+      }
+    },
+    {
+      "target": "presentations",
+      "source_kind": "plugin",
+      "source_path": "openai-primary-runtime/presentations/26.909.11814/skills/presentations/SKILL.md",
+      "source_skill_sha256": "e0d28835f8ada4ef5f41ab0425dd818d9c9ab9a66a8e47df2cee5add15cce32f",
+      "implementation": "original-portable-workflow",
+      "copied_source_files": [],
+      "source_package_file_count": 60,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill"
+      ],
+      "limitations": [
+        "Public Python implementation; private artifact-tool API and source helper parity are not claimed.",
+        "Native Office and cloud connector acceptance depend on the consuming host."
+      ],
+      "source_plugin": {
+        "name": "presentations",
+        "version": "26.909.11814",
+        "license": "MIT"
+      }
+    },
+    {
+      "target": "excel-live-control",
+      "source_kind": "plugin",
+      "source_path": "openai-primary-runtime/spreadsheets/26.909.11814/skills/excel-live-control/SKILL.md",
+      "source_skill_sha256": "cdc929cabe81c31e87a2df032ee5bb2ab1857eb78bcb6eb9e51ced4b1b65a863",
+      "implementation": "original-portable-workflow",
+      "copied_source_files": [],
+      "source_package_file_count": 13,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill"
+      ],
+      "limitations": [
+        "Requires a mounted live Excel adapter."
+      ],
+      "source_plugin": {
+        "name": "spreadsheets",
+        "version": "26.909.11814",
+        "license": "MIT"
+      }
+    },
+    {
+      "target": "spreadsheets",
+      "source_kind": "plugin",
+      "source_path": "openai-primary-runtime/spreadsheets/26.909.11814/skills/spreadsheets/SKILL.md",
+      "source_skill_sha256": "499172cadf77be41b6ec7d87981463aec0859e10aba9cc0b864143e42955474b",
+      "implementation": "original-portable-workflow",
+      "copied_source_files": [],
+      "source_package_file_count": 19,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill"
+      ],
+      "limitations": [
+        "Public Python implementation; private artifact-tool API and source helper parity are not claimed.",
+        "Native Office and cloud connector acceptance depend on the consuming host."
+      ],
+      "source_plugin": {
+        "name": "spreadsheets",
+        "version": "26.909.11814",
+        "license": "MIT"
+      }
+    },
+    {
+      "target": "template-creator",
+      "source_kind": "plugin",
+      "source_path": "openai-primary-runtime/template-creator/26.909.11814/skills/template-creator/SKILL.md",
+      "source_skill_sha256": "f1d14fd2847a2e879611a8b8f872f5dc4676a0607958d015274d2dc61e812deb",
+      "implementation": "original-portable-workflow",
+      "copied_source_files": [],
+      "source_package_file_count": 7,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill"
+      ],
+      "limitations": [],
+      "source_plugin": {
+        "name": "template-creator",
+        "version": "26.909.11814",
+        "license": "Proprietary"
+      }
+    },
+    {
+      "target": "imagegen",
+      "source_kind": "core",
+      "source_path": "imagegen/SKILL.md",
+      "source_skill_sha256": "681ddb4ad6d06a2acc78a3535b583f8d0c1ea800ecda3d56370d3310fd2cd4ba",
+      "implementation": "original-portable-workflow",
+      "copied_source_files": [],
+      "source_package_file_count": 12,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill"
+      ],
+      "limitations": [
+        "Requires a mounted image-generation tool or explicitly authorized API integration."
+      ]
+    },
+    {
+      "target": "openai-docs",
+      "source_kind": "core",
+      "source_path": "openai-docs/SKILL.md",
+      "source_skill_sha256": "aa6829e21df2223167c85d2e49b6337a7345c84c1033f1ec10182c7882b36d45",
+      "implementation": "original-portable-workflow",
+      "copied_source_files": [],
+      "source_package_file_count": 17,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill"
+      ],
+      "limitations": []
+    },
+    {
+      "target": "plugin-creator",
+      "source_kind": "core",
+      "source_path": "plugin-creator/SKILL.md",
+      "source_skill_sha256": "71b95b8219644f95d633721e7f7cd3c469edfc8fe50f8415d400dfb2d74bc7b9",
+      "implementation": "original-portable-workflow",
+      "copied_source_files": [],
+      "source_package_file_count": 11,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill"
+      ],
+      "limitations": [
+        "Creates Amplifier extension packages; does not register Codex marketplace plugins."
+      ]
+    },
+    {
+      "target": "skill-creator",
+      "source_kind": "core",
+      "source_path": "skill-creator/SKILL.md",
+      "source_skill_sha256": "6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66",
+      "implementation": "original-portable-workflow",
+      "copied_source_files": [],
+      "source_package_file_count": 9,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill"
+      ],
+      "limitations": []
+    },
+    {
+      "target": "skill-installer",
+      "source_kind": "core",
+      "source_path": "skill-installer/SKILL.md",
+      "source_skill_sha256": "d68b77e5bbb34dedab89d134da52855f140fc4b4299b80104f534e3b9e98f8ee",
+      "implementation": "original-portable-workflow",
+      "copied_source_files": [],
+      "source_package_file_count": 8,
+      "validation": [
+        "real-amplifier-discovery",
+        "real-load-skill"
+      ],
+      "limitations": []
+    }
+  ],
+  "work_rebase_revision": "5b4493c"
+}
