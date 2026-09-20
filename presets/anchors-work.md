@@ -1,6 +1,7 @@
 ---
 bundle:
   name: anchors-work
+  display_name: Anchors + Work
   version: 0.1.0
   description: Anchors tools and expertise with Work live execution and managed context.
 

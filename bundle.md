@@ -1,6 +1,7 @@
 ---
 bundle:
   name: work
+  display_name: Work
   version: 0.2.0
   description: A small, provider-neutral Work profile for live Amplifier hosts.
 
