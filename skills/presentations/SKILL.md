@@ -1,6 +1,7 @@
 ---
 name: presentations
 description: Create or edit editable PowerPoint PPTX slides and Google Slides-bound decks. Use for presentations, slide layouts, speaker notes, and template-based decks.
+compatibility: "Amplifier with filesystem and process tools; python-pptx; LibreOffice and Poppler for rendering; image-reading capability for visual QA."
 user-invocable: true
 ---
 

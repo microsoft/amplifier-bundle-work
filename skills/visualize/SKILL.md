@@ -1,6 +1,7 @@
 ---
 name: visualize
 description: Build interactive HTML explanations, charts, simulations, comparisons, and UI mockups. Use when a visual helps understanding; use artifact skills for Office deliverables.
+compatibility: "Filesystem and process tools for standalone HTML; optional Unified app_control adapter for persistent canvas apps."
 user-invocable: true
 ---
 

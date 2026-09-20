@@ -1,6 +1,7 @@
 ---
 name: template-creator
 description: Create or update a reusable Amplifier artifact template skill from a permitted reference document, deck, workbook, image, or message.
+compatibility: "Python 3.11+ and Amplifier load_skill; matching authoring skill for Office/PDF/image references; renderer and image reader for visual QA."
 user-invocable: true
 ---
 

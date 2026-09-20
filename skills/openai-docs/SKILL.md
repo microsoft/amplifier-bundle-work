@@ -1,6 +1,7 @@
 ---
 name: openai-docs
 description: Research OpenAI APIs, models, and product behavior using current official documentation. Use for OpenAI integration or product questions, not Amplifier self-knowledge.
+compatibility: "Requires an available web search or fetch tool for current official OpenAI documentation."
 user-invocable: true
 ---
 

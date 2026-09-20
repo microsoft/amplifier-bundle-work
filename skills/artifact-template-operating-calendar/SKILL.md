@@ -1,6 +1,7 @@
 ---
 name: artifact-template-operating-calendar
 description: "Create a spreadsheet using the original Work operating calendar reference. Use when this template is selected or requested."
+compatibility: "Amplifier Work collection with the spreadsheets skill and its dependencies; renderer and image-reading capability for visual QA."
 user-invocable: true
 ---
 

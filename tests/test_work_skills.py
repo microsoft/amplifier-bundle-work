@@ -28,10 +28,11 @@ def skill_module(bundle):
 async def mounted_skills(bundle, tmp_path, *, visibility=True, eager_resolver=False):
     """Use the real kernel and resolver, with synthetic user-level skill files."""
     config = deepcopy(skill_module(bundle)["config"])
-    config["skills"] = [
-        str(tmp_path / "user-skills") if source == "~/.amplifier/skills" else source
-        for source in config["skills"]
-    ]
+    user_sources = {
+        "~/.amplifier/skills": str(tmp_path / "user-skills"),
+        "~/.agents/skills": str(tmp_path / "user-shared-skills"),
+    }
+    config["skills"] = [user_sources.get(source, source) for source in config["skills"]]
     config["visibility"]["enabled"] = visibility
     session = AmplifierSession(bundle.to_mount_plan())
     coordinator = session.coordinator
@@ -96,7 +97,8 @@ async def test_skill_behavior_preserves_existing_runtime_provider_and_sources(
     assert result.instruction == original.instruction
     assert {row["module"] for row in result.tools} == {"tool-extra", "tool-skills"}
     assert skill_module(result)["config"]["skills"] == [
-        "@existing:skills", ".amplifier/skills", "~/.amplifier/skills", SKILL_SOURCE
+        "@existing:skills", ".amplifier/skills", ".agents/skills",
+        "~/.amplifier/skills", "~/.agents/skills", SKILL_SOURCE
     ]
 
 
@@ -140,17 +142,23 @@ async def test_real_loader_discovers_and_loads_every_shipped_skill(
 
 
 @pytest.mark.asyncio
-async def test_workspace_skill_shadows_user_and_bundled_skill(tmp_path, monkeypatch):
+@pytest.mark.parametrize("first_scope", range(4))
+async def test_project_native_and_shared_scopes_precede_user_and_library(
+    tmp_path, monkeypatch, first_scope
+):
     monkeypatch.setenv("AMPLIFIER_HOME", str(tmp_path / "shared"))
     monkeypatch.chdir(tmp_path)
     bundle = await foundation.load_bundle(str(ROOT / "bundle.md"), strict=True)
     expected = discover_skills(ROOT / "skills")
     assert expected
     name = sorted(expected)[0]
-    for source, text in [
+    scopes = [
         (tmp_path / ".amplifier/skills", "Workspace-specific guidance."),
+        (tmp_path / ".agents/skills", "Shared workspace guidance."),
         (tmp_path / "user-skills", "User-specific guidance."),
-    ]:
+        (tmp_path / "user-shared-skills", "Shared user guidance."),
+    ]
+    for source, text in scopes[first_scope:]:
         folder = source / name
         folder.mkdir(parents=True)
         (folder / "SKILL.md").write_text(
@@ -161,6 +169,6 @@ async def test_workspace_skill_shadows_user_and_bundled_skill(tmp_path, monkeypa
         await coordinator.hooks.emit("provider:request", {})
         result = await tool.execute({"skill_name": name})
         assert result.success
-        assert "Workspace-specific guidance." in result.output["content"]
-        assert Path(result.output["skill_directory"]) == tmp_path / ".amplifier/skills" / name
+        assert scopes[first_scope][1] in result.output["content"]
+        assert Path(result.output["skill_directory"]) == scopes[first_scope][0] / name
         assert set(tool.skills) == set(expected)

@@ -1,6 +1,7 @@
 ---
 name: artifact-template-team-alignment
 description: "Create a presentation using the original Work team alignment reference. Use when this template is selected or requested."
+compatibility: "Amplifier Work collection with the presentations skill and its dependencies; renderer and image-reading capability for visual QA."
 user-invocable: true
 ---
 

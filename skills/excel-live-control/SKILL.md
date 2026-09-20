@@ -1,6 +1,7 @@
 ---
 name: excel-live-control
 description: Inspect or edit a live Microsoft Excel workbook through a mounted Excel adapter. Use only for explicitly open or connected workbooks; use spreadsheets for standalone files.
+compatibility: "Requires an authenticated live Excel adapter exposing workbook identity, read, edit, and readback operations."
 user-invocable: true
 ---
 

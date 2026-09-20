@@ -1,6 +1,7 @@
 ---
 name: plugin-creator
 description: Package reusable capabilities as an Amplifier bundle, behavior, skills collection, or MCP integration. Use for Amplifier extensions, not Codex marketplace registration.
+compatibility: "Amplifier bundle or module authoring workspace; filesystem/process tools; validation tools for the selected extension type."
 user-invocable: true
 ---
 

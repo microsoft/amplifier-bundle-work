@@ -49,9 +49,15 @@ def create(reference, name, description, destination, preview=None):
             manifest['preview'] = 'assets/preview.png'
         (folder / 'artifact-template.json').write_text(json.dumps(manifest, indent=2) + '\n')
         route = f'Load `{author}` and follow its template workflow.' if author else 'Draft the requested message using the reference structure and voice.'
+        compatibility = (
+            f'Amplifier Work collection with the {author} skill and its dependencies; '
+            'renderer and image-reading capability for visual QA.'
+            if author else 'Amplifier with filesystem tools and load_skill.'
+        )
         body = f'''---
 name: {name}
 description: {json.dumps(description)}
+compatibility: {json.dumps(compatibility)}
 user-invocable: true
 ---
 

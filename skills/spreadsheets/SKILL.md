@@ -1,6 +1,7 @@
 ---
 name: spreadsheets
 description: Create, edit, analyze, and chart XLSX, CSV, and TSV files. Use for models, trackers, budgets, and Google Sheets-bound workbooks; use excel-live-control for an open Excel session.
+compatibility: "Amplifier with filesystem and process tools; openpyxl; LibreOffice or another calculation engine; Poppler and image-reading capability for visual QA."
 user-invocable: true
 ---
 
@@ -37,6 +38,10 @@ recalculation test. Retain the original when the engine changes unsupported
 features; disclose any unverified native behavior.
 
 Render the used areas of created or changed sheets and inspect readability,
-chart labels, truncation, and page breaks. Return the requested workbook and
+chart labels, truncation, and page breaks. After adding rows, extend print areas,
+tables, filters, formula ranges, and chart series where needed. A blank template
+may print only its header until its print area is expanded; verify populated
+rows appear in the exported pages, not just in the editable workbook.
+Return the requested workbook and
 describe what was checked. Native Google Sheets delivery requires a real import
 connector. Do not call a static XLSX preview a live Excel session.
