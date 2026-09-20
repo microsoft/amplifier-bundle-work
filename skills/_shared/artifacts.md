@@ -12,6 +12,15 @@ openpyxl reportlab pypdf Pillow`. For development of this bundle,
 `uv sync --group dev --group artifacts` installs the locked authoring libraries.
 Do not assume installation has happened; verify imports first.
 
+If the host advertises `app_control`, discover its current `runtime.` actions.
+When `runtime.dependencies` is available, read its schema and request the
+dependency report for the calling session before choosing executables. Keep host
+and worker results separate: use the environment where the authoring command
+will actually run. An absent worker is not evidence that its dependencies are
+missing. Package metadata and executable version probes do not prove imports,
+rendering, recalculation, or visual review; perform the required task checks.
+Do not start an unrelated session merely to inspect its dependencies.
+
 Read only what the task needs. Preserve originals; use a new output path unless
 the user requests replacement. Start from a supplied template when its contents
 and permitted use match the request. Do not invent business facts to fill slots.
