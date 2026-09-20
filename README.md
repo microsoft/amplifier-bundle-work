@@ -16,9 +16,10 @@ Use this source as a conversation's root bundle:
 git+https://github.com/bkrabach/amplifier-bundle-work@main#subdirectory=bundle.md
 ```
 
-For reproducible installations, replace `main` with a reviewed commit ID. The
-bundle's runtime modules are already pinned to immutable commits. A local
-checkout can also be selected by its absolute `bundle.md` path.
+The bundle and its module sources follow `main`, so host ecosystem updates can
+advance them together. Hosts should stage and validate updates before activation
+and retain the installed revisions for rollback. A local checkout can also be
+selected by its absolute `bundle.md` path.
 
 The root contributes six tool modules, including `apply_patch`, `delegate`, and
 `read_transcript`. Modules may expose more than one callable tool.
@@ -36,8 +37,7 @@ includes:
 ```
 
 The behavior changes the loop/context and adds transcript retrieval. It does not
-install the root's filesystem, shell, search, or delegate tools. Use a reviewed
-commit in place of `main` when pinning the composed configuration.
+install the root's filesystem, shell, search, or delegate tools. Its sources also follow `main` through the host ecosystem updater.
 
 ## Behavior and boundaries
 
@@ -54,7 +54,7 @@ commit in place of `main` when pinning the composed configuration.
   history belongs to the host and can be retrieved with `read_transcript`.
 - The host owns actual concurrency, event delivery, and recovery. A finite host
   stays finite; this bundle alone does not create a concurrent user interface.
-- Patch editing reuses the existing filesystem bundle's pinned module. Its native
+- Patch editing reuses the existing filesystem bundle's patch module. Its native
   operation schema also works as a function tool for other providers. Hosts must
   apply their shared write policy to both filesystem and patch tools; the portable
   module itself defaults to the session workspace and follows symlinks before
@@ -92,8 +92,7 @@ principles while applying Work execution and managed context:
 git+https://github.com/bkrabach/amplifier-bundle-work@main#subdirectory=presets/anchors-work.md
 ```
 
-Register it as `anchors-work` in a consuming host. This preset selects a reviewed
-Anchors root revision and composes the Work behavior last. Anchors still owns its
+Register it as `anchors-work` in a consuming host. This preset follows the Anchors root on `main` and composes the Work behavior last. Anchors still owns its
 transitive dependencies and routing policy; the preset does not freeze every
 Anchors dependency or force worker models to match the parent. Configured host
 providers and policies remain in effect.

@@ -6,7 +6,7 @@ bundle:
   description: Anchors tools and expertise with Work live execution and managed context.
 
 includes:
-  - bundle: git+https://github.com/microsoft/amplifier-foundation@695f875c0908f45f8dc78b1fcde80ecddebffd7c#subdirectory=bundles/anchors/bundle.md
+  - bundle: git+https://github.com/microsoft/amplifier-foundation@main#subdirectory=bundles/anchors/bundle.md
   - bundle: work:behaviors/work-local.yaml
 ---
 

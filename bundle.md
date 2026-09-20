@@ -10,17 +10,17 @@ includes:
 
 tools:
   - module: tool-filesystem
-    source: git+https://github.com/microsoft/amplifier-module-tool-filesystem@8bd1eab4715924686c2e9c167ba9b861af1ee82d
+    source: git+https://github.com/microsoft/amplifier-module-tool-filesystem@main
   - module: tool-apply-patch
-    source: git+https://github.com/microsoft/amplifier-bundle-filesystem@d71bb9522c6983c18e803aa43a96bd37dec75d32#subdirectory=modules/tool-apply-patch
+    source: git+https://github.com/microsoft/amplifier-bundle-filesystem@main#subdirectory=modules/tool-apply-patch
     config:
       engine: native
   - module: tool-bash
-    source: git+https://github.com/microsoft/amplifier-module-tool-bash@aa363e9b0f33e1af8cfbf8affee19e06e22bcc94
+    source: git+https://github.com/microsoft/amplifier-module-tool-bash@main
   - module: tool-search
-    source: git+https://github.com/microsoft/amplifier-module-tool-search@0c7f4a7ca825e90203e858abac9d9a3d5c3abbf1
+    source: git+https://github.com/microsoft/amplifier-module-tool-search@main
   - module: tool-delegate
-    source: git+https://github.com/microsoft/amplifier-foundation@695f875c0908f45f8dc78b1fcde80ecddebffd7c#subdirectory=modules/tool-delegate
+    source: git+https://github.com/microsoft/amplifier-foundation@main#subdirectory=modules/tool-delegate
     config:
       features:
         self_delegation:
