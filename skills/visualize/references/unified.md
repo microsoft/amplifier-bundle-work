@@ -79,6 +79,54 @@ a user-requested discard, never as a workaround after a failed save.
 `reportError` and `reportReady` report rendering failures and recovery.
 Ordinary HTML must still have a useful local fallback without this bridge.
 
+For the single-field `choose` manifest above, this explicit Save/Retry path
+acknowledges the native input edit only after the host accepts it:
+
+```html
+<label>Selection <select id="selection"><option>first</option><option>second</option></select></label>
+<button id="save">Save</button><output id="status" aria-live="polite"></output>
+<script type="module">
+const selection = document.querySelector('#selection');
+const save = document.querySelector('#save');
+const status = document.querySelector('#status');
+const bridge = window.canvasApp;
+if (!bridge) {
+  save.onclick = () => { status.textContent = 'Selected locally: ' + selection.value; };
+} else {
+  let pending = false;
+  const render = snapshot => {
+    if (!pending) selection.value = snapshot.app.state.selection;
+  };
+  render(await bridge.ready);
+  bridge.subscribe(render);
+  selection.addEventListener('input', () => {
+    pending = true;
+    status.textContent = 'Unsaved';
+  });
+  save.onclick = async () => {
+    const commit = bridge.getEditVersion();
+    selection.disabled = save.disabled = true;
+    status.textContent = 'Saving…';
+    try {
+      await bridge.emit('choose', {value: selection.value}, {commit});
+      pending = false;
+      render(bridge.getSnapshot());
+      status.textContent = 'Saved';
+    } catch (error) {
+      status.textContent = 'Save failed; retry: ' + error.message;
+    } finally {
+      selection.disabled = save.disabled = false;
+    }
+  };
+}
+</script>
+```
+
+This pattern owns exactly one editable field. With multiple fields, use the
+shared draft or save all pending fields together. An event without `commit`
+can persist state while leaving the view dirty and blocking later revisions.
+Verify both state readback and the attached view's clean status after saving.
+
 Before an edit, dispatch `canvas.apps.inspect` with `{id, includeSource: true}`.
 Use the inspected `app.revision` as `expectedRevision` and `app.stateRevision`
 as `expectedStateRevision` on mutations.

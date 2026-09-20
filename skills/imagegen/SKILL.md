@@ -1,6 +1,7 @@
 ---
 name: imagegen
 description: Generate or edit raster images using a mounted image-generation capability. Use for illustrations, photos, textures, and bitmap assets; use visualize for HTML diagrams.
+compatibility: "Requires a mounted image generation or editing adapter. Text generation and filesystem tools alone cannot run this workflow."
 user-invocable: true
 ---
 

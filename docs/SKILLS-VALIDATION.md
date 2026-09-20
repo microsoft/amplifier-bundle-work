@@ -2,9 +2,17 @@
 
 Validation date: 2026-09-20. This is a summary of evidence, not a source pin.
 
+The follow-up [model execution report](SKILL-EXECUTION.md) covers actual tasks
+for all 33 skills on Unified 0.19.4. The earlier no-provider acceptance below
+remains useful for its narrower composition and browser checks.
+
 ## Package and artifacts
 
-- Work suite: 33 tests passed with the optional artifact dependency group.
+- Work suite: 37 tests passed with the optional artifact dependency group,
+  including shared-directory precedence and the documented extension example.
+  The same 37 passed with the candidate tool-skills module from upstream
+  revision `b6e428f250073e5994e8bf888d300af128c86a3b`, including real kernel
+  mounting and all 33 loads through Foundation's namespace resolver.
 - Real Foundation/kernel/tool-skills tests discover and load all 33 skill bodies,
   with eager/deferred resolver registration, visibility enabled/disabled,
   unrelated working directories, and workspace/user/library precedence.
@@ -29,7 +37,7 @@ calculation tests additionally require LibreOffice. Environments without those
 dependencies skip the relevant tests; CI's minimal dev environment does not
 establish artifact execution acceptance by itself.
 
-## Actual host and browser
+## Initial host and browser acceptance
 
 An isolated Unified 0.19.0 instance at
 `6749dbe6980d8ad2111ef5f5a9a9200b94d8a086` loaded the original Work bundle path,
@@ -52,7 +60,7 @@ values identify what was exercised and do not constrain future updates.
 
 ## Limits
 
-No broad model-driven skill benchmark, native live Excel control, image-provider
+No broad quality benchmark, native live Excel control, image-provider
 execution, cloud import, physical audio, or exact OpenAI asset fidelity was
 tested. The optional adapter skills disclose these dependencies. The original
 Work references and public-library workflows are replacements for workflow

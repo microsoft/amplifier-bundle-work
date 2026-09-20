@@ -11,7 +11,9 @@ tools:
     config:
       skills:
         - .amplifier/skills
+        - .agents/skills
         - ~/.amplifier/skills
+        - ~/.agents/skills
         - "@work-skills:skills"
       visibility:
         enabled: true

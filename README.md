@@ -93,6 +93,10 @@ integration management, five core authoring/research/image workflows, and 20
 original reference templates. Use `load_skill` or a host's `/skill-name` support.
 The library is discovered through its bundle namespace from any workspace.
 Project and personal skills with the same name take precedence.
+Within each scope, native `.amplifier/skills` precedes shared `.agents/skills`;
+both project directories precede both personal directories. See the
+[Agent Skills integration notes](docs/AGENT-SKILLS.md) for format and testing
+boundaries.
 
 These are **original Amplifier implementations of the workflow categories** in
 the inspected OpenAI installation, not copies of its proprietary packages.
