@@ -30,3 +30,17 @@ async def test_overlay_preserves_provider_and_unrelated_tools(tmp_path, monkeypa
     assert result.session["context"]["module"] == "context-managed"
     assert {tool["module"] for tool in result.tools} == {"tool-extra", "tool-transcript"}
     assert result.session["orchestrator"]["config"]["background_delegate"] is False
+
+
+@pytest.mark.asyncio
+async def test_anchors_work_preserves_anchors_capabilities(tmp_path, monkeypatch):
+    monkeypatch.setenv('AMPLIFIER_HOME', str(tmp_path / 'shared'))
+    monkeypatch.chdir(tmp_path)
+    bundle = await foundation.load_bundle(str(ROOT / 'presets/anchors-work.md'), strict=True)
+    assert bundle.session['context']['module'] == 'context-managed'
+    assert bundle.session['orchestrator']['module'] == 'loop-live'
+    assert bundle.session['orchestrator']['config']['background_delegate'] is False
+    assert {row['module'] for row in bundle.tools} >= {'tool-web', 'tool-todo', 'tool-delegate', 'tool-transcript', 'tool-skills'}
+    assert bundle.agents
+    assert '@anchors:context/system.md' in bundle.instruction
+    assert not bundle.providers
