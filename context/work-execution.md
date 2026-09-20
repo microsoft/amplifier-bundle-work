@@ -13,8 +13,14 @@ answer in one bounded JavaScript program. It exposes `tools`, `text`, and promis
 it has no Node, filesystem, network or persistent variable environment. Await
 every call, preserve normal permissions, and inspect authoritative call receipts.
 Delegated `output` retains the original tool's structured type. For example,
-Bash returns an object containing `stdout`, `stderr` and `exit_code`; read
-`result.output.stdout` for its text. Inspect unfamiliar result fields before
+Ordinary Bash returns an object containing `stdout`, `stderr` and `returncode`;
+read `result.output.stdout` for its text. Check `result.success === true` before
+using a delegated result, and use `result.output.returncode === 0` when checking
+an ordinary Bash command's exit. The field is not `exit_code`. For managed Bash
+actions, tool success confirms that the action was observed; command completion
+also requires the reported terminal `state` and `returncode`. Preserve failed,
+denied or unknown outcomes rather than replacing them with an invented answer.
+Inspect unfamiliar result fields before
 transforming them instead of assuming `output` is a string. A program error can
 follow successful calls, so check receipts before considering any retry.
 Use normal delegation for workers. A program cannot turn a denied or unknown
