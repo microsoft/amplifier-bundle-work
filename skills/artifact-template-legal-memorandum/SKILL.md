@@ -1,6 +1,7 @@
 ---
 name: artifact-template-legal-memorandum
 description: "Create a document using the original Work legal memorandum reference. Use when this template is selected or requested."
+compatibility: "Amplifier Work collection with the documents skill and its dependencies; renderer and image-reading capability for visual QA."
 user-invocable: true
 ---
 

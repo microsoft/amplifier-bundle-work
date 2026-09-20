@@ -1,6 +1,7 @@
 ---
 name: presentations
 description: Create or edit editable PowerPoint PPTX slides and Google Slides-bound decks. Use for presentations, slide layouts, speaker notes, and template-based decks.
+compatibility: "Amplifier with filesystem and process tools; python-pptx; LibreOffice and Poppler for rendering; image-reading capability for visual QA."
 user-invocable: true
 ---
 
@@ -19,10 +20,18 @@ do not execute that runtime's examples as if the APIs were interchangeable.
    type scale. Keep all objects within the slide. Prefer charts and diagrams
    when they explain a comparison or relationship; label axes and cite data.
 4. For edits, change the requested objects while preserving unrelated content.
+   Inspect effective typography at both paragraph-default and run levels;
+   a run's unset font properties can inherit the reference's font, size, and
+   color from its paragraph or theme. Prefer replacing text within existing
+   runs. Assigning `shape.text` or clearing a text frame can discard paragraph
+   defaults and silently flatten the hierarchy. If rebuilding is necessary,
+   retain and restore paragraph properties (`a:pPr`) and run properties
+   (`a:rPr`), including alignment, spacing, bullets, and color, then compare effective fonts against
+   the reference after saving. Do not treat an unset run font as unformatted text.
    Do not rebuild a complex deck through a library that cannot preserve its
    animations, media, SmartArt, or chart behavior; use a capable native adapter
    or report the specific limitation before destructive conversion.
-5. Reopen the PPTX to verify slide count, text, notes, chart data, and object
+5. Reopen the PPTX to verify slide count, text, notes, chart data, typography, and object
    bounds. Render every slide, inspect full-size images, fix overlap and clipping,
    and render affected slides again. XML bounds alone do not catch text overflow.
 6. Return the PPTX, plus a PDF only when requested. A Google Slides request needs

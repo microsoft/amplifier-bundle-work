@@ -1,6 +1,7 @@
 ---
 name: documents
 description: Create, edit, review, comment on, or redline Word DOCX documents. Use for reports, memos, letters, and Google Docs-bound files; render and inspect before delivery.
+compatibility: "Amplifier with filesystem and process tools; python-docx; LibreOffice and Poppler for rendering; image-reading capability for visual QA."
 user-invocable: true
 ---
 

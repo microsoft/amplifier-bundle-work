@@ -1,0 +1,527 @@
+{
+  "schema_version": 1,
+  "purpose": "Synthetic model-driven acceptance prompts and independent artifact assertions; no real business data. A consumer supplies an actual Amplifier session and artifact environment, then validates produced files separately.",
+  "cases": [
+    {
+      "id": "design-report",
+      "skill": "artifact-template-design-report",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-design-report to create outputs/result.docx. \nSupplied facts:\nAuthor Maya Chen; date 2026-09-20; audience design review team. Project Juniper helps operators find delayed shipments. Problem: 12 of 30 sampled support tickets needed a second lookup. Requirements: show shipment status, timestamp and owner; keyboard navigation required. Design: single list with expandable details. Alternative: separate detail pages; rejected because they add navigation. Validation: test with 6 synthetic operator profiles on 2026-09-27. Next step: Maya owns prototype review. Source: supplied synthetic brief.",
+      "assertions": {
+        "artifact": "outputs/result.docx",
+        "content_tokens": [
+          "Project Juniper",
+          "12",
+          "30",
+          "Maya Chen",
+          "2026-09-27"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly."
+      }
+    },
+    {
+      "id": "experiment-analysis",
+      "skill": "artifact-template-experiment-analysis",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-experiment-analysis to create outputs/result.docx. \nSupplied facts:\nAuthor Theo Park; date 2026-09-20; audience experiment review. Experiment Juniper compares a new search label with the current label. Hypothesis: clearer labels increase task completion. Synthetic sample: control 40 of 50 completed; treatment 45 of 50 completed, a 10 percentage-point increase. Method: randomized assignment, one task per participant. No statistical significance analysis was performed. Limitation: small synthetic sample and no longitudinal data. Decision: continue with a larger study; Theo owns follow-up. Source: supplied synthetic experiment.",
+      "assertions": {
+        "artifact": "outputs/result.docx",
+        "content_tokens": [
+          "Experiment Juniper",
+          "40",
+          "45",
+          "50",
+          "Theo Park"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly."
+      }
+    },
+    {
+      "id": "investment-committee-memo",
+      "skill": "artifact-template-investment-committee-memo",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-investment-committee-memo to create outputs/result.docx. Preserve the literal amounts 100000, 20000 and 25000 somewhere in the financial analysis. \nSupplied facts:\nAuthor Noor Ali; date 2026-09-20; audience fictional investment committee. Project Juniper proposes a 100000 dollar internal equipment allocation. Expected capacity: 200 units per month versus current 150. Business context: fictional laboratory with a fixed internal workload, no market-size estimate. Financial case: 20000 dollars estimated annual operating savings; simple payback 5 years, excluding tax and discounting. Risks: delivery delay and uncertain maintenance costs; mitigation: staged purchase. Recommendation: approve the first 25000 dollar pilot only. Source: synthetic planning assumptions, not investment advice.",
+      "assertions": {
+        "artifact": "outputs/result.docx",
+        "content_tokens": [
+          "Project Juniper",
+          "Noor Ali",
+          "200",
+          "150",
+          "5"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly."
+      }
+    },
+    {
+      "id": "legal-memorandum",
+      "skill": "artifact-template-legal-memorandum",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-legal-memorandum to create outputs/result.docx. \nSupplied facts:\nAuthor Robin West; date 2026-09-20; audience fictional policy committee. Matter Juniper asks whether an internal draft review is permitted under a fictional company policy. Relevant fact: reviewer Dana is on the approved review roster. Sole supplied authority is fictional Policy A: approved reviewers may inspect draft documents within the internal workspace. Analysis: Dana meets the roster requirement; sharing outside the workspace is not covered. Conclusion: internal review is permitted under the supplied fictional policy only. No real jurisdiction, statutes, cases or legal advice are requested. Source: supplied fictional Policy A.",
+      "assertions": {
+        "artifact": "outputs/result.docx",
+        "content_tokens": [
+          "Juniper",
+          "Robin West",
+          "Policy A",
+          "Dana"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly."
+      }
+    },
+    {
+      "id": "minimal-letterhead",
+      "skill": "artifact-template-minimal-letterhead",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-minimal-letterhead to create outputs/result.docx. \nSupplied facts:\nSender Maya Chen, operations lead at Juniper Lab; recipient Theo Park; date 2026-09-20. Subject: Juniper pilot review. Message: The first prototype is ready for internal review. The synthetic pilot includes 12 sample shipments and no customer data. Next step: Theo should provide comments by 2026-09-27. Sign Maya Chen. Source: supplied synthetic project update.",
+      "assertions": {
+        "artifact": "outputs/result.docx",
+        "content_tokens": [
+          "Maya Chen",
+          "Theo Park",
+          "Juniper",
+          "12",
+          "2026-09-27"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly."
+      }
+    },
+    {
+      "id": "strategy-memorandum",
+      "skill": "artifact-template-strategy-memorandum",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-strategy-memorandum to create outputs/result.docx. \nSupplied facts:\nAuthor Dana Reed; date 2026-09-20; audience Juniper steering group. Decision: choose a delivery approach for Project Juniper. Current position: 3 teams maintain separate shipment dashboards. Options: retain separate dashboards for low immediate cost, or build one shared status view for clearer ownership. Recommendation: shared status view, starting with a 6-week pilot. Execution: Dana coordinates; Theo validates. Measures: reduce second-lookups from 40 percent to 20 percent and assign an owner to every delayed shipment. Source: synthetic internal planning brief.",
+      "assertions": {
+        "artifact": "outputs/result.docx",
+        "content_tokens": [
+          "Project Juniper",
+          "Dana Reed",
+          "Theo",
+          "40",
+          "20"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly."
+      }
+    },
+    {
+      "id": "system-design",
+      "skill": "artifact-template-system-design",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-system-design to create outputs/result.docx. \nSupplied facts:\nAuthor Theo Park; date 2026-09-20; audience architecture review. System Juniper exposes synthetic shipment status to an internal dashboard. Goals: freshness within 60 seconds and no customer data. Context: dashboard reads the status API; a scheduler ingests fixture events. Components: status API, event worker and SQLite store. Interface: GET /shipments returns id, status and updated_at. Failures: retry ingestion twice; retain the last successful snapshot and flag stale data. Rollout: local test, one pilot team, then broader review. Validate duplicate events and unavailable upstream input. Source: supplied synthetic design.",
+      "assertions": {
+        "artifact": "outputs/result.docx",
+        "content_tokens": [
+          "Juniper",
+          "Theo Park",
+          "60",
+          "SQLite",
+          "GET /shipments"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly."
+      }
+    },
+    {
+      "id": "business-review",
+      "skill": "artifact-template-business-review",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-business-review to create outputs/result.pptx. Keep the reference's 5 slides, original slide size and original light/dark background. Use editable text and populate speaker notes. \nSupplied facts:\nTitle: Quarterly Juniper review. Presenter: Maya Chen; date 2026-09-20; audience internal pilot team. Executive assessment: pilot on track; 2 milestones complete. Results: 12 sample shipments processed, 10 within the target. Drivers and risks: clearer ownership helped; fixture quality remains a risk. Decisions and owners: Maya owns the next data review, due 2026-09-27. Source on every slide: Synthetic Juniper brief. All slide notes should briefly explain the slide using these facts.",
+      "assertions": {
+        "artifact": "outputs/result.pptx",
+        "content_tokens": [
+          "Juniper",
+          "12",
+          "10",
+          "Maya",
+          "2026-09-27"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly.",
+        "reference_typography_preserved": "Compare effective paragraph-default and run font family, size and color; geometry alone is insufficient.",
+        "reference_paragraph_alignment_preserved": true
+      }
+    },
+    {
+      "id": "market-trends-report",
+      "skill": "artifact-template-market-trends-report",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-market-trends-report to create outputs/result.pptx. Keep the reference's 5 slides, original slide size and original light/dark background. Use editable text and populate speaker notes. \nSupplied facts:\nTitle: Juniper fixture market review. Presenter: Maya Chen; date 2026-09-20; audience internal pilot team. Market scope: fictional internal tools, limited to the supplied fixture. Observed trends: 6 of 10 mock teams requested shared status; 4 requested exports. Evidence and uncertainty: ten synthetic interviews, not a real market estimate. Implications: prototype shared status first; Theo owns validation. Source on every slide: Synthetic Juniper brief. All slide notes should briefly explain the slide using these facts.",
+      "assertions": {
+        "artifact": "outputs/result.pptx",
+        "content_tokens": [
+          "Juniper",
+          "6",
+          "10",
+          "4",
+          "Theo"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly.",
+        "reference_typography_preserved": "Compare effective paragraph-default and run font family, size and color; geometry alone is insufficient.",
+        "reference_paragraph_alignment_preserved": true
+      }
+    },
+    {
+      "id": "operating-review",
+      "skill": "artifact-template-operating-review",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-operating-review to create outputs/result.pptx. Keep the reference's 5 slides, original slide size and original light/dark background. Use editable text and populate speaker notes. \nSupplied facts:\nTitle: Juniper operating review. Presenter: Maya Chen; date 2026-09-20; audience internal pilot team. Operating priorities: shipment visibility and response ownership. Performance: 12 sample shipments processed, 2 delayed. Issues and dependencies: one fixture feed remains incomplete. Actions: Maya repairs fixture coverage by 2026-09-27; Dana checks ownership. Source on every slide: Synthetic Juniper brief. All slide notes should briefly explain the slide using these facts.",
+      "assertions": {
+        "artifact": "outputs/result.pptx",
+        "content_tokens": [
+          "Juniper",
+          "12",
+          "2",
+          "Maya",
+          "Dana"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly.",
+        "reference_typography_preserved": "Compare effective paragraph-default and run font family, size and color; geometry alone is insufficient.",
+        "reference_paragraph_alignment_preserved": true
+      }
+    },
+    {
+      "id": "project-kickoff",
+      "skill": "artifact-template-project-kickoff",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-project-kickoff to create outputs/result.pptx. Keep the reference's 5 slides, original slide size and original light/dark background. Use editable text and populate speaker notes. \nSupplied facts:\nTitle: Project Juniper kickoff. Presenter: Maya Chen; date 2026-09-20; audience internal pilot team. Purpose and outcomes: one clear view of synthetic shipment status. Scope and deliverables: internal dashboard, status API and fixture importer; no customer integration. Milestones and roles: Maya owns design on 2026-09-23, Theo owns API on 2026-09-25, Dana owns review on 2026-09-27. Risks and next steps: fixture delays; begin a dependency review. Source on every slide: Synthetic Juniper brief. All slide notes should briefly explain the slide using these facts.",
+      "assertions": {
+        "artifact": "outputs/result.pptx",
+        "content_tokens": [
+          "Project Juniper",
+          "Maya",
+          "Theo",
+          "Dana",
+          "2026-09-27"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly.",
+        "reference_typography_preserved": "Compare effective paragraph-default and run font family, size and color; geometry alone is insufficient.",
+        "reference_paragraph_alignment_preserved": true
+      }
+    },
+    {
+      "id": "simple-dark-mode",
+      "skill": "artifact-template-simple-dark-mode",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-simple-dark-mode to create outputs/result.pptx. Keep the reference's 4 slides, original slide size and original light/dark background. Use editable text and populate speaker notes. \nSupplied facts:\nTitle: Juniper decision briefing. Presenter: Maya Chen; date 2026-09-20; audience internal pilot team. Main point: approve a 2-week internal pilot. Supporting evidence: 8 of 10 synthetic operators completed the task. Recommendation: Maya runs the pilot and reports on 2026-09-27. Source on every slide: Synthetic Juniper brief. All slide notes should briefly explain the slide using these facts.",
+      "assertions": {
+        "artifact": "outputs/result.pptx",
+        "content_tokens": [
+          "Juniper",
+          "2",
+          "8",
+          "10",
+          "Maya"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly.",
+        "reference_typography_preserved": "Compare effective paragraph-default and run font family, size and color; geometry alone is insufficient.",
+        "reference_paragraph_alignment_preserved": true
+      }
+    },
+    {
+      "id": "simple-light-mode",
+      "skill": "artifact-template-simple-light-mode",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-simple-light-mode to create outputs/result.pptx. Keep the reference's 4 slides, original slide size and original light/dark background. Use editable text and populate speaker notes. \nSupplied facts:\nTitle: Juniper decision briefing. Presenter: Maya Chen; date 2026-09-20; audience internal pilot team. Main point: approve a 2-week internal pilot. Supporting evidence: 8 of 10 synthetic operators completed the task. Recommendation: Theo runs the pilot and reports on 2026-09-27. Source on every slide: Synthetic Juniper brief. All slide notes should briefly explain the slide using these facts.",
+      "assertions": {
+        "artifact": "outputs/result.pptx",
+        "content_tokens": [
+          "Juniper",
+          "2",
+          "8",
+          "10",
+          "Theo"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly.",
+        "reference_typography_preserved": "Compare effective paragraph-default and run font family, size and color; geometry alone is insufficient.",
+        "reference_paragraph_alignment_preserved": true
+      }
+    },
+    {
+      "id": "team-alignment",
+      "skill": "artifact-template-team-alignment",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-team-alignment to create outputs/result.pptx. Keep the reference's 5 slides, original slide size and original light/dark background. Use editable text and populate speaker notes. \nSupplied facts:\nTitle: Juniper team alignment. Presenter: Maya Chen; date 2026-09-20; audience internal pilot team. Shared objective: give one owner to each delayed synthetic shipment. Responsibilities: Maya owns design, Theo owns API, Dana owns review. Dependencies and decisions: design supplies the status labels before API review. Commitments: publish the internal prototype by 2026-09-27; all 3 owners attend the review. Source on every slide: Synthetic Juniper brief. All slide notes should briefly explain the slide using these facts.",
+      "assertions": {
+        "artifact": "outputs/result.pptx",
+        "content_tokens": [
+          "Juniper",
+          "Maya",
+          "Theo",
+          "Dana",
+          "2026-09-27"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly.",
+        "reference_typography_preserved": "Compare effective paragraph-default and run font family, size and color; geometry alone is insufficient.",
+        "reference_paragraph_alignment_preserved": true
+      }
+    },
+    {
+      "id": "analytics-dashboard",
+      "skill": "artifact-template-analytics-dashboard",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-analytics-dashboard to create outputs/result.xlsx. \nSupplied facts:\nInputs columns are Metric, Period, Actual, Target, Variance, Variance percent, Source. Row2: Visits, Sep 2026, 1200, 1000, calculated variance, calculated percent, Synthetic brief. Row3: Signups, Sep 2026, 90, 100, calculated variance, calculated percent, Synthetic brief.\nRetain the reference formulas and cell layout; populate the stated input rows. Use formulas for derived values. Recalculate through a real spreadsheet engine and deliver the recalculated outputs/result.xlsx with cached results. Independently reconcile summary totals and test a changed driver in a separate copy. Ensure the printed areas include the populated rows on every changed sheet.",
+      "assertions": {
+        "artifact": "outputs/result.xlsx",
+        "content_tokens": [
+          "Visits",
+          "Signups"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly.",
+        "input_cells": {
+          "Inputs": {
+            "A2": "Visits",
+            "B2": "Sep 2026",
+            "C2": 1200,
+            "D2": 1000,
+            "A3": "Signups",
+            "C3": 90,
+            "D3": 100
+          }
+        },
+        "cached_values": {
+          "Summary": {
+            "B2": 1200,
+            "C2": 1000,
+            "D2": 200,
+            "B3": 90,
+            "C3": 100,
+            "D3": -10
+          }
+        },
+        "reference_formulas_preserved": true,
+        "driver_recalculation_test": "In a separate copy, confirm a changed input produces recalculated cached outputs matching independent arithmetic."
+      }
+    },
+    {
+      "id": "financial-budget",
+      "skill": "artifact-template-financial-budget",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-financial-budget to create outputs/result.xlsx. \nSupplied facts:\nAll amounts USD. Inputs row2: Department Design, Category Pilot, Budget 20000, Actual 18500, Source Synthetic brief. Row3: Department Research, Category Fixtures, Budget 10000, Actual 11200, Source Synthetic brief.\nRetain the reference formulas and cell layout; populate the stated input rows. Use formulas for derived values. Recalculate through a real spreadsheet engine and deliver the recalculated outputs/result.xlsx with cached results. Independently reconcile summary totals and test a changed driver in a separate copy. Ensure the printed areas include the populated rows on every changed sheet.",
+      "assertions": {
+        "artifact": "outputs/result.xlsx",
+        "content_tokens": [
+          "Design",
+          "Research"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly.",
+        "input_cells": {
+          "Inputs": {
+            "A2": "Design",
+            "C2": 20000,
+            "D2": 18500,
+            "A3": "Research",
+            "C3": 10000,
+            "D3": 11200
+          }
+        },
+        "cached_values": {
+          "Summary": {
+            "B2": 30000,
+            "B3": 29700,
+            "B4": -300
+          }
+        },
+        "reference_formulas_preserved": true,
+        "driver_recalculation_test": "In a separate copy, confirm a changed input produces recalculated cached outputs matching independent arithmetic."
+      }
+    },
+    {
+      "id": "operating-calendar",
+      "skill": "artifact-template-operating-calendar",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-operating-calendar to create outputs/result.xlsx. \nSupplied facts:\nUse typed dates. Inputs row2: 2026-09-21, Kickoff, Maya, Done, Synthetic brief. Row3: 2026-09-23, Prototype review, Theo, In progress, Synthetic brief. Row4: 2026-09-25, Fixture audit, Dana, Done, Synthetic brief.\nRetain the reference formulas and cell layout; populate the stated input rows. Use formulas for derived values. Recalculate through a real spreadsheet engine and deliver the recalculated outputs/result.xlsx with cached results. Independently reconcile summary totals and test a changed driver in a separate copy. Ensure the printed areas include the populated rows on every changed sheet.",
+      "assertions": {
+        "artifact": "outputs/result.xlsx",
+        "content_tokens": [
+          "Kickoff",
+          "Prototype review",
+          "Fixture audit"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly.",
+        "input_cells": {
+          "Inputs": {
+            "B2": "Kickoff",
+            "C2": "Maya",
+            "D2": "Done",
+            "B3": "Prototype review",
+            "D3": "In progress",
+            "B4": "Fixture audit",
+            "D4": "Done"
+          }
+        },
+        "cached_values": {
+          "Summary": {
+            "B2": 3,
+            "B3": 2
+          }
+        },
+        "reference_formulas_preserved": true,
+        "driver_recalculation_test": "In a separate copy, confirm a changed input produces recalculated cached outputs matching independent arithmetic."
+      }
+    },
+    {
+      "id": "project-tracker",
+      "skill": "artifact-template-project-tracker",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-project-tracker to create outputs/result.xlsx. \nSupplied facts:\nUse typed dates. Inputs row2: ID J1, Task Build fixture, Owner Maya, Status Done, Due date 2026-09-21, Dependency none. Row3: ID J2, Task Review API, Owner Theo, Status Blocked, Due date 2026-09-23, Dependency J1. Row4: ID J3, Task Pilot dashboard, Owner Dana, Status In progress, Due date 2026-09-25, Dependency J2.\nRetain the reference formulas and cell layout; populate the stated input rows. Use formulas for derived values. Recalculate through a real spreadsheet engine and deliver the recalculated outputs/result.xlsx with cached results. Independently reconcile summary totals and test a changed driver in a separate copy. Ensure the printed areas include the populated rows on every changed sheet.",
+      "assertions": {
+        "artifact": "outputs/result.xlsx",
+        "content_tokens": [
+          "Build fixture",
+          "Review API",
+          "Pilot dashboard"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly.",
+        "input_cells": {
+          "Inputs": {
+            "A2": "J1",
+            "B2": "Build fixture",
+            "D2": "Done",
+            "A3": "J2",
+            "B3": "Review API",
+            "D3": "Blocked",
+            "A4": "J3",
+            "B4": "Pilot dashboard",
+            "D4": "In progress"
+          }
+        },
+        "cached_values": {
+          "Summary": {
+            "B2": 3,
+            "B3": 1,
+            "B4": 1
+          }
+        },
+        "reference_formulas_preserved": true,
+        "driver_recalculation_test": "In a separate copy, confirm a changed input produces recalculated cached outputs matching independent arithmetic."
+      }
+    },
+    {
+      "id": "sales-pipeline",
+      "skill": "artifact-template-sales-pipeline",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-sales-pipeline to create outputs/result.xlsx. \nSupplied facts:\nAll values USD. Inputs row2: Opportunity Juniper pilot, Account Fictional North, Stage Qualified, Value 80000, Probability 25 percent, Owner Maya. Row3: Opportunity Juniper expansion, Account Fictional South, Stage Proposal, Value 40000, Probability 75 percent, Owner Theo.\nRetain the reference formulas and cell layout; populate the stated input rows. Use formulas for derived values. Recalculate through a real spreadsheet engine and deliver the recalculated outputs/result.xlsx with cached results. Independently reconcile summary totals and test a changed driver in a separate copy. Ensure the printed areas include the populated rows on every changed sheet.",
+      "assertions": {
+        "artifact": "outputs/result.xlsx",
+        "content_tokens": [
+          "Juniper pilot",
+          "Juniper expansion"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly.",
+        "input_cells": {
+          "Inputs": {
+            "A2": "Juniper pilot",
+            "D2": 80000,
+            "E2": 0.25,
+            "A3": "Juniper expansion",
+            "D3": 40000,
+            "E3": 0.75
+          }
+        },
+        "cached_values": {
+          "Summary": {
+            "B2": 120000,
+            "B3": 50000
+          }
+        },
+        "reference_formulas_preserved": true,
+        "driver_recalculation_test": "In a separate copy, confirm a changed input produces recalculated cached outputs matching independent arithmetic."
+      }
+    },
+    {
+      "id": "three-statement-forecast",
+      "skill": "artifact-template-three-statement-forecast",
+      "prompt": "This is a synthetic acceptance exercise; every person, organization, amount and result below is fictional. Use only the supplied facts, mark any missing information as unspecified, and do not research or contact anyone. Preserve the installed reference. Replace its placeholders in a copy, keep its structure and formatting, and produce editable output. Render the completed result under outputs/qa, inspect every rendered page using the available image-reading capability, and fix any clipping. State any verification you cannot perform. Use artifact-template-three-statement-forecast to create outputs/result.xlsx. \nSupplied facts:\nAll amounts USD. Use the existing simplified cash model and keep its Scope sheet. Period1/2/3 Revenue: 100000,120000,130000. Direct costs: 40000,45000,48000. Operating expenses: 20000,22000,24000. Capital spending: 10000,8000,7000. Depreciation: 5000,5000,6000. Opening balances for Period1 only: cash50000, fixed assets100000, debt25000. Do not invent taxes, debt changes or working capital.\nRetain the reference formulas and cell layout; populate the stated input rows. Use formulas for derived values. Recalculate through a real spreadsheet engine and deliver the recalculated outputs/result.xlsx with cached results. Independently reconcile summary totals and test a changed driver in a separate copy. Ensure the printed areas include the populated rows on every changed sheet.",
+      "assertions": {
+        "artifact": "outputs/result.xlsx",
+        "content_tokens": [
+          "Revenue",
+          "Balance check"
+        ],
+        "reference_unchanged": true,
+        "reference_structure_preserved": true,
+        "pdf_and_page_images": "outputs/qa",
+        "visual_review": "Separate actual image inspection from successful rendering; report unavailable host capability explicitly.",
+        "input_cells": {
+          "Inputs": {
+            "B2": 100000,
+            "C2": 120000,
+            "D2": 130000,
+            "B3": 40000,
+            "C3": 45000,
+            "D3": 48000,
+            "B4": 20000,
+            "C4": 22000,
+            "D4": 24000,
+            "B5": 10000,
+            "C5": 8000,
+            "D5": 7000,
+            "B6": 5000,
+            "C6": 5000,
+            "D6": 6000,
+            "B7": 50000,
+            "B8": 100000,
+            "B9": 25000
+          }
+        },
+        "cached_values": {
+          "Summary": {
+            "B6": 35000,
+            "C6": 48000,
+            "D6": 52000,
+            "B9": 80000,
+            "C9": 125000,
+            "D9": 176000,
+            "B10": 105000,
+            "C10": 108000,
+            "D10": 109000,
+            "B11": 185000,
+            "C11": 233000,
+            "D11": 285000,
+            "B16": 0,
+            "C16": 0,
+            "D16": 0
+          }
+        },
+        "reference_formulas_preserved": true,
+        "driver_recalculation_test": "In a separate copy, confirm a changed input produces recalculated cached outputs matching independent arithmetic."
+      }
+    }
+  ]
+}

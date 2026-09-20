@@ -1,6 +1,7 @@
 ---
 name: skill-installer
 description: Discover and install Amplifier-compatible skills from a local folder or Git repository into the requested project, personal directory, or bundle.
+compatibility: "Amplifier filesystem tools and load_skill; Git and network access for remote sources."
 user-invocable: true
 ---
 
@@ -18,6 +19,10 @@ a personal install, or the exact bundle directory the user selected. Refuse
 silent collisions. Copy the whole permitted package while excluding repository
 metadata, credentials, generated caches, and dependency directories. Reject
 symlinks escaping the package and keep originals intact.
+
+Use `.agents/skills` when the user requests a shared cross-client install. Work
+discovers both conventions; project skills precede user skills, and native paths
+win within a scope. Check the actual winning path from `load_skill` after install.
 
 Check resource closure before copying an individual skill. Work's Office skills
 share `../_shared` helpers, so install the collection through its behavior or

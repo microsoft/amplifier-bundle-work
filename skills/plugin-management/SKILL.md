@@ -1,6 +1,7 @@
 ---
 name: plugin-management
 description: Discover, inspect, connect, or remove Amplifier bundles, MCP integrations, and Smart Tools using the host's available management actions.
+compatibility: "Amplifier host capability inspection; service management or authentication requires the matching host adapter."
 user-invocable: true
 ---
 

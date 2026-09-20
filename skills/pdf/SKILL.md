@@ -1,6 +1,7 @@
 ---
 name: pdf
 description: Read, extract, create, combine, or fill PDFs and AcroForms. Use for PDF deliverables and page inspection; use documents for editable Word output.
+compatibility: "Amplifier with filesystem and process tools; pypdf and reportlab; Poppler for rendering; image-reading capability for visual QA."
 user-invocable: true
 ---
 

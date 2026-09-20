@@ -12,6 +12,12 @@ working directory. Workspace and user skills take precedence over this library
 when they share a name. A source registration affects the current session; it
 does not by itself install a persistent host capability.
 
+Work also discovers the shared `.agents/skills` convention. Within each scope,
+native `.amplifier/skills` wins over `.agents/skills`; both project locations win
+over both user locations, followed by this library. Inspect unfamiliar packages
+before execution. Directory compatibility does not translate foreign tools or
+grant permission to run their scripts.
+
 Skills provide instructions and packaged resources. They do not create tools,
 credentials, connected accounts, runtimes, or permissions. Inspect mounted tools
 and the host's current action schemas before choosing a capability. Follow each
