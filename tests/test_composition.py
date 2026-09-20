@@ -14,7 +14,10 @@ async def test_root_loads_from_an_unrelated_workspace(tmp_path, monkeypatch):
     bundle = await foundation.load_bundle(str(ROOT / "bundle.md"), strict=True)
     plan = bundle.to_mount_plan()
     assert plan["session"]["context"]["config"]["engine"] == "boundary"
-    assert {tool["module"] for tool in bundle.tools} >= {"tool-delegate", "tool-transcript", "tool-bash"}
+    assert {tool["module"] for tool in bundle.tools} >= {"tool-delegate", "tool-transcript", "tool-bash", "tool-apply-patch"}
+    patch = next(tool for tool in bundle.tools if tool["module"] == "tool-apply-patch")
+    assert '@d71bb9522c6983c18e803aa43a96bd37dec75d32#' in patch['source']
+    assert patch['config'] == {'engine': 'native'}
     assert not bundle.providers
     assert "agent: self" in bundle.instruction
 

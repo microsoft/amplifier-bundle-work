@@ -20,7 +20,8 @@ For reproducible installations, replace `main` with a reviewed commit ID. The
 bundle's runtime modules are already pinned to immutable commits. A local
 checkout can also be selected by its absolute `bundle.md` path.
 
-The root contributes five tools, including `delegate` and `read_transcript`.
+The root contributes six tool modules, including `apply_patch`, `delegate`, and
+`read_transcript`. Modules may expose more than one callable tool.
 It does not select a provider, model, or reasoning effort. Other capabilities
 must be composed explicitly.
 
@@ -53,6 +54,15 @@ commit in place of `main` when pinning the composed configuration.
   history belongs to the host and can be retrieved with `read_transcript`.
 - The host owns actual concurrency, event delivery, and recovery. A finite host
   stays finite; this bundle alone does not create a concurrent user interface.
+- Patch editing reuses the existing filesystem bundle's pinned module. Its native
+  operation schema also works as a function tool for other providers. Hosts must
+  apply their shared write policy to both filesystem and patch tools; the portable
+  module itself defaults to the session workspace and follows symlinks before
+  checking its configured allow/deny lists. Adding a tool is not permission to
+  bypass a denied write.
+- Conversation search, application actions, skills, artifacts, and worker controls
+  are discovered from the host when present. The root does not emulate those
+  application services or assume every host supplies them.
 
 The profile does not add managed process input/output, a portable child registry,
 durable compaction checkpoints, or a persistent asynchronous-question ledger.
