@@ -113,7 +113,9 @@
       "required_evidence": [
         "StandaloneHTML initial30, boundary0, changed60 tasks.",
         "Actual canvas create/event/inspect; persisted hours20/tasks60.",
-        "Attached browser render, user change, persistence and smallwidth tested separately."
+        "Attached browser render, user change, persistence and smallwidth tested separately.",
+        "Successful user Save clears dirty=false; the UI exposes Save/Retry and a visible error status.",
+        "Revision preserves the existing app ID and saved hours/tasks state."
       ]
     },
     {
