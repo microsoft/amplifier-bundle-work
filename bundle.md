@@ -2,11 +2,12 @@
 bundle:
   name: work
   display_name: Work
-  version: 0.2.0
+  version: 0.3.0
   description: A small, provider-neutral Work profile for live Amplifier hosts.
 
 includes:
   - bundle: work:behaviors/work-local.yaml
+  - bundle: work:behaviors/work-skills.yaml
   - bundle: work:behaviors/work-execution.yaml
 
 tools:

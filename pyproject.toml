@@ -1,15 +1,24 @@
 [project]
 name = "amplifier-bundle-work"
-version = "0.2.0"
+version = "0.3.0"
 description = "Provider-neutral Work composition for live Amplifier hosts"
 requires-python = ">=3.11"
 dependencies = []
 
 [dependency-groups]
 dev = [
+  "amplifier-module-tool-skills @ git+https://github.com/microsoft/amplifier-bundle-skills@main#subdirectory=modules/tool-skills",
   "amplifier-foundation @ git+https://github.com/microsoft/amplifier-foundation@main",
   "pytest>=8,<10",
   "pytest-asyncio>=0.24,<2",
+]
+artifacts = [
+  "python-docx>=1.2,<2",
+  "python-pptx>=1.0,<2",
+  "openpyxl>=3.1,<4",
+  "reportlab>=4.4,<5",
+  "pypdf>=6,<7",
+  "Pillow>=11,<13",
 ]
 
 [tool.uv]
