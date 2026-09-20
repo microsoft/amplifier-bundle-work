@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from copy import deepcopy
 from dataclasses import replace
 from pathlib import Path
+import re
 
 import amplifier_foundation as foundation
 from amplifier_core import AmplifierSession
@@ -18,6 +19,30 @@ TOOL_SOURCE = (
     "git+https://github.com/microsoft/amplifier-bundle-skills@"
     "main#subdirectory=modules/tool-skills"
 )
+
+
+@pytest.mark.asyncio
+async def test_extension_creator_example_has_loadable_module_and_namespace(tmp_path, monkeypatch):
+    """The documented default must not put a source URL in the module-ID field."""
+    monkeypatch.setenv("AMPLIFIER_HOME", str(tmp_path / "shared"))
+    monkeypatch.chdir(tmp_path)
+    instructions = (ROOT / "skills/plugin-creator/SKILL.md").read_text()
+    example = re.search(r"```yaml\n(.*?)\n```", instructions, re.DOTALL)
+    assert example
+    extension = tmp_path / "extension"
+    skill = extension / "skills/example"
+    skill.mkdir(parents=True)
+    (skill / "SKILL.md").write_text("---\nname: example\ndescription: Synthetic example.\n---\nUse the supplied facts.\n")
+    (extension / "bundle.md").write_text(example.group(1))
+    bundle = await foundation.load_bundle(str(extension / "bundle.md"), strict=True)
+    bundle.resolve_pending_context()
+    plan = bundle.to_mount_plan()
+    module = next(row for row in plan["tools"] if row["module"] == "tool-skills")
+    assert module["source"] == TOOL_SOURCE
+    assert module["config"]["skills"] == ["@example-skills:skills"]
+    assert bundle.base_path == extension
+    resolver = BaseMentionResolver(bundles={bundle.name: bundle}, base_path=tmp_path)
+    assert resolver.resolve("@example-skills:skills") == extension / "skills"
 
 
 def skill_module(bundle):

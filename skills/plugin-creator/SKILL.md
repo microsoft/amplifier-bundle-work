@@ -59,12 +59,15 @@ From an unrelated working directory, use the public bundle interface:
 import asyncio
 from pathlib import Path
 from amplifier_foundation import load_bundle
+from amplifier_foundation.mentions import BaseMentionResolver
 
 bundle_path = Path("/absolute/path/to/example-skills/bundle.md")
 bundle = asyncio.run(load_bundle(str(bundle_path), strict=True))
 bundle.resolve_pending_context()
 plan = bundle.to_mount_plan()
-assert bundle.source_base_paths[bundle.name] == bundle_path.parent
+assert bundle.base_path == bundle_path.parent
+resolver = BaseMentionResolver(bundles={bundle.name: bundle}, base_path=Path.cwd())
+assert resolver.resolve(f"@{bundle.name}:skills") == bundle_path.parent / "skills"
 print(plan)
 ```
 

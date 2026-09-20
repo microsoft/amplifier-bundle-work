@@ -26,7 +26,7 @@ do not execute that runtime's examples as if the APIs were interchangeable.
    runs. Assigning `shape.text` or clearing a text frame can discard paragraph
    defaults and silently flatten the hierarchy. If rebuilding is necessary,
    retain and restore paragraph properties (`a:pPr`) and run properties
-   (`a:rPr`), including spacing and color, then compare effective fonts against
+   (`a:rPr`), including alignment, spacing, bullets, and color, then compare effective fonts against
    the reference after saving. Do not treat an unset run font as unformatted text.
    Do not rebuild a complex deck through a library that cannot preserve its
    animations, media, SmartArt, or chart behavior; use a capable native adapter
