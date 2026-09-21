@@ -1,6 +1,6 @@
 ---
 name: artifact-template-simple-light-mode
-description: "Create a presentation using the original Work simple light mode reference. Use when this template is selected or requested."
+description: "Use the simple light mode presentation template."
 compatibility: "Amplifier Work collection with the presentations skill and its dependencies; renderer and image-reading capability for visual QA."
 user-invocable: true
 ---

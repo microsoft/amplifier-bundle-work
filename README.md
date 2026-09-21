@@ -36,8 +36,16 @@ includes:
   - bundle: git+https://github.com/microsoft/amplifier-bundle-work@main#subdirectory=behaviors/work-local.yaml
 ```
 
-The behavior changes the loop/context and adds transcript retrieval. It does not
-install the root's filesystem, shell, search, or delegate tools. Its sources also follow `main` through the host ecosystem updater.
+The behavior selects managed context and adds transcript retrieval while preserving
+the host's orchestrator. It does not install the root's filesystem, shell, search,
+or delegate tools. Its sources follow `main` through the host ecosystem updater.
+
+To also select Work's live loop, compose `bundles/work-session.yaml` from your root
+instead. That standalone composition includes the same behavior and supplies the
+orchestrator. Work and Anchors + Work already use it; their effective execution
+settings are unchanged. Existing consumers of `behaviors/work-local.yaml` that
+relied on it to select the loop should move that root include to
+`bundles/work-session.yaml`.
 
 ## Behavior and boundaries
 
@@ -96,7 +104,7 @@ includes:
 
 This behavior follows current ecosystem branches and preserves existing
 runtime, provider, agent, and skill-source configuration. `work-local.yaml`
-remains the execution-only overlay.
+is the context/transcript behavior; `bundles/work-session.yaml` also selects the loop.
 
 Office/PDF authoring uses optional public Python dependencies:
 
@@ -143,7 +151,7 @@ principles while applying Work execution and managed context:
 git+https://github.com/microsoft/amplifier-bundle-work@main#subdirectory=presets/anchors-work.md
 ```
 
-Register it as `anchors-work` in a consuming host. This preset follows the Anchors root on `main` and composes the Work behavior last. Anchors still owns its
+Register it as `anchors-work` in a consuming host. This preset follows the Anchors root on `main` and composes the Work session last. Anchors still owns its
 transitive dependencies and routing policy; the preset does not freeze every
 Anchors dependency or force worker models to match the parent. Configured host
 providers and policies remain in effect.

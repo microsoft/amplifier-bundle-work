@@ -1,6 +1,6 @@
 ---
 name: artifact-template-market-trends-report
-description: "Create a presentation using the original Work market trends report reference. Use when this template is selected or requested."
+description: "Use the market trends report presentation template."
 compatibility: "Amplifier Work collection with the presentations skill and its dependencies; renderer and image-reading capability for visual QA."
 user-invocable: true
 ---

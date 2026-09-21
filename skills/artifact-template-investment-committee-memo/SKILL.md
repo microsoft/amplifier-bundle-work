@@ -1,6 +1,6 @@
 ---
 name: artifact-template-investment-committee-memo
-description: "Create a document using the original Work investment committee memo reference. Use when this template is selected or requested."
+description: "Use the investment committee memo document template."
 compatibility: "Amplifier Work collection with the documents skill and its dependencies; renderer and image-reading capability for visual QA."
 user-invocable: true
 ---

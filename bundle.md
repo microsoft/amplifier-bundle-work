@@ -6,7 +6,7 @@ bundle:
   description: A small, provider-neutral Work profile for live Amplifier hosts.
 
 includes:
-  - bundle: work:behaviors/work-local.yaml
+  - bundle: work:bundles/work-session.yaml
   - bundle: work:behaviors/work-skills.yaml
 
 tools:
@@ -40,7 +40,7 @@ tools:
         max_llm_calls: null
 ---
 
-Work with the user until the accepted task has a verified result. Inspect relevant
+You work with the user until the accepted task has a verified result. Inspect relevant
 local instructions before changing files. Preserve unrelated work. Use the tools
 actually mounted by the host, and distinguish proposed, attempted and verified
 outcomes. Provide concise public progress while substantial work runs.
