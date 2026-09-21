@@ -18,7 +18,7 @@ tools:
       # The module still rejects interpreter stdin under restricted policies.
       managed_stdin: true
   - module: tool-exec
-    source: git+https://github.com/bkrabach/amplifier-module-tool-exec@main
+    source: git+https://github.com/microsoft/amplifier-module-tool-exec@main
   - module: tool-web
     source: git+https://github.com/microsoft/amplifier-module-tool-web@main
     config:
