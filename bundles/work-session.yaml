@@ -1,0 +1,20 @@
+bundle:
+  name: work-session
+  display_name: Work · Local session
+  version: 0.1.0
+  description: Work live execution with boundary context and transcript retrieval.
+  namespace_root: ..
+
+includes:
+  - bundle: work:behaviors/work-local.yaml
+
+# Complete execution compositions select the loop; behaviors leave that to hosts.
+session:
+  orchestrator:
+    module: loop-live
+    source: git+https://github.com/microsoft/amplifier-module-loop-live@main
+    config:
+      background_delegate: false
+      background_tools: [delegate]
+      max_background_jobs: 4
+      inherit_effective_model: true

@@ -1,6 +1,6 @@
 ---
 name: artifact-template-analytics-dashboard
-description: "Create a spreadsheet using the original Work analytics dashboard reference. Use when this template is selected or requested."
+description: "Use the analytics dashboard spreadsheet template."
 compatibility: "Amplifier Work collection with the spreadsheets skill and its dependencies; renderer and image-reading capability for visual QA."
 user-invocable: true
 ---

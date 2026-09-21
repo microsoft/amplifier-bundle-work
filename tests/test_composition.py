@@ -26,13 +26,29 @@ async def test_root_loads_from_an_unrelated_workspace(tmp_path, monkeypatch):
 async def test_overlay_preserves_provider_and_unrelated_tools(tmp_path, monkeypatch):
     monkeypatch.setenv("AMPLIFIER_HOME", str(tmp_path / "shared"))
     base = foundation.Bundle(name="configured", providers=[{"module": "provider-test", "config": {"default_model": "chosen"}}],
-                             tools=[{"module": "tool-extra"}], session={"context": {"module": "context-simple"}})
+                             tools=[{"module": "tool-extra"}], session={"orchestrator": {"module": "existing-loop"}, "context": {"module": "context-simple"}})
     overlay = await foundation.load_bundle(str(ROOT / "behaviors/work-local.yaml"), strict=True)
     result = base.compose(overlay)
     assert result.providers == base.providers
     assert result.session["context"]["module"] == "context-managed"
     assert {tool["module"] for tool in result.tools} == {"tool-extra", "tool-transcript"}
-    assert result.session["orchestrator"]["config"]["background_delegate"] is False
+    assert result.session["orchestrator"] == base.session["orchestrator"]
+
+
+@pytest.mark.asyncio
+async def test_local_session_is_complete_without_an_enclosing_root(tmp_path, monkeypatch):
+    monkeypatch.setenv("AMPLIFIER_HOME", str(tmp_path / "shared"))
+    monkeypatch.chdir(tmp_path)
+    bundle = await foundation.load_bundle(str(ROOT / "bundles/work-session.yaml"), strict=True)
+    assert bundle.session["context"]["module"] == "context-managed"
+    assert bundle.session["orchestrator"] == {
+        "module": "loop-live",
+        "source": "git+https://github.com/microsoft/amplifier-module-loop-live@main",
+        "config": {"background_delegate": False, "background_tools": ["delegate"],
+                   "max_background_jobs": 4, "inherit_effective_model": True},
+    }
+    assert {tool["module"] for tool in bundle.tools} == {"tool-transcript"}
+    assert not bundle.providers
 
 
 @pytest.mark.asyncio

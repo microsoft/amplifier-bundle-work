@@ -1,6 +1,6 @@
 ---
 name: artifact-template-design-report
-description: "Create a document using the original Work design report reference. Use when this template is selected or requested."
+description: "Use the design report document template."
 compatibility: "Amplifier Work collection with the documents skill and its dependencies; renderer and image-reading capability for visual QA."
 user-invocable: true
 ---
