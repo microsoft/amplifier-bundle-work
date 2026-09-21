@@ -2,19 +2,11 @@ bundle:
   name: work-local
   display_name: Work · Local execution
   version: 0.2.0
-  description: Opt-in Work profile with live execution, boundary context, and transcript retrieval.
+  description: Boundary context and transcript retrieval for an existing execution host.
 
 # No model/provider override: experiments keep the user's chosen provider.
 # Sources follow main; hosts own update validation, credentials and live transport.
 session:
-  orchestrator:
-    module: loop-live
-    source: git+https://github.com/bkrabach/amplifier-module-loop-live@main
-    config:
-      background_delegate: false
-      background_tools: [delegate]
-      max_background_jobs: 4
-      inherit_effective_model: true
   context:
     module: context-managed
     source: git+https://github.com/microsoft/amplifier-bundle-context-managed@main#subdirectory=modules/context-managed

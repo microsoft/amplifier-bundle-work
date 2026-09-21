@@ -4,11 +4,6 @@ bundle:
   version: 0.1.0
   description: Managed process handles, approved programmatic tools, and attributable web research.
 
-session:
-  orchestrator:
-    config:
-      programmatic_dispatch: true
-
 tools:
   - module: tool-bash
     source: git+https://github.com/microsoft/amplifier-module-tool-bash@main

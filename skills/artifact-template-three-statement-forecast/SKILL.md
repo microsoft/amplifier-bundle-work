@@ -1,6 +1,6 @@
 ---
 name: artifact-template-three-statement-forecast
-description: "Create a spreadsheet using the original Work three statement forecast reference. Use when this template is selected or requested."
+description: "Use the three statement forecast spreadsheet template."
 compatibility: "Amplifier Work collection with the spreadsheets skill and its dependencies; renderer and image-reading capability for visual QA."
 user-invocable: true
 ---

@@ -13,7 +13,7 @@ GitHub access is required. No credentials are included in the bundle.
 Use this source as a conversation's root bundle:
 
 ```text
-git+https://github.com/bkrabach/amplifier-bundle-work@main#subdirectory=bundle.md
+git+https://github.com/microsoft/amplifier-bundle-work@main#subdirectory=bundle.md
 ```
 
 The bundle and its module sources follow `main`, so host ecosystem updates can
@@ -34,11 +34,19 @@ Compose the behavior last to retain the existing provider and tool configuration
 ```yaml
 includes:
   - bundle: <your-existing-bundle>
-  - bundle: git+https://github.com/bkrabach/amplifier-bundle-work@main#subdirectory=behaviors/work-local.yaml
+  - bundle: git+https://github.com/microsoft/amplifier-bundle-work@main#subdirectory=behaviors/work-local.yaml
 ```
 
-The behavior changes the loop/context and adds transcript retrieval. It does not
-install the root's filesystem, shell, search, or delegate tools. Its sources also follow `main` through the host ecosystem updater.
+The behavior selects managed context and adds transcript retrieval while preserving
+the host's orchestrator. It does not install the root's filesystem, shell, search,
+or delegate tools. Its sources follow `main` through the host ecosystem updater.
+
+To also select Work's live loop, compose `bundles/work-session.yaml` from your root
+instead. That standalone composition includes the same behavior and supplies the
+orchestrator. Work and Anchors + Work already use it; their effective execution
+settings are unchanged. Existing consumers of `behaviors/work-local.yaml` that
+relied on it to select the loop should move that root include to
+`bundles/work-session.yaml`.
 
 ## Behavior and boundaries
 
@@ -65,13 +73,19 @@ install the root's filesystem, shell, search, or delegate tools. Its sources als
   are discovered from the host when present. The root does not emulate those
   application services or assume every host supplies them.
 
-The root and Anchors preset also include `behaviors/work-execution.yaml`. It
-opts into managed Bash handles and approved programmatic dispatch, and configures
-real DDGS web search. The lightweight `work-local.yaml` overlay remains limited
-to the loop, context and transcript tool; include `work-execution.yaml` after it
-when these additional tools are wanted. Existing tool safety policies still apply.
-Raw interpreter stdin requires an unrestricted trusted host policy. Managed
-processes do not provide PTY support or survive owner death as live handles.
+The root and Anchors preset also include `behaviors/work-execution.yaml`, which
+adds managed Bash handles, `tool_exec`, and real DDGS web search. This behavior
+preserves the host's orchestrator. The complete Work and Anchors roots enable
+approved programmatic dispatch through their orchestrator configuration; other
+compatible roots can explicitly opt in with `session.orchestrator.config.programmatic_dispatch: true`.
+The standalone `bundles/work-session.yaml` keeps its existing loop defaults.
+The lightweight `work-local.yaml` overlay remains limited to context and
+transcript retrieval; include `work-execution.yaml` for the additional tools.
+Existing tool safety policies still apply. Raw interpreter stdin requires an
+unrestricted trusted host policy. Explicitly requested PTYs are supported on
+POSIX hosts when the mounted Bash module and host policy permit them. Process
+handles do not remain live after their owner exits; inspect retained operation
+evidence rather than replaying an uncertain effect.
 
 Programmatic JavaScript runs in a fresh bounded process and calls only through
 normal tool permissions, with attributable call receipts. It cannot delegate,
@@ -112,12 +126,12 @@ Compose only the skills behavior to add the library to another root:
 ```yaml
 includes:
   - bundle: <existing-bundle>
-  - bundle: git+https://github.com/bkrabach/amplifier-bundle-work@main#subdirectory=behaviors/work-skills.yaml
+  - bundle: git+https://github.com/microsoft/amplifier-bundle-work@main#subdirectory=behaviors/work-skills.yaml
 ```
 
 This behavior follows current ecosystem branches and preserves existing
 runtime, provider, agent, and skill-source configuration. `work-local.yaml`
-remains the execution-only overlay.
+is the context/transcript behavior; `bundles/work-session.yaml` also selects the loop.
 
 Office/PDF authoring uses optional public Python dependencies:
 
@@ -158,10 +172,34 @@ Use `presets/anchors-work.md` as a root to retain Anchors tools, agents, and
 principles while applying Work execution and managed context:
 
 ```text
-git+https://github.com/bkrabach/amplifier-bundle-work@main#subdirectory=presets/anchors-work.md
+git+https://github.com/microsoft/amplifier-bundle-work@main#subdirectory=presets/anchors-work.md
 ```
 
-Register it as `anchors-work` in a consuming host. This preset follows the Anchors root on `main` and composes the Work behavior last. Anchors still owns its
+Register it as `anchors-work` in a consuming host. This preset follows the Anchors root on `main` and composes the Work session last. Anchors still owns its
 transitive dependencies and routing policy; the preset does not freeze every
 Anchors dependency or force worker models to match the parent. Configured host
 providers and policies remain in effect.
+## Contributing
+
+> [!NOTE]
+> This project is not currently accepting external contributions, but we're actively working toward opening this up. We value community input and look forward to collaborating in the future. For now, feel free to fork and experiment!
+
+Most contributions require you to agree to a
+Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
+the rights to use your contribution. For details, visit [Contributor License Agreements](https://cla.opensource.microsoft.com).
+
+When you submit a pull request, a CLA bot will automatically determine whether you need to provide
+a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
+provided by the bot. You will only need to do this once across all repos using our CLA.
+
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
+For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
+contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
+## Trademarks
+
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft
+trademarks or logos is subject to and must follow
+[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/legal/intellectualproperty/trademarks/usage/general).
+Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
+Any use of third-party trademarks or logos are subject to those third-party's policies.

@@ -1,6 +1,6 @@
 # Managed execution composition validation
 
-This opt-in behavior composes managed Bash, approved programmatic dispatch and real web retrieval. The root and Anchors preset include it; the smaller work-local overlay retains its existing scope. Providers, selected models and reasoning settings are preserved.
+This opt-in behavior composes managed Bash, tool-exec and real web retrieval without selecting or configuring an orchestrator. The complete Work root and Anchors preset include it and opt their loop into approved programmatic dispatch. The smaller work-local overlay provides context and transcript retrieval; work-session is the separate loop-selecting composition. Providers, selected models and reasoning settings are preserved.
 
 Maintained sources track `main`. Tested revisions below are evidence, not source pins. Publication depends on the required managed Bash and truthful web changes reaching their configured sources. Context checkpoint persistence additionally depends on context-managed support and a host checkpoint store.
 
@@ -25,3 +25,26 @@ The same12 underlying calls produced215531 direct output bytes (37080 cl100k tok
 ## Release boundary
 
 The behavior alone does not supply concurrent UI, durable questions, task/worker records, native desktop capture, artifact rendering or user account connectivity. It discovers those shared host actions when available. No uncertain mutation is replayed automatically. Physical-device and live account checks are recorded separately by consuming hosts. Full host release acceptance remains open.
+
+## Work session-root reconciliation
+
+The candidate incorporates Work main `2cc9f0a`, retaining its complete
+`bundles/work-session.yaml` composition and all 33 skills. Managed execution stays
+in both Work and Anchors roots; `programmatic_dispatch` is configured by those
+roots. The reusable behaviors preserve a consumer's orchestrator, and the
+standalone session composition keeps its existing loop defaults.
+
+The unchanged development lock resolves Foundation
+`829e4d8e71cfd8ba1813812bf50f90319db9aa40` and tool-skills
+`85bc17abec044e7feb8589beddec3e425317c52f`. An isolated environment using that lock
+passes all 41 composition, source-policy, skills and artifact-helper tests. Tests
+include both complete roots, all three behavior overlays, and standalone session
+loading from an unrelated directory. No provider call was made.
+
+The actual `behavior-hygiene-validation` command from Foundation recipe revision
+`fe1c19b584bc9ed8803078d299a34ce2b4b4df95` reports zero errors and two warnings:
+work-execution contributes approximately 620 context tokens against a 500-token
+warning threshold, and declares three tools against a two-tool warning threshold.
+The operating guidance and tool group remain intact; these warnings are retained
+in the validation receipt. This composition result does not establish current
+all-main module execution or host release acceptance.
