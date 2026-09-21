@@ -133,9 +133,12 @@ This behavior follows current ecosystem branches and preserves existing
 runtime, provider, agent, and skill-source configuration. `work-local.yaml`
 is the context/transcript behavior; `bundles/work-session.yaml` also selects the loop.
 
-Office/PDF authoring uses optional public Python dependencies:
+Office/PDF authoring uses optional public Python dependencies. For a new setup,
+first resolve current Amplifier dependencies and retain its private receipt:
 
 ```sh
+python3 scripts/resolve_amplifier_latest.py --mode latest --project . \
+  --evidence /absolute/private/new-work-artifact-resolution
 uv sync --locked --group dev --group artifacts
 ```
 
@@ -159,9 +162,17 @@ and acceptance tests. Composition tests verify loading from an unrelated working
 directory and preservation of existing providers/tools by the behavior overlay.
 
 ```sh
+python3 scripts/resolve_amplifier_latest.py --mode latest --project . \
+  --evidence /absolute/private/new-work-development-resolution
 uv sync --locked --group dev
 uv run --no-sync pytest -q
 ```
+
+The resolver refreshes Amplifier dependencies, including transitive packages,
+before recording the lock used by the test environment. It preserves the old
+lock as evidence. To reproduce a prior qualification, select its recorded lock
+and use `--mode replay` instead. See [latest dependency resolution](docs/LATEST-RESOLUTION.md)
+for receipt contents and boundaries.
 
 No provider calls are made by these tests. For initial Amplifier setup, see
 [the ecosystem entry point](https://github.com/microsoft/amplifier).
