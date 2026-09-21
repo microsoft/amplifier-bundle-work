@@ -14,5 +14,14 @@ jobs:
         with:
           python-version: '3.13'
       - uses: astral-sh/setup-uv@v6
+      - name: Resolve current Amplifier sources
+        run: python scripts/resolve_amplifier_latest.py --mode latest --project . --evidence "$RUNNER_TEMP/work-resolution"
       - run: uv sync --locked --group dev
       - run: uv run --no-sync pytest -q
+      - name: Retain resolved source evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: work-source-resolution
+          path: ${{ runner.temp }}/work-resolution
+          if-no-files-found: ignore
