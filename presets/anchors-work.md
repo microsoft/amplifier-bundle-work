@@ -9,6 +9,12 @@ includes:
   - bundle: git+https://github.com/microsoft/amplifier-foundation@main#subdirectory=bundles/anchors/bundle.md
   - bundle: work:behaviors/work-skills.yaml
   - bundle: work:bundles/work-session.yaml
+  - bundle: work:behaviors/work-execution.yaml
+
+session:
+  orchestrator:
+    config:
+      programmatic_dispatch: true
 ---
 
 @anchors:context/system.md

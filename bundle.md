@@ -8,6 +8,12 @@ bundle:
 includes:
   - bundle: work:bundles/work-session.yaml
   - bundle: work:behaviors/work-skills.yaml
+  - bundle: work:behaviors/work-execution.yaml
+
+session:
+  orchestrator:
+    config:
+      programmatic_dispatch: true
 
 tools:
   - module: tool-filesystem
@@ -16,8 +22,6 @@ tools:
     source: git+https://github.com/microsoft/amplifier-bundle-filesystem@main#subdirectory=modules/tool-apply-patch
     config:
       engine: native
-  - module: tool-bash
-    source: git+https://github.com/microsoft/amplifier-module-tool-bash@main
   - module: tool-search
     source: git+https://github.com/microsoft/amplifier-module-tool-search@main
   - module: tool-delegate

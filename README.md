@@ -21,8 +21,9 @@ advance them together. Hosts should stage and validate updates before activation
 and retain the installed revisions for rollback. A local checkout can also be
 selected by its absolute `bundle.md` path.
 
-The root contributes seven tool modules, including `apply_patch`, `delegate`,
-`read_transcript`, and `load_skill`. Modules may expose more than one callable tool.
+The root contributes nine tool modules, including `apply_patch`, `delegate`,
+`read_transcript`, `load_skill`, managed `bash`, `tool_exec`, `web_search` and `web_fetch`.
+Modules may expose more than one callable tool.
 It does not select a provider, model, or reasoning effort. Other capabilities
 must be composed explicitly.
 
@@ -72,6 +73,32 @@ relied on it to select the loop should move that root include to
   are discovered from the host when present. The root does not emulate those
   application services or assume every host supplies them.
 
+The root and Anchors preset also include `behaviors/work-execution.yaml`, which
+adds managed Bash handles, `tool_exec`, and real DDGS web search. This behavior
+preserves the host's orchestrator. The complete Work and Anchors roots enable
+approved programmatic dispatch through their orchestrator configuration; other
+compatible roots can explicitly opt in with `session.orchestrator.config.programmatic_dispatch: true`.
+The standalone `bundles/work-session.yaml` keeps its existing loop defaults.
+The lightweight `work-local.yaml` overlay remains limited to context and
+transcript retrieval; include `work-execution.yaml` for the additional tools.
+Existing tool safety policies still apply. Raw interpreter stdin requires an
+unrestricted trusted host policy. Explicitly requested PTYs are supported on
+POSIX hosts when the mounted Bash module and host policy permit them. Process
+handles do not remain live after their owner exits; inspect retained operation
+evidence rather than replaying an uncertain effect.
+
+Programmatic JavaScript runs in a fresh bounded process and calls only through
+normal tool permissions, with attributable call receipts. It cannot delegate,
+run background calls or retain variables. Durable operation records, asynchronous
+questions, saved task state and derived compaction persistence are optional host
+services discovered through shared actions. Unknown effects are never replayed.
+This composition alone is not evidence of ChatGPT output-quality parity.
+
+This change requires the managed-process, truthful-web and approved-dispatch
+upstream changes to be merged before publication. Draft integration uses reviewed
+local overrides; maintained sources stay on `main`. Tested revision receipts are
+evidence, never source pins. See `docs/EXECUTION-VALIDATION.md` for acceptance state.
+
 ## Work skill library
 
 The root and Anchors + Work preset include 33 on-demand skills: documents, PDF,
@@ -106,9 +133,12 @@ This behavior follows current ecosystem branches and preserves existing
 runtime, provider, agent, and skill-source configuration. `work-local.yaml`
 is the context/transcript behavior; `bundles/work-session.yaml` also selects the loop.
 
-Office/PDF authoring uses optional public Python dependencies:
+Office/PDF authoring uses optional public Python dependencies. For a new setup,
+first resolve current Amplifier dependencies and retain its private receipt:
 
 ```sh
+python3 scripts/resolve_amplifier_latest.py --mode latest --project . \
+  --evidence /absolute/private/new-work-artifact-resolution
 uv sync --locked --group dev --group artifacts
 ```
 
@@ -123,9 +153,6 @@ Unified can open standalone HTML snapshots or persistent canvas apps through
 its discovered `app_control` actions. The optional visualization host reference
 documents this path without adding an application dependency to Work.
 
-The profile does not add managed process input/output, a portable child registry,
-durable compaction checkpoints, or a persistent asynchronous-question ledger.
-It is an experimental composition, not evidence of ChatGPT quality parity.
 
 ## Ownership and validation
 
@@ -135,9 +162,17 @@ and acceptance tests. Composition tests verify loading from an unrelated working
 directory and preservation of existing providers/tools by the behavior overlay.
 
 ```sh
+python3 scripts/resolve_amplifier_latest.py --mode latest --project . \
+  --evidence /absolute/private/new-work-development-resolution
 uv sync --locked --group dev
 uv run --no-sync pytest -q
 ```
+
+The resolver refreshes Amplifier dependencies, including transitive packages,
+before recording the lock used by the test environment. It preserves the old
+lock as evidence. To reproduce a prior qualification, select its recorded lock
+and use `--mode replay` instead. See [latest dependency resolution](docs/LATEST-RESOLUTION.md)
+for receipt contents and boundaries.
 
 No provider calls are made by these tests. For initial Amplifier setup, see
 [the ecosystem entry point](https://github.com/microsoft/amplifier).

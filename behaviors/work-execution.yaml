@@ -1,0 +1,24 @@
+bundle:
+  name: work-execution
+  display_name: Work · Managed execution
+  version: 0.1.0
+  description: Managed process handles, approved programmatic tools, and attributable web research.
+
+tools:
+  - module: tool-bash
+    source: git+https://github.com/microsoft/amplifier-module-tool-bash@main
+    config:
+      managed_processes: true
+      managed_pty: true
+      # The module still rejects interpreter stdin under restricted policies.
+      managed_stdin: true
+  - module: tool-exec
+    source: git+https://github.com/microsoft/amplifier-module-tool-exec@main
+  - module: tool-web
+    source: git+https://github.com/microsoft/amplifier-module-tool-web@main
+    config:
+      search_engine: ddgs
+
+context:
+  include:
+    - work:context/work-execution.md
