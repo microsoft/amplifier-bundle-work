@@ -9,7 +9,7 @@ bundle:
 session:
   orchestrator:
     module: loop-live
-    source: git+https://github.com/bkrabach/amplifier-module-loop-live@main
+    source: git+https://github.com/microsoft/amplifier-module-loop-live@main
     config:
       background_delegate: false
       background_tools: [delegate]

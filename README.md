@@ -13,7 +13,7 @@ GitHub access is required. No credentials are included in the bundle.
 Use this source as a conversation's root bundle:
 
 ```text
-git+https://github.com/bkrabach/amplifier-bundle-work@main#subdirectory=bundle.md
+git+https://github.com/microsoft/amplifier-bundle-work@main#subdirectory=bundle.md
 ```
 
 The bundle and its module sources follow `main`, so host ecosystem updates can
@@ -33,7 +33,7 @@ Compose the behavior last to retain the existing provider and tool configuration
 ```yaml
 includes:
   - bundle: <your-existing-bundle>
-  - bundle: git+https://github.com/bkrabach/amplifier-bundle-work@main#subdirectory=behaviors/work-local.yaml
+  - bundle: git+https://github.com/microsoft/amplifier-bundle-work@main#subdirectory=behaviors/work-local.yaml
 ```
 
 The behavior changes the loop/context and adds transcript retrieval. It does not
@@ -91,7 +91,7 @@ Compose only the skills behavior to add the library to another root:
 ```yaml
 includes:
   - bundle: <existing-bundle>
-  - bundle: git+https://github.com/bkrabach/amplifier-bundle-work@main#subdirectory=behaviors/work-skills.yaml
+  - bundle: git+https://github.com/microsoft/amplifier-bundle-work@main#subdirectory=behaviors/work-skills.yaml
 ```
 
 This behavior follows current ecosystem branches and preserves existing
@@ -140,7 +140,7 @@ Use `presets/anchors-work.md` as a root to retain Anchors tools, agents, and
 principles while applying Work execution and managed context:
 
 ```text
-git+https://github.com/bkrabach/amplifier-bundle-work@main#subdirectory=presets/anchors-work.md
+git+https://github.com/microsoft/amplifier-bundle-work@main#subdirectory=presets/anchors-work.md
 ```
 
 Register it as `anchors-work` in a consuming host. This preset follows the Anchors root on `main` and composes the Work behavior last. Anchors still owns its
