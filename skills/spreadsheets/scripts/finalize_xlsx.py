@@ -9,6 +9,7 @@ import math
 import os
 from pathlib import Path
 import posixpath
+import re
 import shutil
 import subprocess
 import tempfile
@@ -51,12 +52,28 @@ def sheets(package):
 
 def aligned(source, calculated):
     from openpyxl import load_workbook
+    from openpyxl.utils.cell import quote_sheetname
     original, engine = load_workbook(source), load_workbook(calculated)
     try:
         if original.sheetnames != engine.sheetnames:
             raise ValueError('Calculated sheet identities or order changed')
         if original.epoch != engine.epoch:
             raise ValueError('Calculated date system differs')
+        sensitive = re.compile(r'(?i)(?<![\w.])(?:_xlfn\.)?(?:CELL|INFO|GET\.[A-Z]+)\s*\(')
+        for book in (original, engine):
+            settings = book.calculation
+            if settings and (settings.iterate or settings.fullPrecision is False):
+                raise ValueError('Iterative or precision-as-displayed calculation requires its native engine')
+            expressions = [item.attr_text or '' for item in book.defined_names.values()]
+            for sheet in book:
+                expressions.extend(item.attr_text or '' for item in sheet.defined_names.values())
+                expressions.extend(c.value for row in sheet for c in row if c.data_type == 'f' and isinstance(c.value, str))
+                for table in sheet.tables.values():
+                    for column in table.tableColumns:
+                        expressions.extend(value.attr_text or '' for value in
+                                           (column.calculatedColumnFormula, column.totalsRowFormula) if value is not None)
+            if any(sensitive.search(expression) for expression in expressions):
+                raise ValueError('Metadata-sensitive formulas require their native engine')
         def names(book):
             # Print areas/titles are parsed separately by openpyxl and do not
             # change cell calculation. Keep calculation names scoped by sheet.
@@ -66,8 +83,13 @@ def aligned(source, calculated):
                         # Quoted versus unquoted sheet names are equivalent;
                         # retain reference order and absolute/relative markers.
                         destinations = tuple(item.destinations)
-                        if destinations:
-                            return ('ranges', destinations)
+                        if len(destinations) == 1:
+                            sheet, reference = destinations[0]
+                            # destinations is a partial extractor: named
+                            # expressions containing arithmetic also report
+                            # RANGE. Only normalize a complete pure reference.
+                            if item.attr_text in {f'{sheet}!{reference}', f'{quote_sheetname(sheet)}!{reference}'}:
+                                return ('range', sheet, reference)
                     except (AttributeError, TypeError, ValueError):
                         pass
                 return ('expression', item.attr_text)
@@ -87,18 +109,26 @@ def aligned(source, calculated):
                                  for column in table.tableColumns))
                           for table in sheet.tables.values())
         for sheet in original:
+            hidden = lambda value: {index for index, row in value.row_dimensions.items() if row.hidden}
+            if hidden(sheet) != hidden(engine[sheet.title]):
+                raise ValueError(f'Calculated hidden rows differ in {sheet.title}; refuse stale caches')
             if tables(sheet) != tables(engine[sheet.title]):
                 raise ValueError(f'Calculated table dependencies differ in {sheet.title}; refuse stale caches')
-            before = {c.coordinate: c.value for row in sheet for c in row if c.value is not None}
-            after = {c.coordinate: c.value for row in engine[sheet.title] for c in row if c.value is not None}
+            before = {c.coordinate: (c.value, c.data_type) for row in sheet for c in row if c.value is not None}
+            after = {c.coordinate: (c.value, c.data_type) for row in engine[sheet.title] for c in row if c.value is not None}
             if before != after:
                 raise ValueError(f'Calculated inputs or formulas differ in {sheet.title}; refuse stale caches')
     finally:
         original.close(); engine.close()
 
 
-def merge_caches(source, calculated, output):
-    """Copy only verified <v>/type fields; preserve every other package part."""
+def _merge_caches(source, calculated, output):
+    """Merge trusted same-operation engine output, never arbitrary external caches.
+
+    Alignment guards detect known engine transformations; they are not a proof
+    of complete dependency equivalence or provenance. Only finalize owns the
+    supported source snapshot and fresh engine-output lifecycle.
+    """
     source, calculated, output = Path(source).resolve(), Path(calculated).resolve(), Path(output).resolve()
     if any(p.suffix.lower() != '.xlsx' for p in (source, calculated, output)):
         raise ValueError('Only ordinary XLSX files are supported')
@@ -158,9 +188,7 @@ def merge_caches(source, calculated, output):
             'outputSha256': digest(output), 'visualInspection': 'required for every final page'}
 
 
-def finalize(source, output, calculated=None):
-    if calculated:
-        return {**merge_caches(source, calculated, output), 'calculationEvidence': 'provided engine output; caller verifies provenance'}
+def finalize(source, output):
     office = os.environ.get('WORK_SOFFICE') or shutil.which('soffice')
     if not office or not Path(office).is_file():
         raise RuntimeError('Install LibreOffice or set WORK_SOFFICE to its executable')
@@ -175,15 +203,14 @@ def finalize(source, output, calculated=None):
             raise ValueError('Source changed during recalculation; refuse stale caches')
         # Publish from the exact snapshot handed to the engine. A source edit
         # after this check cannot introduce uncalculated inputs or metadata.
-        return {**merge_caches(draft, results/'workbook.xlsx', output), 'calculationEvidence': 'LibreOffice completed in isolated profile'}
+        return {**_merge_caches(draft, results/'workbook.xlsx', output), 'calculationEvidence': 'LibreOffice completed in isolated profile'}
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('source'); parser.add_argument('--output', required=True)
-    parser.add_argument('--calculated', help='Previously observed real engine output for the same inputs/formulas')
     args = parser.parse_args()
     try:
-        print(json.dumps(finalize(args.source, args.output, args.calculated), indent=2))
+        print(json.dumps(finalize(args.source, args.output), indent=2))
     except (OSError, ValueError, RuntimeError, subprocess.SubprocessError, zipfile.BadZipFile) as error:
         parser.exit(1, f'Workbook finalization failed: {error}\n')

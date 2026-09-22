@@ -55,11 +55,14 @@ verification copy. Run `${SKILL_DIR}/scripts/finalize_xlsx.py` on the final draf
 with `--output <new-final.xlsx>`. It uses LibreOffice (or `WORK_SOFFICE`), validates
 every input and formula against the calculated copy, then transfers only real
 formula caches into the original package. All other native parts are retained.
-`--calculated <verified-engine.xlsx>` may reuse retained actual engine output for
-identical inputs/formulas, scoped defined names and table dependencies; do not
-fabricate caches. The helper rejects mismatches and source edits during its
-calculation. Shared/array/data-table formulas and error results fail visibly
-instead of being flattened. Reopen the
+The supported helper always performs a fresh calculation of its immutable input
+snapshot; it does not accept precomputed caches. Do not fabricate caches. Known
+input, formula, scoped-name, table and hidden-row differences fail visibly,
+as do source edits during calculation. These conservative checks are not a
+complete proof of arbitrary workbook semantics. Metadata-sensitive
+`CELL`/`INFO`/XLM formulas, iterative or precision-as-displayed modes,
+shared/array/data-table formulas and error results fail visibly and require the
+native engine instead of being flattened. Reopen the
 delivered file with both formula and `data_only=True` views. Any subsequent save
 with openpyxl can erase caches, so finalize again after the last edit.
 
