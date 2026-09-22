@@ -43,7 +43,7 @@ def render(source, destination):
         shutil.copyfile(pdf, target)
         subprocess.run([poppler, '-png', '-r', '120', str(target), str(destination / 'page')],
                        check=True, capture_output=True, text=True, timeout=120)
-    images = sorted(destination.glob('page-*.png'))
+    images = sorted(destination.glob('page-*.png'), key=lambda path: int(path.stem.rsplit('-', 1)[1]))
     if not images:
         raise RuntimeError('PDF rasterizer produced no page images')
     return {'source': str(source), 'pdf': str(target), 'pages': [str(p) for p in images],

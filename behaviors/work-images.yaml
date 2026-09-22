@@ -1,0 +1,15 @@
+bundle:
+  name: work-images
+  display_name: Work · Image tools
+  version: 0.1.0
+  description: Enable requested paid image generation and editing through a host-selected backend.
+
+# Opting into this behavior enables requested paid image calls. The host still
+# supplies and explicitly enables the selected image backend separately.
+# This behavior neither installs a model provider nor changes the chat model.
+tools:
+  - module: tool-image
+    source: git+https://github.com/microsoft/amplifier-module-tool-image@main
+    config:
+      backend: images
+      allow_paid: true

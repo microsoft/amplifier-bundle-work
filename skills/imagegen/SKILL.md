@@ -24,6 +24,22 @@ unless requested. Inspect the result for content, spelling, framing, artifacts,
 and actual transparency when needed. Iterate on the failed property while
 preserving accepted parts.
 
+When `image_generate` is mounted, call `action: capabilities` first. A ready
+configuration is not proof of account entitlement; only a completed provider call
+establishes access. The host selects the image backend and model independently of
+the conversation model. Do not enable paid calls or change accounts implicitly.
+Use a stable `request_id` for one intended effect. For edits, provide each input's
+actual path and SHA-256; the first input is the target and the rest are references.
+Keep original files and saved output IDs. A timeout, cancellation or `unknown`
+receipt does not prove no image was generated or billed: inspect `action: status`
+and reconcile it before deliberately starting any new request.
+
+Deliver the exact returned artifact and retain its receipt. If the host advertises
+an image receipt attachment action, attach the completed receipt and supply the
+saved original's parent ID for edits. Use the host's exact saved-image inspection
+path for visual QA. A successful receipt, saved hash, or file preview alone is not
+evidence that the model received pixels. Describe missing pixel delivery honestly.
+
 If no tool is mounted, identify that requirement and continue independent work.
 An external API fallback requires an available authorized provider and credentials
 from host configuration; never expose secrets or silently select a paid service.

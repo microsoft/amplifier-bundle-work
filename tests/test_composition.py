@@ -75,7 +75,7 @@ async def test_anchors_work_preserves_anchors_capabilities(tmp_path, monkeypatch
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("behavior", ["work-local", "work-skills", "work-execution"])
+@pytest.mark.parametrize("behavior", ["work-local", "work-skills", "work-execution", "work-images"])
 async def test_reusable_behaviors_preserve_host_orchestrator(tmp_path, monkeypatch, behavior):
     monkeypatch.setenv("AMPLIFIER_HOME", str(tmp_path / "shared"))
     monkeypatch.chdir(tmp_path)
@@ -90,3 +90,20 @@ async def test_reusable_behaviors_preserve_host_orchestrator(tmp_path, monkeypat
     assert composed.session["orchestrator"] == base.session["orchestrator"]
     assert composed.providers == base.providers
     assert "tool-extra" in {row["module"] for row in composed.tools}
+
+
+@pytest.mark.asyncio
+async def test_optional_images_preserve_provider_and_require_host_configuration(tmp_path, monkeypatch):
+    monkeypatch.setenv('AMPLIFIER_HOME', str(tmp_path / 'shared'))
+    monkeypatch.chdir(tmp_path)
+    behavior = await foundation.load_bundle(str(ROOT / 'behaviors/work-images.yaml'), strict=True)
+    assert not behavior.providers and not behavior.session
+    assert behavior.tools == [{'module': 'tool-image',
+        'source': 'git+https://github.com/microsoft/amplifier-module-tool-image@main',
+        'config': {'backend': 'images', 'allow_paid': True}}]
+    root = await foundation.load_bundle(str(ROOT / 'bundle.md'), strict=True)
+    assert 'tool-image' not in {row['module'] for row in root.tools}
+    preset = await foundation.load_bundle(str(ROOT / 'presets/work-images.md'), strict=True)
+    assert not preset.providers
+    assert preset.session == root.session
+    assert 'tool-image' in {row['module'] for row in preset.tools}

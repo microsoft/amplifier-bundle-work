@@ -14,7 +14,9 @@ Do not assume installation has happened; verify imports first.
 
 If the host advertises `app_control`, discover its current `runtime.` actions.
 When `runtime.dependencies` is available, read its schema and request the
-dependency report for the calling session before choosing executables. Keep host
+dependency report for the calling session before choosing executables. If its
+schema offers import verification, request it and check the result for the
+selected authoring interpreter. Keep host
 and worker results separate: use the environment where the authoring command
 will actually run. An absent worker is not evidence that its dependencies are
 missing. Package metadata and executable version probes do not prove imports,
@@ -39,7 +41,11 @@ python <shared-directory>/render.py <input-file> --output-dir <workspace>/qa
 ```
 
 Inspect every newly created document page and slide, and every changed spreadsheet
-view. Use an available image-reading tool; opening the path in a UI is not proof
+view. Use an available image-reading tool. If the host exposes output attachment and
+image-read actions, discover their current schemas, attach each rendered PNG,
+and request the saved version's actual pixels using its identifier and digest.
+Read the returned image content before making visual corrections. A successful
+attachment alone is not image inspection; opening the path in a UI is not proof
 the agent inspected it. Correct clipping, unreadable labels, overlap, broken
 charts, empty pages, and missing fonts, then rerender affected output. A render
 command succeeding does not establish visual quality. If no renderer or image

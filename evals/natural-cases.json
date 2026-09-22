@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "memo-revise",
+      "kind": "sustained",
+      "expected_skills": [
+        "documents"
+      ],
+      "fixture": "memo",
+      "turns": [
+        "Use the current launch brief and evidence log under sources to prepare a one-page Word decision memo for Operations. Save outputs/decision.docx. The brief says which evidence is current; cite the source filenames and include the decision, owner, dates and a risk/mitigation table. Check the finished document before giving me the file.",
+        "The pilot is now three weeks, and review is 19 October 2026. Update the memo into outputs/decision-revised.docx. Keep the earlier version. Everything else, including the source evidence and owner, stays the same. Check the final layout and give me the revised file."
+      ],
+      "checks": [
+        "current evidence rather than superseded file",
+        "editable DOCX with semantic title and table",
+        "original source and first output unchanged after revision",
+        "model image review for both delivered versions",
+        "revision changes duration and review date only"
+      ]
+    },
+    {
+      "id": "deck-revise",
+      "kind": "sustained",
+      "expected_skills": [
+        "presentations"
+      ],
+      "fixture": "deck",
+      "turns": [
+        "Read sources/brief.md and sources/metrics.csv and make a three-slide editable PowerPoint for Operations deciding whether to continue the Cedar pilot. Include an evidence chart and speaker notes with the source filenames. Save outputs/review.pptx and check the final slides.",
+        "Change the recommendation to extend by one week to collect the missing weekend sample. Save outputs/review-revised.pptx, keeping the first deck and the evidence chart editable and unchanged. Check it and send the revised file."
+      ],
+      "checks": [
+        "three native editable slides",
+        "chart data equals retrieved CSV",
+        "source names in speaker notes",
+        "revision preserves chart and first output",
+        "every changed slide reviewed through model image capability"
+      ]
+    },
+    {
+      "id": "workbook-revise",
+      "kind": "sustained",
+      "expected_skills": [
+        "spreadsheets"
+      ],
+      "fixture": "workbook",
+      "turns": [
+        "Use sources/orders.csv to create an editable monthly sales workbook, outputs/sales.xlsx, with source data, formula-based totals and a revenue chart. Keep refunds negative and distinguish blank quantities from zero. Check that the totals actually calculate, then check the printed view and send the file.",
+        "Add the correction from sources/correction.csv to a new outputs/sales-revised.xlsx. Preserve outputs/sales.xlsx. Update the formulas, table and chart ranges, verify the recalculated totals and the revised printed view, and send the revised workbook."
+      ],
+      "checks": [
+        "blank not silently converted to zero",
+        "formulas and cached values",
+        "refunds negative",
+        "original file preserved",
+        "expanded data table chart and print area",
+        "actual changed-driver recalc and model image review"
+      ]
+    },
+    {
+      "id": "pdf-intake",
+      "kind": "natural",
+      "expected_skills": [
+        "pdf"
+      ],
+      "fixtures": [],
+      "turns": [
+        "Make outputs/intake.pdf, a one-page fillable intake form with a project text field and an approved checkbox. Fill a copy outputs/approved.pdf with project Cedar and the checkbox checked. Keep the blank form reusable, verify the saved field values and check the filled page before sharing it."
+      ],
+      "checks": [
+        "unflattened AcroForm source and filled copy",
+        "actual checkbox export state",
+        "model visual review"
+      ]
+    },
+    {
+      "id": "csv-definition",
+      "kind": "near-miss",
+      "expected_skills": [],
+      "forbidden_skills": [
+        "spreadsheets",
+        "excel-live-control"
+      ],
+      "turns": [
+        "In one sentence, what does CSV stand for? I do not need a file."
+      ],
+      "checks": [
+        "direct correct answer",
+        "no artifact or unrelated workflow"
+      ]
+    },
+    {
+      "id": "slide-wording",
+      "kind": "near-miss",
+      "expected_skills": [],
+      "forbidden_skills": [
+        "presentations",
+        "template-creator"
+      ],
+      "turns": [
+        "Shorten this slide title to four words: Our delivery schedule is at risk. Reply only with the title."
+      ],
+      "checks": [
+        "four word title",
+        "no deck or reusable template creation"
+      ]
+    },
+    {
+      "id": "docx-preserve",
+      "kind": "natural",
+      "expected_skills": [
+        "documents"
+      ],
+      "fixture": "fidelity-docx",
+      "turns": [
+        "In sources/styled.docx change only the project name Cedar to Aspen and save outputs/styled.docx. Preserve the headers, footer, hyperlink, bookmark, table and formatting. Check the file and final page."
+      ],
+      "checks": [
+        "native feature and source preservation",
+        "model image review"
+      ]
+    },
+    {
+      "id": "xlsx-file-vs-live",
+      "kind": "natural",
+      "expected_skills": [
+        "spreadsheets"
+      ],
+      "forbidden_skills": [
+        "excel-live-control"
+      ],
+      "fixture": "fidelity-xlsx",
+      "turns": [
+        "In sources/model.xlsx change the discount input to 15 percent and save a checked copy as outputs/model.xlsx. Preserve the validation rules, named input, charts and hidden Notes sheet. This is a file on disk."
+      ],
+      "checks": [
+        "correct file skill",
+        "native feature preservation",
+        "recalculated outputs"
+      ]
+    },
+    {
+      "id": "live-excel",
+      "kind": "adapter-boundary",
+      "expected_skills": [
+        "excel-live-control"
+      ],
+      "turns": [
+        "In my open Excel workbook, change the selected cell to 42. Use the open workbook; do not create or edit a file on disk."
+      ],
+      "checks": [
+        "live capability discovered",
+        "real adapter receipt or explicit unavailability",
+        "no simulated file substitution"
+      ]
+    },
+    {
+      "id": "template-intent",
+      "kind": "natural",
+      "expected_skills": [
+        "template-creator"
+      ],
+      "fixtures": [
+        {
+          "path": "sources/update.txt",
+          "content": "Project: <name>\nStatus: <status>\nNext: <next>\n"
+        }
+      ],
+      "turns": [
+        "Turn my original sources/update.txt format into a reusable project skill for future project updates. I authorize reusing it. Keep the source intact and verify the new skill can be loaded."
+      ],
+      "checks": [
+        "complete reusable package",
+        "source hash preserved",
+        "actual skill load"
+      ]
+    }
+  ]
+}
