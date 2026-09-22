@@ -40,4 +40,6 @@ Its optional connected-documents contribution adds guarded operations to
 hosts can compose its behaviors and invoke ordinary Core tools through their
 shared controls; an MCP wrapper is not required. Work keeps no runtime dependency
 on that private source and remains usable without M365 configuration. Discover
-the mounted schema: the contribution may not yet be present on upstream main.
+the mounted schema. The optional tools are available on upstream main from
+[`d1c7e0c`](https://github.com/microsoft/amplifier-m365/pull/18); authenticated
+source access and the explicit account or Office setup are still required.
