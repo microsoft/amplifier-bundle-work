@@ -80,3 +80,21 @@ def test_changed_named_input_recalculates_in_real_engine(fixtures):
         assert formulas['Notes'].sheet_state=='hidden'
         assert len(formulas['Inputs']._charts)==1
     assert fidelity.digest(source)==before
+
+
+@pytest.mark.parametrize('numbers,duration,review,failed', [
+    ('150 tickets, 115 second lookups', 'two-week pilot', '12 October 2026', {'sample','lookups'}),
+    ('50 tickets, 15 second lookups', 'three-week pilot', '19 October 2026', {'duration','review'}),
+    ('50 tickets, 15 second lookups', 'twenty-two-week pilot', '112 October 2026', {'duration','review'}),
+])
+def test_memo_oracle_rejects_wrong_numbers_and_dates(fixtures, numbers, duration, review, failed):
+    from docx import Document
+    output=fixtures/'outputs';output.mkdir()
+    doc=Document();doc.add_heading('Decision',0)
+    doc.add_paragraph(f'Approve {duration}. Mara Singh. Evidence: {numbers}. Review: {review}. Source: evidence-current.csv.')
+    table=doc.add_table(rows=1,cols=2)
+    table.cell(0,0).text='Missing owner';table.cell(0,1).text='Require an owner field'
+    doc.save(output/'decision.docx')
+    result=fidelity.verify_memo(fixtures)
+    assert all(result[name] is False for name in failed)
+    assert result['sources_unchanged']

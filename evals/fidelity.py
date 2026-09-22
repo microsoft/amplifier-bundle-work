@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path
 
 
@@ -125,9 +126,13 @@ def verify_memo(workspace, revised=False):
     doc=Document(path)
     text=' '.join([p.text for p in doc.paragraphs]+[cell.text for table in doc.tables for row in table.rows for cell in row.cells])
     normalized=' '.join(text.lower().split())
-    checks={key:value in normalized for key,value in {'owner':'mara singh','decision':'approve','sample':'50','lookups':'15','source':'evidence-current.csv','risk':'missing owner','mitigation':'require an owner field'}.items()}
-    checks['duration']=('three' in normalized or '3-week' in normalized or '3 week' in normalized) if revised else ('two' in normalized or '2-week' in normalized or '2 week' in normalized)
-    checks['review']=('19 october' in normalized or 'october 19' in normalized or '2026-10-19' in normalized) if revised else ('12 october' in normalized or 'october 12' in normalized or '2026-10-12' in normalized)
+    checks={key:value in normalized for key,value in {'owner':'mara singh','decision':'approve','source':'evidence-current.csv','risk':'missing owner','mitigation':'require an owner field'}.items()}
+    checks['sample']=bool(re.search(r'(?<![\d.])50(?![\d.])', normalized))
+    checks['lookups']=bool(re.search(r'(?<![\d.])15(?![\d.])', normalized))
+    weeks=r'(?:three|3)' if revised else r'(?:two|2)'
+    checks['duration']=bool(re.search(r'(?<![\w-])'+weeks+r'[ -]weeks?\b', normalized))
+    day='19' if revised else '12'
+    checks['review']=bool(re.search(r'\b(?:'+day+r' october|october '+day+r'|2026-10-'+day+r')\b', normalized))
     checks['table']=bool(doc.tables)
     checks['semantic_title']=any(p.style.name in {'Title','Heading 1'} for p in doc.paragraphs)
     hashes=json.loads((root/'source-hashes.json').read_text());checks['sources_unchanged']=all(digest(root/'sources'/name)==value for name,value in hashes.items())
