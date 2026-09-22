@@ -92,3 +92,18 @@ def test_template_supported_reference_extensions(tmp_path, extension):
     result = creator.create(source, 'sample', 'Sample format', tmp_path / 'skills')
     retained = Path(result['directory']) / result['manifest']['reference']
     assert retained.read_bytes() == source.read_bytes()
+
+
+
+def test_render_orders_double_digit_pages_numerically(tmp_path, monkeypatch):
+    source = tmp_path / 'input.pdf'
+    source.write_bytes(b'%PDF-1.7\n')
+    destination = tmp_path / 'qa'
+    monkeypatch.setattr(renderer, 'executable', lambda *args: '/fixture/pdftoppm')
+    def rasterize(*args, **kwargs):
+        for number in range(1, 13):
+            (destination / f'page-{number}.png').write_bytes(b'PNG')
+    monkeypatch.setattr(renderer.subprocess, 'run', rasterize)
+    result = renderer.render(source, destination)
+    assert [Path(path).stem for path in result['pages']] == [f'page-{n}' for n in range(1, 13)]
+    assert result['visual_inspection'] == 'required'

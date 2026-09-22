@@ -41,3 +41,31 @@ and near misses with the complete catalog. For quality-improvement claims, add a
 previous-version or no-skill baseline with the same tools/model and repeat runs.
 See [integration notes](../docs/AGENT-SKILLS.md) and
 [validation results](../docs/SKILLS-VALIDATION.md).
+
+## Natural selection and sustained work
+
+[natural-cases.json](natural-cases.json) supplies ordinary requests, near misses,
+and three two-turn retrieval/create/review/revise/deliver cases. The runner must
+show the full catalog and send `turns` verbatim, without naming skills, adding
+routing hints or asking for an evaluation marker. Expected/forbidden skills and
+check lists are observer-only. Send the revision only after saving the first
+output and its digest. Each case gets a fresh workspace/session.
+
+Start with two near misses and one sustained case, then inspect failures before
+expanding. Save actual catalog, mounted provider/model/effort, tool calls, source
+and output hashes, per-turn usage, and final delivery links. Score successful
+`load_skill` calls separately from artifact content, native feature preservation,
+actual recalculation, model-side pixel inspection, and observer visual review.
+Never count a model-written review statement or a render receipt as image input.
+A blocked external adapter is not an end-to-end pass.
+
+Build the original synthetic inputs with `evals/fidelity.py prepare <workspace>`.
+The fixtures are separate from the twenty shipped reference templates. The
+portable checks exercise native DOCX features, editable slide charts/notes and
+workbook names/validation/conditional formatting/hidden sheets. They prove local
+file structure only; native Office/cloud behavior and visual layout require
+the intended engine and recorded visual review.
+
+Do not infer cross-model parity or quality improvement from this bounded sample.
+A no-skill or previous-version comparator requires the same prompt, tools, model,
+limits and repeated runs before making that specific comparative claim.
