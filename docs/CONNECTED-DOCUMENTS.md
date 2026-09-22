@@ -32,3 +32,12 @@ For exported files, use the relevant document/spreadsheet skill and normal host
 output delivery. Synthetic adapter validation does not establish user account
 consent, an available tenant permission, successful Office installation, or visible
 workbook acceptance.
+
+
+The existing `microsoft/amplifier-m365` bundle is one native provider option.
+Its optional connected-documents contribution adds guarded operations to
+`m365_documents` and an explicitly enabled `m365_office_bridge` tool. Consuming
+hosts can compose its behaviors and invoke ordinary Core tools through their
+shared controls; an MCP wrapper is not required. Work keeps no runtime dependency
+on that private source and remains usable without M365 configuration. Discover
+the mounted schema: the contribution may not yet be present on upstream main.
