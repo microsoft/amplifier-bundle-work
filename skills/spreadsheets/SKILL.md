@@ -34,6 +34,11 @@ In openpyxl `BarChart`, `x_axis` is the category (`TextAxis`) object and
 For horizontal revenue-by-item bars, use `chart.x_axis.title = "Item"` and
 `chart.y_axis.title = "Revenue (USD)"`; do not swap these properties to match
 physical screen directions. See the [bar chart documentation](https://openpyxl.readthedocs.io/en/3.1/charts/bar.html).
+For signed bar series, set `series.invertIfNegative = False` explicitly and
+verify that negative values plot on the negative side of zero. Some LibreOffice
+imports render a missing setting incorrectly even when source formulas and
+chart caches retain the negative value. Compare every plotted category and sign
+with the calculated cells; correct tables alone do not validate a chart.
 Choose formulas supported by the intended engine. Do not replace native Excel
 Data Tables, iterative models, dynamic arrays, or pivot behavior with static
 values without the user's agreement.
@@ -44,6 +49,19 @@ copy through Excel or LibreOffice, then reopen the recalculated file with
 in a copy and confirm outputs update. Setting `fullCalcOnLoad` alone is not a
 recalculation test. Retain the original when the engine changes unsupported
 features; disclose any unverified native behavior.
+
+The delivered file must contain actual calculated results, not only a disposable
+verification copy. Run `${SKILL_DIR}/scripts/finalize_xlsx.py` on the final draft
+with `--output <new-final.xlsx>`. It uses LibreOffice (or `WORK_SOFFICE`), validates
+every input and formula against the calculated copy, then transfers only real
+formula caches into the original package. All other native parts are retained.
+`--calculated <verified-engine.xlsx>` may reuse retained actual engine output for
+identical inputs/formulas, scoped defined names and table dependencies; do not
+fabricate caches. The helper rejects mismatches and source edits during its
+calculation. Shared/array/data-table formulas and error results fail visibly
+instead of being flattened. Reopen the
+delivered file with both formula and `data_only=True` views. Any subsequent save
+with openpyxl can erase caches, so finalize again after the last edit.
 
 Render the used areas of created or changed sheets and inspect readability,
 chart labels, truncation, and page breaks. After adding rows, extend print areas,
@@ -56,6 +74,9 @@ orientation, set `page_setup.fitToWidth = 1`, `fitToHeight = 1`, and enable
 `sheet_properties.pageSetUpPr.fitToPage`. Long tables may need multiple pages
 in height instead. Check the exported page count against the intended views and
 ensure no chart or title is split across pages. Keep text readable when scaling.
+Inspect every final page, including changed source-data sheets. An attachment or
+an earlier render is not a visual check of the final file. Confirm that each
+final PNG was actually delivered as pixels to the image reader.
 Return the requested workbook and
 describe what was checked. Native Google Sheets delivery requires a real import
 connector. Do not call a static XLSX preview a live Excel session.
