@@ -105,7 +105,11 @@ The root and Anchors + Work preset include 33 on-demand skills: documents, PDF,
 presentations, spreadsheets, live Excel guidance, visualization, template creation,
 integration management, five core authoring/research/image workflows, and 20
 original reference templates. Use `load_skill` or a host's `/skill-name` support.
-The library is discovered through its bundle namespace from any workspace.
+Work owns 32 skill bodies; the canonical
+[imagegen bundle](https://github.com/microsoft/amplifier-bundle-imagegen) supplies
+the remaining `imagegen` skill through its skill-only behavior. The default Work
+root does not mount an image generator. The library is discovered through bundle
+namespaces from any workspace.
 Project and personal skills with the same name take precedence.
 Within each scope, native `.amplifier/skills` precedes shared `.agents/skills`;
 both project directories precede both personal directories. See the
@@ -173,6 +177,12 @@ before recording the lock used by the test environment. It preserves the old
 lock as evidence. To reproduce a prior qualification, select its recorded lock
 and use `--mode replay` instead. See [latest dependency resolution](docs/LATEST-RESOLUTION.md)
 for receipt contents and boundaries.
+
+For a coordinated local imagegen candidate, set `WORK_IMAGEGEN_BUNDLE` to its
+absolute checkout path when running pytest. This explicit test-only include
+override exercises its real manifests and skill without changing maintained
+sources. Without it, tests resolve the canonical imagegen bundle on `main`; that
+source must be accessible.
 
 No provider calls are made by these tests. For initial Amplifier setup, see
 [the ecosystem entry point](https://github.com/microsoft/amplifier).

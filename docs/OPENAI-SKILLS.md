@@ -3,7 +3,10 @@
 The reference task listed 13 skills (five core, eight plugins). Filesystem
 inventory on 2026-09-20 found another 20 template skills in the plugin cache:
 28 plugin skills in total. The Work library maps those 28 and the five core
-skills into 33 unique Amplifier names. Cached source files remain untouched.
+skills into 33 unique Amplifier names. Work now owns 32 bodies and composes the
+canonical [imagegen skill](https://github.com/microsoft/amplifier-bundle-imagegen/blob/main/skills/imagegen/SKILL.md)
+through the imagegen bundle's skill-only behavior. Cached source files remain
+untouched.
 
 Upstream `microsoft/amplifier-bundle-skills` was cloned at
 `57f082c7b91147a53f476e28aa6aaa4b3e1d85a0`. Its authoring workflow is named
@@ -22,7 +25,7 @@ inventory, OpenAI portability guidance, provenance, and layered validation.
 | plugin-management, plugin-creator | Amplifier bundles/MCP/Smart Tool workflows | No Codex marketplace or account connection transfer |
 | skill-creator, skill-installer | Amplifier authoring and installation guidance | Uses real skill loader and bundle namespaces |
 | openai-docs | Official-source research workflow | Needs search/fetch or authorized direct HTTPS access |
-| imagegen | Generation/edit workflow with capability checks | Needs an actual image generator; none is bundled |
+| imagegen | Canonical imagegen skill composed without a generator by default | Optional [image behavior](IMAGES.md) adds the runtime; the host supplies its backend |
 | excel-live-control | Live-workbook workflow with capability checks | Needs an actual Excel adapter; none is bundled |
 
 These are original workflow replacements. This is **not an exact port of all
@@ -39,7 +42,8 @@ fidelity effort. No public redistribution permission is assumed.
 
 Select the absolute path to this checkout's `bundle.md` in Unified, or compose
 `behaviors/work-skills.yaml` last over another root. The behavior has its own
-`work-skills` namespace rooted at the bundle directory. Preserve Foundation's
+`work-skills` namespace rooted at the bundle directory and preserves the canonical
+`imagegen` namespace for its one external skill. Preserve Foundation's
 source-base-path mapping when preparing the bundle; flattening its mount plan
 into an unrelated file loses namespaced resources.
 

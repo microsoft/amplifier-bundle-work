@@ -629,7 +629,10 @@
       ],
       "limitations": [
         "Requires a mounted image-generation tool or explicitly authorized API integration."
-      ]
+      ],
+      "target_repository": "https://github.com/microsoft/amplifier-bundle-imagegen",
+      "target_path": "skills/imagegen/SKILL.md",
+      "work_delivery": "Composed from canonical behaviors/skills.yaml; no duplicate Work skill body."
     },
     {
       "target": "openai-docs",

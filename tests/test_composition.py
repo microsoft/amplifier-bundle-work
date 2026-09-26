@@ -98,12 +98,32 @@ async def test_optional_images_preserve_provider_and_require_host_configuration(
     monkeypatch.chdir(tmp_path)
     behavior = await foundation.load_bundle(str(ROOT / 'behaviors/work-images.yaml'), strict=True)
     assert not behavior.providers and not behavior.session
-    assert behavior.tools == [{'module': 'tool-image',
-        'source': 'git+https://github.com/microsoft/amplifier-module-tool-image@main',
-        'config': {'backend': 'images', 'allow_paid': True}}]
+    assert {row['module'] for row in behavior.tools} == {'tool-image', 'tool-skills'}
+    assert next(row for row in behavior.tools if row['module'] == 'tool-image') == {
+        'module': 'tool-image',
+        'source': 'git+https://github.com/microsoft/amplifier-bundle-imagegen@main#subdirectory=modules/tool-image',
+        'config': {'backend': 'images', 'allow_paid': True}}
     root = await foundation.load_bundle(str(ROOT / 'bundle.md'), strict=True)
     assert 'tool-image' not in {row['module'] for row in root.tools}
     preset = await foundation.load_bundle(str(ROOT / 'presets/work-images.md'), strict=True)
     assert not preset.providers
     assert preset.session == root.session
     assert 'tool-image' in {row['module'] for row in preset.tools}
+    skills = next(row for row in preset.tools if row['module'] == 'tool-skills')['config']['skills']
+    assert skills == [
+        '.amplifier/skills', '.agents/skills', '~/.amplifier/skills', '~/.agents/skills',
+        '@work-skills:skills', '@imagegen:skills',
+    ]
+    assert preset.source_base_paths['imagegen'] == root.source_base_paths['imagegen']
+
+
+@pytest.mark.asyncio
+async def test_optional_images_preserve_existing_image_backend_choice(tmp_path, monkeypatch):
+    monkeypatch.setenv('AMPLIFIER_HOME', str(tmp_path / 'shared'))
+    behavior = await foundation.load_bundle(str(ROOT / 'behaviors/work-images.yaml'), strict=True)
+    host = foundation.Bundle(name='host', tools=[{'module': 'tool-image', 'config': {
+        'backend': 'selected-image-backend', 'allow_paid': False,
+    }}])
+    configured = behavior.compose(host)
+    image = next(row for row in configured.tools if row['module'] == 'tool-image')
+    assert image['config'] == {'backend': 'selected-image-backend', 'allow_paid': False}
