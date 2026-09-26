@@ -5,23 +5,8 @@ bundle:
   description: Portable Work skill library with on-demand discovery and loading.
   namespace_root: ..
 
-tools:
-  - module: tool-skills
-    source: git+https://github.com/microsoft/amplifier-bundle-skills@main#subdirectory=modules/tool-skills
-    config:
-      skills:
-        - .amplifier/skills
-        - .agents/skills
-        - ~/.amplifier/skills
-        - ~/.agents/skills
-        - "@work-skills:skills"
-      visibility:
-        enabled: true
-        inject_role: user
-        visibility_token_budget: 2500
-        ephemeral: true
-        priority: 20
-
-context:
-  include:
-    - work-skills:context/work-skills.md
+# Preserve project and personal precedence before appending the canonical image
+# skill. The skill-only include never mounts an image generator.
+includes:
+  - bundle: work-skills:behaviors/work-skill-library.yaml
+  - bundle: git+https://github.com/microsoft/amplifier-bundle-imagegen@main#subdirectory=behaviors/skills.yaml

@@ -69,3 +69,9 @@ the intended engine and recorded visual review.
 Do not infer cross-model parity or quality improvement from this bounded sample.
 A no-skill or previous-version comparator requires the same prompt, tools, model,
 limits and repeated runs before making that specific comparative claim.
+
+The `imagegen` case loads its skill from the canonical imagegen bundle through
+Work's skill-only include. Its `expect_unavailable` result applies to the default
+Work composition without an image adapter; it is not an acceptance case for the
+optional `work-images` preset. Generation and editing acceptance belong to the
+imagegen bundle and consuming host.

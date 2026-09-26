@@ -1,31 +1,37 @@
 # Optional image generation and editing
 
-`behaviors/work-images.yaml` composes the provider-neutral `tool-image` module.
-`presets/work-images.md` adds it to Work without changing the conversation's
-provider, model or orchestrator. The ordinary Work root remains unchanged.
+`behaviors/work-images.yaml` is a compatibility include for the canonical
+[amplifier-bundle-imagegen](https://github.com/microsoft/amplifier-bundle-imagegen).
+`presets/work-images.md` still adds image tools to Work without changing the
+conversation provider, model, or orchestrator. Existing source URLs for both
+Work entrypoints remain valid.
 
-The runtime module belongs in
-[amplifier-module-tool-image](https://github.com/microsoft/amplifier-module-tool-image).
-Its backend capability contract and file/receipt semantics are defined there.
-Image backend registration, account credentials, paid-call permission and model
-selection belong to the consuming host. Installing this behavior supplies none
-of those account entitlements.
+Work's ordinary root and standalone `behaviors/work-skills.yaml` compose the
+canonical bundle's **skill-only** behavior. They expose all 33 skills: 32 bodies
+owned by Work plus `imagegen` owned by the imagegen bundle. They do not mount
+`tool-image`, enable paid calls, or install an image provider. Project and personal
+skill overrides still precede both library namespaces. Work contains no second
+imagegen skill body that could shadow the canonical one.
 
-Enabling this optional behavior sets `allow_paid: true` for user-requested image
-work. The host must configure and explicitly enable its selected backend separately.
-`images` is the logical backend
-identifier in this behavior, not a provider or model name. The chosen backend must
-be mounted in the same session. Inputs and generated files remain in the execution
-workspace, with narrower configured read/write restrictions respected. Keep
-credentials in host configuration, never in this bundle or saved task prompts.
+The canonical bundle owns the
+[image skill](https://github.com/microsoft/amplifier-bundle-imagegen/blob/main/skills/imagegen/SKILL.md),
+[tool implementation](https://github.com/microsoft/amplifier-bundle-imagegen/tree/main/modules/tool-image),
+and [backend and receipt contract](https://github.com/microsoft/amplifier-bundle-imagegen/blob/main/README.md).
+Follow those sources for capability discovery, generation/editing, preserved
+originals, stable request IDs, unknown-effect reconciliation, and exact saved
+artifact inspection. Work does not duplicate that policy.
 
-Use `image_generate` capabilities before generation. Every paid effect has a
-stable request ID and a durable local receipt. Repeating an ID cannot replay an
-unknown or completed request. Edits bind the exact target/reference SHA-256
-hashes and produce new files. The imagegen skill covers saved-output delivery and
-pixel inspection when the host exposes those capabilities.
+Opting into `work-images` enables requested paid image calls through the logical
+`images` backend. The consuming host must separately configure and explicitly
+enable that backend and supply account credentials and model selection. Compose
+host-specific image settings after the behavior to retain that host's selected
+backend and paid-call policy. Installing the behavior grants no account
+entitlements and does not change the conversation provider. Keep credentials in
+host configuration, never in this bundle or saved task prompts.
 
-Sources track `@main`. During review, use an explicit local module-source override
-for the candidate tool repository and record tested commits in private validation
-evidence. The new module's remote repository must exist before this optional
-behavior can resolve without that override.
+Sources follow `@main`. Review records resolved commits as evidence, never as
+maintained source pins. Local composition tests may use the explicit
+`WORK_IMAGEGEN_BUNDLE` checkout override described in the README. They exercise
+real manifests, namespace resolution, and skill loading without provider calls;
+they do not establish image-provider entitlement or production acceptance. The
+canonical repository must be accessible before publishing this dependency.

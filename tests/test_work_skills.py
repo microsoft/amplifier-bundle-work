@@ -15,6 +15,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILL_SOURCE = "@work-skills:skills"
+IMAGE_SKILL_SOURCE = "@imagegen:skills"
 TOOL_SOURCE = (
     "git+https://github.com/microsoft/amplifier-bundle-skills@"
     "main#subdirectory=modules/tool-skills"
@@ -47,6 +48,16 @@ async def test_extension_creator_example_has_loadable_module_and_namespace(tmp_p
 
 def skill_module(bundle):
     return next(row for row in bundle.tools if row["module"] == "tool-skills")
+
+
+def expected_skills(bundle):
+    local = discover_skills(ROOT / "skills")
+    image_root = bundle.source_base_paths["imagegen"] / "skills"
+    images = discover_skills(image_root)
+    assert len(local) == 32
+    assert set(images) == {"imagegen"}
+    assert not set(local) & set(images), "Canonical skills must not be shadowed by Work copies."
+    return {**local, **images}
 
 
 @asynccontextmanager
@@ -90,6 +101,7 @@ async def test_work_roots_compose_skill_namespace_from_unrelated_workspace(
     module = skill_module(bundle)
     assert module["source"] == TOOL_SOURCE
     assert SKILL_SOURCE in module["config"]["skills"]
+    assert module["config"]["skills"][-2:] == [SKILL_SOURCE, IMAGE_SKILL_SOURCE]
     assert bundle.source_base_paths["work-skills"] == ROOT
     assert not bundle.providers
     assert bundle.session["orchestrator"]["config"]["background_delegate"] is False
@@ -123,20 +135,30 @@ async def test_skill_behavior_preserves_existing_runtime_provider_and_sources(
     assert {row["module"] for row in result.tools} == {"tool-extra", "tool-skills"}
     assert skill_module(result)["config"]["skills"] == [
         "@existing:skills", ".amplifier/skills", ".agents/skills",
-        "~/.amplifier/skills", "~/.agents/skills", SKILL_SOURCE
+        "~/.amplifier/skills", "~/.agents/skills", SKILL_SOURCE, IMAGE_SKILL_SOURCE
     ]
 
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("visibility,eager_resolver", [(True, True), (True, False), (False, False)])
+@pytest.mark.parametrize("manifest", ["bundle.md", "behaviors/work-skills.yaml", "presets/work-images.md"])
 async def test_real_loader_discovers_and_loads_every_shipped_skill(
-    tmp_path, monkeypatch, visibility, eager_resolver
+    tmp_path, monkeypatch, visibility, eager_resolver, manifest
 ):
     monkeypatch.setenv("AMPLIFIER_HOME", str(tmp_path / "shared"))
     monkeypatch.chdir(tmp_path)
-    bundle = await foundation.load_bundle(str(ROOT / "bundle.md"), strict=True)
-    expected = discover_skills(ROOT / "skills")
+    bundle = await foundation.load_bundle(str(ROOT / manifest), strict=True)
+    if manifest == "behaviors/work-skills.yaml":
+        # A behavior deliberately leaves the host's session implementation alone.
+        # The real kernel still requires those IDs even when only skills mount.
+        host = foundation.Bundle(name="skill-test-host", session={
+            "orchestrator": {"module": "test-loop"},
+            "context": {"module": "test-context"},
+        })
+        bundle = host.compose(bundle)
+    expected = expected_skills(bundle)
     skill_files = set((ROOT / "skills").glob("*/SKILL.md"))
+    skill_files |= set((bundle.source_base_paths["imagegen"] / "skills").glob("*/SKILL.md"))
     assert len(expected) == 33, "The complete port must be discoverable, not just present on disk."
     assert {row.path for row in expected.values()} == skill_files
     async with mounted_skills(
@@ -144,6 +166,7 @@ async def test_real_loader_discovers_and_loads_every_shipped_skill(
     ) as (coordinator, tool, resolver):
         assert set(tool.skills) == (set(expected) if eager_resolver else set())
         assert resolver.resolve(SKILL_SOURCE) == ROOT / "skills"
+        assert resolver.resolve(IMAGE_SKILL_SOURCE) == bundle.source_base_paths["imagegen"] / "skills"
         if not eager_resolver:
             coordinator.register_capability("mention_resolver", resolver)
         request = await coordinator.hooks.emit("provider:request", {})
@@ -164,19 +187,20 @@ async def test_real_loader_discovers_and_loads_every_shipped_skill(
         # A second request must preserve the same catalog and avoid duplicate paths.
         await coordinator.hooks.emit("provider:request", {})
         assert tool.skills_dirs.count(ROOT / "skills") == 1
+        assert tool.skills_dirs.count(bundle.source_base_paths["imagegen"] / "skills") == 1
 
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("first_scope", range(4))
+@pytest.mark.parametrize("name", ["imagegen", "artifact-template-analytics-dashboard"])
 async def test_project_native_and_shared_scopes_precede_user_and_library(
-    tmp_path, monkeypatch, first_scope
+    tmp_path, monkeypatch, first_scope, name
 ):
     monkeypatch.setenv("AMPLIFIER_HOME", str(tmp_path / "shared"))
     monkeypatch.chdir(tmp_path)
     bundle = await foundation.load_bundle(str(ROOT / "bundle.md"), strict=True)
-    expected = discover_skills(ROOT / "skills")
-    assert expected
-    name = sorted(expected)[0]
+    expected = expected_skills(bundle)
+    assert name in expected
     scopes = [
         (tmp_path / ".amplifier/skills", "Workspace-specific guidance."),
         (tmp_path / ".agents/skills", "Shared workspace guidance."),
