@@ -8,6 +8,20 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 @pytest.mark.asyncio
+@pytest.mark.parametrize("source", ["bundle.md", "behaviors/work-local.yaml",
+    "bundles/work-session.yaml", "presets/anchors-work.md", "presets/work-images.md"])
+async def test_composed_work_does_not_impose_compaction_deadlines(tmp_path, monkeypatch, source):
+    monkeypatch.setenv("AMPLIFIER_HOME", str(tmp_path / "shared"))
+    monkeypatch.chdir(tmp_path)
+    bundle = await foundation.load_bundle(str(ROOT / source), strict=True)
+    config = bundle.session["context"]["config"]
+    # A bundle-level timer previously cancelled healthy large-history requests.
+    # Exercise composition so includes/presets cannot silently restore it.
+    for key in ("summary_timeout", "summary_total_work_timeout", "native_compaction_timeout"):
+        assert key not in config
+
+
+@pytest.mark.asyncio
 async def test_root_loads_from_an_unrelated_workspace(tmp_path, monkeypatch):
     monkeypatch.setenv("AMPLIFIER_HOME", str(tmp_path / "shared"))
     monkeypatch.chdir(tmp_path)

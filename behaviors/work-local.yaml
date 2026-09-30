@@ -15,7 +15,10 @@ session:
       token_meter: actual
       summarize_trigger: 0.70
       summary_target_tokens: 1500
-      summary_timeout: 120
+      # Healthy model work can take many minutes. Do not add a compaction
+      # deadline: the former 120-second limit cancelled large summaries and
+      # caused repeated retries. Completion, provider errors and user
+      # cancellation determine when a call ends, not elapsed time.
 
 tools:
   - module: tool-transcript
