@@ -103,3 +103,30 @@ and all retained warnings/errors remain explicit limitations.
 The historical receipts above remain evidence for their recorded candidates.
 These observations are bounded integration evidence, not complete host-release
 acceptance or a claim that every validation recipe passed.
+
+## Merged upstream and public-source qualification
+
+Foundation [PR #439](https://github.com/microsoft/amplifier-foundation/pull/439)
+was squash-merged as `ab87882027bc5cb3aa74a6f6de539560b2e4d264`. Its complete
+tree matches the reviewed `7213f82` candidate, and seven enumerated Anchors/amp-dev
+runtime-resource paths match the official CLI-qualified `319a6dc` candidate. The original
+candidate commits remain historical evidence, not ancestors of the squash commit.
+All six post-merge Linux/Windows Python 3.11–3.13 jobs passed in
+[run 37360793685](https://github.com/microsoft/amplifier-foundation/actions/runs/37360793685).
+
+Work `e9317ce2a9aa338d762f42e4346a47894bc1a07a` then passed all **93 tests**
+in 48.43 seconds with Foundation's Python library from a worktree at that merge
+commit via `PYTHONPATH`. A separate fresh
+registry resolved the maintained `amplifier-foundation@main` behavior from public
+GitHub to that exact merge commit; no candidate, mirror, or local include override
+was used. Git hashes for the same seven runtime-resource paths matched the
+CLI-qualified candidate.
+Qualification used Linux Python 3.13 and core 2.0.1, with application source-store
+and install overrides removed for the test process only.
+
+The composed root preserves Work's `loop-live` / `context-managed` choices,
+provider neutrality, root instruction, and four amp-dev capability agents, with
+no Anchors runtime agents. This is library/composition qualification, not a new
+live provider run. Maintained sources still track `main`; recorded revisions are
+receipts, not pins. The failed/incomplete validation-recipe outcomes above remain
+unchanged. Downstream PR CI must separately qualify its resolved latest sources.
