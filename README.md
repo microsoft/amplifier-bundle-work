@@ -27,6 +27,43 @@ Modules may expose more than one callable tool.
 It does not select a provider, model, or reasoning effort. Other capabilities
 must be composed explicitly.
 
+## Work + Amplifier development
+
+Use the independent Work-based development root:
+
+```text
+git+https://github.com/microsoft/amplifier-bundle-work@main#subdirectory=bundles/work-amp-dev.md
+```
+
+Its exact includes are:
+
+```yaml
+includes:
+  - bundle: work:bundle.md
+  - bundle: git+https://github.com/microsoft/amplifier-foundation@main#subdirectory=behaviors/amp-dev.yaml
+```
+
+This is **Work + the portable amp-dev capability**, not Anchors + Work.
+It includes neither Anchors nor `presets/anchors-work.md`. Work retains its
+`loop-live` and `context-managed` defaults. Foundation's behavior adds the lean
+`amp-dev:amplifier-dev-expert`, short ecosystem instructions, and the Tester
+behavior with DTU/Gitea capabilities; it selects no orchestrator or context
+manager. Applications may override the complete root's runtime defaults.
+
+Both Work roots explicitly load `@work:context/system.md`, the unchanged
+operating instruction shared at that path. Root bodies replace included bodies,
+so the variant preserves Work's instruction rather than relying on include
+fallback. The amp-dev context accumulates through its behavior and is not
+repeated in either body.
+
+Work is included first. List-valued tool configuration accumulates parent-first,
+so Work skill sources precede sources contributed by the amp-dev dependency
+chain; reversing the includes is not a byte-identical composition. Verify the
+intended same-name skill precedence. Local composition and prompt-construction
+qualification passes; an isolated host also passed authenticated HTTPS, real
+root/expert execution and browser conversation reload checks.
+See [execution validation](docs/EXECUTION-VALIDATION.md).
+
 ## Extend an existing bundle
 
 Compose the behavior last to retain the existing provider and tool configuration:
@@ -37,16 +74,20 @@ includes:
   - bundle: git+https://github.com/microsoft/amplifier-bundle-work@main#subdirectory=behaviors/work-local.yaml
 ```
 
-The behavior selects managed context and adds transcript retrieval while preserving
-the host's orchestrator. It does not install the root's filesystem, shell, search,
-or delegate tools. Its sources follow `main` through the host ecosystem updater.
+The behavior adds transcript retrieval while preserving both the host's
+orchestrator and context manager. It does not install the root's filesystem,
+shell, search, or delegate tools. Its sources follow `main` through the host
+ecosystem updater.
 
-To also select Work's live loop, compose `bundles/work-session.yaml` from your root
-instead. That standalone composition includes the same behavior and supplies the
-orchestrator. Work and Anchors + Work already use it; their effective execution
-settings are unchanged. Existing consumers of `behaviors/work-local.yaml` that
-relied on it to select the loop should move that root include to
-`bundles/work-session.yaml`.
+To select Work's live loop **and** managed context, compose
+`bundles/work-session.yaml` from your root instead. That session composition
+includes the same transcript behavior and selects `loop-live` plus
+`context-managed`. Work and Anchors + Work already use it; moving context
+selection there leaves their declared runtime defaults unchanged. Existing
+consumers of `behaviors/work-local.yaml` that relied on it to select managed
+context must move that root include to `bundles/work-session.yaml`, or choose
+their context manager explicitly in their own complete root. This migration does
+not imply any behavior should choose a host runtime.
 
 ## Behavior and boundaries
 
@@ -75,12 +116,13 @@ relied on it to select the loop should move that root include to
 
 The root and Anchors preset also include `behaviors/work-execution.yaml`, which
 adds managed Bash handles, `tool_exec`, and real DDGS web search. This behavior
-preserves the host's orchestrator. The complete Work and Anchors roots enable
-approved programmatic dispatch through their orchestrator configuration; other
+preserves both the host's orchestrator and context manager. The complete Work and
+Anchors roots enable approved programmatic dispatch through their orchestrator
+configuration; other
 compatible roots can explicitly opt in with `session.orchestrator.config.programmatic_dispatch: true`.
-The standalone `bundles/work-session.yaml` keeps its existing loop defaults.
-The lightweight `work-local.yaml` overlay remains limited to context and
-transcript retrieval; include `work-execution.yaml` for the additional tools.
+The standalone `bundles/work-session.yaml` keeps its existing loop defaults and
+now owns managed-context selection. The lightweight `work-local.yaml` overlay is
+transcript-only; include `work-execution.yaml` for the additional tools.
 Existing tool safety policies still apply. Raw interpreter stdin requires an
 unrestricted trusted host policy. Explicitly requested PTYs are supported on
 POSIX hosts when the mounted Bash module and host policy permit them. Process
@@ -134,8 +176,9 @@ includes:
 ```
 
 This behavior follows current ecosystem branches and preserves existing
-runtime, provider, agent, and skill-source configuration. `work-local.yaml`
-is the context/transcript behavior; `bundles/work-session.yaml` also selects the loop.
+runtime, provider, and agent configuration while accumulating skill sources.
+`work-local.yaml` is the transcript-only behavior; `bundles/work-session.yaml`
+selects both the loop and context manager.
 
 Office/PDF authoring uses optional public Python dependencies. For a new setup,
 first resolve current Amplifier dependencies and retain its private receipt:

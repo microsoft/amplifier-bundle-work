@@ -1,25 +1,11 @@
 bundle:
   name: work-local
-  display_name: Work · Local execution
-  version: 0.2.0
-  description: Boundary context and transcript retrieval for an existing execution host.
+  display_name: Work · Transcript retrieval
+  version: 0.3.0
+  description: Transcript retrieval without selecting the host's execution or context runtime.
 
 # No model/provider override: experiments keep the user's chosen provider.
 # Sources follow main; hosts own update validation, credentials and live transport.
-session:
-  context:
-    module: context-managed
-    source: git+https://github.com/microsoft/amplifier-bundle-context-managed@main#subdirectory=modules/context-managed
-    config:
-      engine: boundary
-      token_meter: actual
-      summarize_trigger: 0.70
-      summary_target_tokens: 1500
-      # Healthy model work can take many minutes. Do not add a compaction
-      # deadline: the former 120-second limit cancelled large summaries and
-      # caused repeated retries. Completion, provider errors and user
-      # cancellation determine when a call ends, not elapsed time.
-
 tools:
   - module: tool-transcript
     source: git+https://github.com/microsoft/amplifier-bundle-context-managed@main#subdirectory=modules/tool-transcript
