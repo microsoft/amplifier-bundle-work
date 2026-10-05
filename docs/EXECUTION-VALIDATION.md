@@ -74,6 +74,32 @@ in that prompt check; it is not a live provider or application result.
 List-valued configuration accumulates parent-first, so a different include order
 must not be described as a byte-identical mount plan without evidence.
 
-The historical receipts above remain evidence for their recorded candidates,
-not this migration. Live provider, DTU and LAN application acceptance remain
-pending; consuming-host acceptance owns that interactive boundary.
+The coordinated candidate was qualified in an isolated consuming host:
+Work `0292a0457e5fe6c6ac0f03ea3c200f915b41b3b2` and Foundation
+`98f4f82aeb3d422e9ff8778735d466606178d8bb`. The installed application and worker
+Foundation provenance and ten bundle/resource hashes matched those candidates.
+Trusted HTTPS, authenticated login, a real root response and a real amp-dev expert
+spawn passed. The mounted root retained managed context and had no Anchors runtime
+agents. A rendered browser created a Work amp-dev conversation, received a model
+response and retained the conversation after reload. This checks the host's LAN-IP
+endpoint, not routing from a separate physical LAN client. Immediate reload after
+typing lost an unsent draft; reload after the normal save settled retained it.
+
+Full bundle and agent recipes were also invoked on both repositories. The initial
+Foundation bundle run stopped at an oversized shell argument; agent report
+generation was cancelled. Work's local agent scan completed with zero agents
+(not validation of composed external agents), and bundle analysis did not produce
+a final report. Individual-manifest checks do not prove recursive composition.
+A cause-specific large-payload transport correction passed 73 regression checks;
+the corrected Foundation recipe reached final synthesis with a FAIL verdict.
+It retained two existing context-budget errors and two compatibility-wrapper
+resolution errors against cached remote Foundation rather than the candidate.
+Its composition analysis timed out, so the completed recipe does not establish
+full recursive coverage. The new amp-dev behavior and lean expert passed their
+deterministic checks. Work's unfinished bundle run was not replayed; cancellation
+was requested, without a confirmed terminal record. Missing build dependencies
+and all retained warnings/errors remain explicit limitations.
+
+The historical receipts above remain evidence for their recorded candidates.
+These observations are bounded integration evidence, not complete host-release
+acceptance or a claim that every validation recipe passed.

@@ -60,7 +60,8 @@ Work is included first. List-valued tool configuration accumulates parent-first,
 so Work skill sources precede sources contributed by the amp-dev dependency
 chain; reversing the includes is not a byte-identical composition. Verify the
 intended same-name skill precedence. Local composition and prompt-construction
-qualification passes; interactive DTU acceptance remains pending.
+qualification passes; an isolated host also passed authenticated HTTPS, real
+root/expert execution and browser conversation reload checks.
 See [execution validation](docs/EXECUTION-VALIDATION.md).
 
 ## Extend an existing bundle
