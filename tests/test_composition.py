@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("source", ["bundle.md", "behaviors/work-local.yaml",
+@pytest.mark.parametrize("source", ["bundle.md", "bundles/work-amp-dev.md",
     "bundles/work-session.yaml", "presets/anchors-work.md", "presets/work-images.md"])
 async def test_composed_work_does_not_impose_compaction_deadlines(tmp_path, monkeypatch, source):
     monkeypatch.setenv("AMPLIFIER_HOME", str(tmp_path / "shared"))
@@ -33,7 +33,8 @@ async def test_root_loads_from_an_unrelated_workspace(tmp_path, monkeypatch):
     assert '@main#' in patch['source']
     assert patch['config'] == {'engine': 'native'}
     assert not bundle.providers
-    assert "agent: self" in bundle.instruction
+    assert bundle.instruction.strip() == "@work:context/system.md"
+    assert "agent: self" in (ROOT / "context/system.md").read_text()
     assert plan['session']['orchestrator']['config']['programmatic_dispatch'] is True
     bash = next(tool for tool in bundle.tools if tool['module'] == 'tool-bash')
     assert bash['config']['managed_processes'] is True
@@ -51,7 +52,7 @@ async def test_overlay_preserves_provider_and_unrelated_tools(tmp_path, monkeypa
     overlay = await foundation.load_bundle(str(ROOT / "behaviors/work-local.yaml"), strict=True)
     result = base.compose(overlay)
     assert result.providers == base.providers
-    assert result.session["context"]["module"] == "context-managed"
+    assert result.session["context"] == base.session["context"]
     assert {tool["module"] for tool in result.tools} == {"tool-extra", "tool-transcript"}
     assert result.session["orchestrator"] == base.session["orchestrator"]
 
@@ -90,18 +91,19 @@ async def test_anchors_work_preserves_anchors_capabilities(tmp_path, monkeypatch
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("behavior", ["work-local", "work-skills", "work-execution", "work-images"])
-async def test_reusable_behaviors_preserve_host_orchestrator(tmp_path, monkeypatch, behavior):
+async def test_reusable_behaviors_preserve_host_runtimes(tmp_path, monkeypatch, behavior):
     monkeypatch.setenv("AMPLIFIER_HOME", str(tmp_path / "shared"))
     monkeypatch.chdir(tmp_path)
     base = foundation.Bundle(name="configured",
         providers=[{"module": "provider-test", "config": {"default_model": "chosen"}}],
         tools=[{"module": "tool-extra"}],
         session={"orchestrator": {"module": "existing-loop", "config": {
-            "programmatic_dispatch": False, "host_setting": "preserved"}}})
+            "programmatic_dispatch": False, "host_setting": "preserved"}},
+            "context": {"module": "existing-context", "config": {"host_setting": "preserved"}}})
     overlay = await foundation.load_bundle(str(ROOT / f"behaviors/{behavior}.yaml"), strict=True)
-    assert "orchestrator" not in overlay.session
+    assert not {"orchestrator", "context"} & overlay.session.keys()
     composed = base.compose(overlay)
-    assert composed.session["orchestrator"] == base.session["orchestrator"]
+    assert composed.session == base.session
     assert composed.providers == base.providers
     assert "tool-extra" in {row["module"] for row in composed.tools}
 

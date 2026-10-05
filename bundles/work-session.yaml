@@ -1,15 +1,24 @@
 bundle:
   name: work-session
   display_name: Work · Local session
-  version: 0.1.0
+  version: 0.2.0
   description: Work live execution with boundary context and transcript retrieval.
   namespace_root: ..
 
 includes:
   - bundle: work:behaviors/work-local.yaml
 
-# Complete execution compositions select the loop; behaviors leave that to hosts.
+# Complete execution compositions select both runtimes; behaviors leave them to hosts.
 session:
+  context:
+    module: context-managed
+    source: git+https://github.com/microsoft/amplifier-bundle-context-managed@main#subdirectory=modules/context-managed
+    config:
+      engine: boundary
+      token_meter: actual
+      summarize_trigger: 0.70
+      summary_target_tokens: 1500
+      # No compaction deadline: completion, provider errors and cancellation end it.
   orchestrator:
     module: loop-live
     source: git+https://github.com/microsoft/amplifier-module-loop-live@main

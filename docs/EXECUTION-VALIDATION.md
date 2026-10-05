@@ -1,6 +1,6 @@
 # Managed execution composition validation
 
-This opt-in behavior composes managed Bash, tool-exec and real web retrieval without selecting or configuring an orchestrator. The complete Work root and Anchors preset include it and opt their loop into approved programmatic dispatch. The smaller work-local overlay provides context and transcript retrieval; work-session is the separate loop-selecting composition. Providers, selected models and reasoning settings are preserved.
+This opt-in behavior composes managed Bash, tool-exec and real web retrieval without selecting or configuring an orchestrator or context manager. The complete Work root and Anchors preset include it and opt their loop into approved programmatic dispatch. The smaller work-local overlay provides transcript retrieval only; work-session is the separate composition selecting both loop-live and context-managed. Providers, selected models and reasoning settings are preserved.
 
 Maintained sources track `main`. Tested revisions below are evidence, not source pins. Publication depends on the required managed Bash and truthful web changes reaching their configured sources. Context checkpoint persistence additionally depends on context-managed support and a host checkpoint store.
 
@@ -48,3 +48,32 @@ warning threshold, and declares three tools against a two-tool warning threshold
 The operating guidance and tool group remain intact; these warnings are retained
 in the validation receipt. This composition result does not establish current
 all-main module execution or host release acceptance.
+
+## Portable amp-dev and runtime-boundary migration
+
+The new `bundles/work-amp-dev.md` composes `work:bundle.md` followed by
+Foundation's `behaviors/amp-dev.yaml`. It includes neither Anchors nor the
+Anchors + Work preset. The portable behavior owns the lean
+`amp-dev:amplifier-dev-expert`, short ecosystem instruction, and Tester behavior
+with its transitive DTU/Gitea capabilities; it selects no runtime.
+
+Work's existing root instruction now lives unchanged in `context/system.md` and
+is explicitly loaded by both Work roots. Context-manager selection moved from
+`behaviors/work-local.yaml` into `bundles/work-session.yaml`; the former is
+transcript-only and preserves both host runtimes. Complete roots/session
+compositions choose runtime defaults, which applications may override.
+
+Local qualification passes all **93 Work tests**, using the coordinated
+Foundation candidate. Its **227 focused tests** also pass. Checks cover unrelated
+working-directory loading, namespace and expert resolution, preservation of
+Work's loop/context defaults and operating instruction, behavior overlays
+preserving both consumer runtimes, and intended skill-source precedence.
+Production prompt construction loads Work's instruction and ecosystem context
+once and resolves the expert's spawn-only references. Module activation is mocked
+in that prompt check; it is not a live provider or application result.
+List-valued configuration accumulates parent-first, so a different include order
+must not be described as a byte-identical mount plan without evidence.
+
+The historical receipts above remain evidence for their recorded candidates,
+not this migration. Live provider, DTU and LAN application acceptance remain
+pending; consuming-host acceptance owns that interactive boundary.
