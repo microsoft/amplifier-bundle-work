@@ -90,7 +90,7 @@ async def test_anchors_work_preserves_anchors_capabilities(tmp_path, monkeypatch
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("behavior", ["work-local", "work-skills", "work-execution", "work-images"])
+@pytest.mark.parametrize("behavior", ["work-local", "work-skills", "work-execution", "work-images", "work-ui-use", "work-decision-models"])
 async def test_reusable_behaviors_preserve_host_runtimes(tmp_path, monkeypatch, behavior):
     monkeypatch.setenv("AMPLIFIER_HOME", str(tmp_path / "shared"))
     monkeypatch.chdir(tmp_path)
