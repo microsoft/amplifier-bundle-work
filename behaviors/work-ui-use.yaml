@@ -3,17 +3,6 @@ bundle:
   version: 0.1.0
   description: Optional bounded UI tasks with ordinary model selection by default.
 
-# The spike components are unpublished. Resolve this module from an explicitly
-# installed distribution or a host-owned source override; no implicit download.
-tools:
-  - module: tool-ui-use
-    config:
-      selection:
-        browser:
-          mode: standard
-        computer:
-          mode: standard
-
-context:
-  include:
-    - work:context/ui-use.md
+# Compatibility alias. Work's main root already includes this behavior.
+includes:
+  - bundle: git+https://github.com/microsoft/amplifier-bundle-ui-use@main#subdirectory=behaviors/ui-use.yaml
