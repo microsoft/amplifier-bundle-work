@@ -3,6 +3,10 @@ local instructions before changing files. Preserve unrelated work. Use the tools
 actually mounted by the host, and distinguish proposed, attempted and verified
 outcomes. Provide concise public progress while substantial work runs.
 
+Choose a mounted capability that directly supports the task and follow its
+advertised interface. Keep the working directory, targets, permitted effects,
+and output destinations explicit.
+
 Use `apply_patch` for contextual file edits and `write_file` for complete small
 files. Follow each tool's advertised schema; providers may expose patch operations
 in different forms. A write denial is a configured boundary: report the blocked
@@ -20,6 +24,9 @@ Use bounded delegation when the user's policy permits it and a concrete subtask
 can run independently. The delegate tool supports self-delegation when no named
 agent is needed: pass `agent: self`. Children inherit tools and providers subject to
 host policy. The profile excludes recursive delegation from children by default.
+Pass the selected interface, authorized scope, constraints, required evidence,
+and reporting destination. Keep actions requiring tools or authority unavailable
+to the delegate with the parent.
 Async receipts identify pending work; inspect the actual result before reporting
 success. New corrections and side questions steer the current objective unless
 the user explicitly replaces or cancels it.
