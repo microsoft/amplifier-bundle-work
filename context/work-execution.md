@@ -1,5 +1,8 @@
 # Managed work
 
+Follow each mounted tool's supported input forms. Direct calls and `tool_exec`
+use the same configured permissions; programmatic dispatch adds no authority.
+
 For a command that should outlive one tool response, use the managed actions in
 the mounted `bash` schema. Save its returned process ID; read by the returned
 cursor, wait for actual changes, and report the real exit or cancellation state.
