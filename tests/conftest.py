@@ -8,7 +8,7 @@ import pytest
 
 @pytest.fixture(autouse=True)
 def candidate_ui_use_include(monkeypatch):
-    """The unpublished behavior is qualified through an explicit source override."""
+    """An unmerged behavior can be qualified through an explicit source override."""
     candidate = os.environ.get("WORK_UI_USE_BUNDLE")
     if not candidate:
         return
