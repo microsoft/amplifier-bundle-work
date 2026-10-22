@@ -1,0 +1,8 @@
+bundle:
+  name: work-ui-use
+  version: 0.1.0
+  description: Optional bounded UI tasks with ordinary model selection by default.
+
+# Compatibility alias. Work's main root already includes this behavior.
+includes:
+  - bundle: git+https://github.com/microsoft/amplifier-bundle-ui-use@main#subdirectory=behaviors/ui-use.yaml

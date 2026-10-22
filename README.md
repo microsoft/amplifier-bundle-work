@@ -21,11 +21,36 @@ advance them together. Hosts should stage and validate updates before activation
 and retain the installed revisions for rollback. A local checkout can also be
 selected by its absolute `bundle.md` path.
 
-The root contributes nine tool modules, including `apply_patch`, `delegate`,
+The root contributes tool modules including `apply_patch`, `delegate`,
 `read_transcript`, `load_skill`, managed `bash`, `tool_exec`, `web_search` and `web_fetch`.
-Modules may expose more than one callable tool.
+Modules may expose more than one callable tool. It also includes the portable
+UI-use behavior for bounded browser/computer tasks.
 It does not select a provider, model, or reasoning effort. Other capabilities
 must be composed explicitly.
+
+## UI-use development candidate
+
+The main Work root includes
+`amplifier-bundle-ui-use@main#subdirectory=behaviors/ui-use.yaml` once.
+Work-amp-dev inherits it through its existing Work include; it needs no separate
+UI-use configuration. The old `work-ui-use` behavior is a compatibility alias.
+All controller/executor composition belongs in the UI-use bundle, not Work.
+
+Ordinary selection is the default. Provider credentials, an installed decision
+package or a registered backend do not opt a surface into decision selection.
+Existing provider configuration owns optional decision endpoints; UI-use selects
+a named backend only when explicitly configured. Browser installation, allowed
+origins and desktop access remain machine/host configuration. No browser opens
+and no model runs at inclusion time; the common behavior installs no browser SDK,
+decision SDK or desktop executor. A host can supply managed or connected browser
+targets; local browser execution uses UI-use's optional `browser` extra. Desktop
+execution remains in canonical computer-use, enabled separately by the host or
+UI-use's `behaviors/computer.yaml`. Adding Work does not grant device access.
+
+UI-use and the runtime dispatch capabilities are coordinated dependencies. Test
+local candidates with explicit source overrides, including `WORK_UI_USE_BUNDLE`
+for composition tests. Publish those dependencies before merging this canonical
+Work include.
 
 ## Work + Amplifier development
 

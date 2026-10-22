@@ -7,6 +7,27 @@ import pytest
 
 
 @pytest.fixture(autouse=True)
+def candidate_ui_use_include(monkeypatch):
+    """An unmerged behavior can be qualified through an explicit source override."""
+    candidate = os.environ.get("WORK_UI_USE_BUNDLE")
+    if not candidate:
+        return
+    root = Path(candidate).expanduser().resolve(strict=True)
+    original_init = BundleRegistry.__init__
+    canonical = "git+https://github.com/microsoft/amplifier-bundle-ui-use@main#subdirectory=behaviors/ui-use.yaml"
+
+    def init(registry, *args, **kwargs):
+        prior = kwargs.get("include_source_resolver")
+        def resolve(source):
+            if source == canonical:
+                return str(root / "behaviors/ui-use.yaml")
+            return prior(source) if prior else None
+        kwargs["include_source_resolver"] = resolve
+        original_init(registry, *args, **kwargs)
+    monkeypatch.setattr(BundleRegistry, "__init__", init)
+
+
+@pytest.fixture(autouse=True)
 def candidate_foundation_include(monkeypatch):
     """Qualify unpublished Foundation manifests without changing maintained URLs."""
     candidate = os.environ.get("WORK_FOUNDATION_BUNDLE")

@@ -9,6 +9,7 @@ includes:
   - bundle: work:bundles/work-session.yaml
   - bundle: work:behaviors/work-skills.yaml
   - bundle: work:behaviors/work-execution.yaml
+  - bundle: git+https://github.com/microsoft/amplifier-bundle-ui-use@main#subdirectory=behaviors/ui-use.yaml
 
 session:
   orchestrator:
