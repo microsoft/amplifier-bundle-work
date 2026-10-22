@@ -1,4 +1,5 @@
 """Work plus amp-dev preserves Work, not an Anchors-derived host."""
+import os
 from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock
 
@@ -48,12 +49,13 @@ async def test_work_amp_dev_preserves_work_and_resolves_portable_expert(tmp_path
 
 
 @pytest.mark.asyncio
-async def test_actual_root_and_delegated_prompts_preserve_instruction_once(tmp_path, monkeypatch):
+@pytest.mark.parametrize("source", ["bundle.md", "bundles/work-amp-dev.md", "presets/anchors-work.md"])
+async def test_actual_root_and_delegated_prompts_preserve_instruction_once(tmp_path, monkeypatch, source):
     """Exercise production prompt construction; module activation/model calls are separate DTU checks."""
     monkeypatch.setenv("AMPLIFIER_HOME", str(tmp_path / "shared"))
     monkeypatch.chdir(tmp_path)
     (tmp_path / "AGENTS.md").write_text("host conventions sentinel")
-    bundle = await load_bundle(str(ROOT / "bundles/work-amp-dev.md"), strict=True)
+    bundle = await load_bundle(str(ROOT / source), strict=True)
     bundle.load_agent_metadata()
     monkeypatch.setattr(ModuleActivator, "activate_all", AsyncMock(return_value={}))
     monkeypatch.setattr(ModuleActivator, "finalize", lambda self: None)
@@ -63,18 +65,38 @@ async def test_actual_root_and_delegated_prompts_preserve_instruction_once(tmp_p
     session = MagicMock()
     session.coordinator.hooks.emit = AsyncMock()
     prompt = await prepared.create_system_prompt_factory(session, session_cwd=tmp_path)()
-    assert prompt.count((ROOT / "context/system.md").read_text().strip()) == 1
-    assert prompt.count("# Amplifier Ecosystem") == 1
-    assert "Principles governing every action" not in prompt
-    expert = prepared.mount_plan["agents"]["amp-dev:amplifier-dev-expert"]
-    child = bundle.compose(Bundle(name="amp-dev:amplifier-dev-expert",
-                                  instruction=expert["instruction"]))
+    work_root = source != "presets/anchors-work.md"
+    assert prompt.count((ROOT / "context/system.md").read_text().strip()) == int(work_root)
+    assert ("Principles governing every action" in prompt) is not work_root
+    normalized = " ".join(prompt.split())
+    assert normalized.count("Choose a mounted capability that directly supports the task") == 1
+    assert "selected interface, authorized scope, constraints, required evidence" in normalized
+    assert "reporting destination" in normalized
+    assert prompt.count((ROOT / "context/work-execution.md").read_text().strip()) == 1
+    assert "# Agent Baseline" not in prompt
+    if source == "bundle.md":
+        assert not prepared.mount_plan.get("agents")
+        return
+    name = ("amp-dev:amplifier-dev-expert" if source == "bundles/work-amp-dev.md"
+            else "anchors:builder")
+    expert = prepared.mount_plan["agents"][name]
+    candidate_tester = os.environ.get("WORK_TESTER_BUNDLE")
+    if source == "bundles/work-amp-dev.md" and candidate_tester:
+        assert bundle.source_base_paths["amplifier-tester"] == Path(candidate_tester).resolve()
+        tester = prepared.mount_plan["agents"]["amplifier-tester:validator"]
+        assert "inspect the home and mounts from inside the environment" in " ".join(
+            tester["instruction"].split()
+        )
+    child = bundle.compose(Bundle(name=name, instruction=expert["instruction"]))
     child_prepared = await child.prepare(install_deps=False)
     child_prepared.bundle.resolve_pending_context()
     child_prompt = await child_prepared.create_system_prompt_factory(session, session_cwd=tmp_path)()
-    assert "# Amplifier Ecosystem Map" in child_prompt
-    assert "# Amplifier Development Workflows" in child_prompt
-    assert "# Amplifier Testing Patterns" in child_prompt
+    if source == "bundles/work-amp-dev.md":
+        assert "# Amplifier Ecosystem Map" in child_prompt
+        assert "# Amplifier Development Workflows" in child_prompt
+        assert "# Amplifier Testing Patterns" in child_prompt
     assert child_prompt.count("# Agent Baseline") == 1
+    assert "within both task authorization and session permissions" in child_prompt
+    assert "selected interface, authorized scope, constraints, required evidence" not in " ".join(child_prompt.split())
     assert (ROOT / "context/system.md").read_text().strip() not in child_prompt
     assert "host conventions sentinel" not in child_prompt

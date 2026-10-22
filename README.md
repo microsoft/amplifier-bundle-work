@@ -41,7 +41,11 @@ package or a registered backend do not opt a surface into decision selection.
 Existing provider configuration owns optional decision endpoints; UI-use selects
 a named backend only when explicitly configured. Browser installation, allowed
 origins and desktop access remain machine/host configuration. No browser opens
-and no model runs at inclusion time; the common behavior installs no browser SDK.
+and no model runs at inclusion time; the common behavior installs no browser SDK,
+decision SDK or desktop executor. A host can supply managed or connected browser
+targets; local browser execution uses UI-use's optional `browser` extra. Desktop
+execution remains in canonical computer-use, enabled separately by the host or
+UI-use's `behaviors/computer.yaml`. Adding Work does not grant device access.
 
 The new UI-use repository and runtime capability are still unpublished. Test them
 with explicit source overrides, including `WORK_UI_USE_BUNDLE` for composition
