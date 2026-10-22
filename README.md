@@ -47,9 +47,10 @@ targets; local browser execution uses UI-use's optional `browser` extra. Desktop
 execution remains in canonical computer-use, enabled separately by the host or
 UI-use's `behaviors/computer.yaml`. Adding Work does not grant device access.
 
-The new UI-use repository and runtime capability are still unpublished. Test them
-with explicit source overrides, including `WORK_UI_USE_BUNDLE` for composition
-tests. Publish those dependencies before merging this canonical Work include.
+UI-use and the runtime dispatch capabilities are coordinated dependencies. Test
+local candidates with explicit source overrides, including `WORK_UI_USE_BUNDLE`
+for composition tests. Publish those dependencies before merging this canonical
+Work include.
 
 ## Work + Amplifier development
 
