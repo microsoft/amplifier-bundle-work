@@ -26,7 +26,7 @@ async def test_work_amp_dev_preserves_work_and_resolves_portable_expert(tmp_path
     assert dev.session["orchestrator"]["module"] == "loop-live"
     assert dev.session["context"]["module"] == "context-managed"
     assert not any(name.startswith("anchors:") for name in dev.agents)
-    assert set(dev.agents) == {"amp-dev:amplifier-dev-expert",
+    assert set(dev.agents) == set(base.agents) | {"amp-dev:amplifier-dev-expert",
         "amplifier-tester:setup-digital-twin", "amplifier-tester:validator",
         "digital-twin-universe:dtu-profile-builder"}
     prepared = PreparedBundle({}, BundleModuleResolver(module_paths={}), dev)
