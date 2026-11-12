@@ -41,15 +41,18 @@ Finish the authorized installation in the current conversation:
    check alone does not prove installation; keep refused or unknown effects explicit.
 2. Refresh the destination source with `load_skill(source="/absolute/skills")`,
    using its resolved path. An already configured directory can need this refresh
-   after a new skill is written. Do not require a chat reload or another user Go.
+   after a new skill is written. Check current catalog collisions first: source
+   discovery can shadow a same-named runtime-overlay skill. Do not require a chat
+   reload or another user Go.
 3. Use `load_skill(info="installed-name")` to verify the winning path and inspect
-   the installed files and resources. Source refresh adds unknown names; existing
-   catalog names keep precedence. Report shadowing rather than replacing a winner
-   or claiming an existing name's metadata was refreshed.
+   the installed files and resources. Source refresh adds names absent from the
+   source-discovered catalog and preserves its existing entries; it does not
+   refresh their cached metadata. Report shadowing rather than replacing a winner.
 4. Verify catalog visibility. For an inline skill, load its full content when
-   needed to verify the installation. For `context: fork`, inspect metadata and
-   files instead: do not invoke it merely to test installation. Installing a skill
-   does not authorize executing it.
+   needed to verify the installation. Read the winning `SKILL.md` frontmatter to
+   identify `context: fork`; `info` does not expose it. For a fork skill, inspect
+   files instead: do not invoke it merely to test installation. Installing a
+   skill does not authorize executing it.
 
 Report the destination, revision, invocation, dependencies, and validation. Do
 not claim that skill installation also installed its external services.

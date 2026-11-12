@@ -4,6 +4,7 @@ from copy import deepcopy
 from dataclasses import replace
 from pathlib import Path
 import re
+from unittest.mock import AsyncMock
 
 import amplifier_foundation as foundation
 from amplifier_core import AmplifierSession
@@ -23,13 +24,74 @@ TOOL_SOURCE = (
 
 
 def test_installer_finishes_discovery_without_invoking_fork_skills():
-    instructions = (ROOT / "skills/skill-installer/SKILL.md").read_text()
+    instructions = " ".join((ROOT / "skills/skill-installer/SKILL.md").read_text().split())
     assert 'load_skill(source="/absolute/skills")' in instructions
     assert 'load_skill(info="installed-name")' in instructions
-    assert "existing\n   catalog names keep precedence" in instructions
+    assert "source-discovered catalog and preserves its existing entries" in instructions
+    assert "shadow a same-named runtime-overlay skill" in instructions
     assert "context: fork" in instructions
     assert "do not invoke it merely to test installation" in instructions
     assert "call `load_skill` for every installed name" not in instructions
+
+
+@pytest.mark.asyncio
+async def test_work_personal_install_refresh_and_fresh_session(tmp_path, monkeypatch):
+    """Use Work's real source configuration; fixture writes do not prove grants."""
+    monkeypatch.setenv("AMPLIFIER_HOME", str(tmp_path / "shared"))
+    monkeypatch.chdir(tmp_path)
+    behavior = await foundation.load_bundle(
+        str(ROOT / "behaviors/work-skill-library.yaml"), strict=True
+    )
+    host = foundation.Bundle(name="install-test", session={
+        "orchestrator": {"module": "test-loop"},
+        "context": {"module": "test-context"},
+    })
+    bundle = host.compose(behavior)
+    original_config = deepcopy(skill_module(bundle)["config"])
+    assert "~/.amplifier/skills" in original_config["skills"]
+    personal = tmp_path / "user-skills"
+    paths = {
+        name: personal / name / "SKILL.md"
+        for name in ("installed-work-example", "installed-work-fork")
+    }
+    spawn = AsyncMock(side_effect=AssertionError("Installation must not execute a skill"))
+    async with mounted_skills(bundle, tmp_path, eager_resolver=True) as (coordinator, tool, _):
+        coordinator.register_capability("session.spawn", spawn)
+        before = await coordinator.hooks.emit("provider:request", {})
+        assert "installed-work-example" not in (before.context_injection or "")
+        for name, path in paths.items():
+            assert not (await tool.execute({"info": name})).success
+            path.parent.mkdir(parents=True)
+            fields = "context: fork\ndisable-model-invocation: true\n" if name.endswith("fork") else ""
+            path.write_text(
+                f"---\nname: {name}\ndescription: Late installed fixture.\n{fields}---\n\n"
+                "Exact installed content.\n", encoding="utf-8"
+            )
+        preserved = {path: path.read_bytes() for path in paths.values()}
+        assert (await tool.execute({"source": str(personal)})).success
+        for name, path in paths.items():
+            info = await tool.execute({"info": name})
+            assert info.success and Path(info.output["path"]) == path
+        loaded = await tool.execute({"skill_name": "installed-work-example"})
+        assert loaded.success
+        assert loaded.output["content"] == "# installed-work-example\n\nExact installed content."
+        after = await coordinator.hooks.emit("provider:request", {})
+        assert all(name in (after.context_injection or "") for name in paths)
+        assert "installed-work-fork" not in tool.loaded_skills
+        spawn.assert_not_called()
+        assert {path: path.read_bytes() for path in paths.values()} == preserved
+
+    # Fresh mounting uses the same Work configuration, not a source registration.
+    assert skill_module(bundle)["config"] == original_config
+    async with mounted_skills(bundle, tmp_path, eager_resolver=True) as (coordinator, tool, _):
+        coordinator.register_capability("session.spawn", spawn)
+        for name, path in paths.items():
+            info = await tool.execute({"info": name})
+            assert info.success and Path(info.output["path"]) == path
+        visible = await coordinator.hooks.emit("provider:request", {})
+        assert all(name in (visible.context_injection or "") for name in paths)
+        assert not tool.loaded_skills
+        spawn.assert_not_called()
 
 
 @pytest.mark.asyncio
