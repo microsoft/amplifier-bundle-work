@@ -22,6 +22,16 @@ TOOL_SOURCE = (
 )
 
 
+def test_installer_finishes_discovery_without_invoking_fork_skills():
+    instructions = (ROOT / "skills/skill-installer/SKILL.md").read_text()
+    assert 'load_skill(source="/absolute/skills")' in instructions
+    assert 'load_skill(info="installed-name")' in instructions
+    assert "existing\n   catalog names keep precedence" in instructions
+    assert "context: fork" in instructions
+    assert "do not invoke it merely to test installation" in instructions
+    assert "call `load_skill` for every installed name" not in instructions
+
+
 @pytest.mark.asyncio
 async def test_extension_creator_example_has_loadable_module_and_namespace(tmp_path, monkeypatch):
     """The documented default must not put a source URL in the module-ID field."""
