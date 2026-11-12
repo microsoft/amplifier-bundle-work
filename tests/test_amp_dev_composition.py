@@ -27,8 +27,7 @@ async def test_work_amp_dev_preserves_work_and_resolves_portable_expert(tmp_path
     assert dev.session["context"]["module"] == "context-managed"
     assert not any(name.startswith("anchors:") for name in dev.agents)
     assert set(dev.agents) == set(base.agents) | {"amp-dev:amplifier-dev-expert",
-        "amplifier-tester:setup-digital-twin", "amplifier-tester:validator",
-        "digital-twin-universe:dtu-profile-builder"}
+        "amplifier-tester:setup-digital-twin", "amplifier-tester:validator"}
     prepared = PreparedBundle({}, BundleModuleResolver(module_paths={}), dev)
     resources = BaseMentionResolver(bundles=prepared._build_bundles_for_resolver(dev))
     assert resources.resolve("@work:context/system.md") == ROOT / "context/system.md"
@@ -39,6 +38,11 @@ async def test_work_amp_dev_preserves_work_and_resolves_portable_expert(tmp_path
     skills = next(row for row in dev.tools if row["module"] == "tool-skills")["config"]["skills"]
     assert skills[:5] == [".amplifier/skills", ".agents/skills",
         "~/.amplifier/skills", "~/.agents/skills", "@work-skills:skills"]
+    # Tester now registers Smart Tool knowledge instead of the legacy DTU agent.
+    # Check the canonical source without freezing its upstream-selected revision.
+    assert len([source for source in skills
+        if source.startswith("git+https://github.com/microsoft/amplifier-smart-tool-digital-twin-universe@")
+        and source.endswith("#subdirectory=skills")]) == 1
     overridden = dev.compose(Bundle(name="app", session={
         "orchestrator": {"module": "app-loop"},
         "context": {"module": "app-context"}},

@@ -118,7 +118,7 @@ async def test_optional_images_preserve_provider_and_require_host_configuration(
     assert next(row for row in behavior.tools if row['module'] == 'tool-image') == {
         'module': 'tool-image',
         'source': 'git+https://github.com/microsoft/amplifier-bundle-imagegen@main#subdirectory=modules/tool-image',
-        'config': {'backend': 'images', 'allow_paid': True}}
+        'config': {'model_role': 'image-gen', 'allow_paid': True}}
     root = await foundation.load_bundle(str(ROOT / 'bundle.md'), strict=True)
     assert 'tool-image' not in {row['module'] for row in root.tools}
     preset = await foundation.load_bundle(str(ROOT / 'presets/work-images.md'), strict=True)
@@ -142,4 +142,7 @@ async def test_optional_images_preserve_existing_image_backend_choice(tmp_path, 
     }}])
     configured = behavior.compose(host)
     image = next(row for row in configured.tools if row['module'] == 'tool-image')
-    assert image['config'] == {'backend': 'selected-image-backend', 'allow_paid': False}
+    # Routing defaults remain composed; an explicit backend still takes precedence.
+    assert image['config'] == {
+        'model_role': 'image-gen', 'backend': 'selected-image-backend', 'allow_paid': False,
+    }
