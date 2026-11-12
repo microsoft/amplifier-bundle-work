@@ -30,10 +30,29 @@ include that sibling directory without overwriting an existing different version
 A lone `SKILL.md` or leaf directory is not the complete package in this case.
 
 For Git sources, follow the requested branch and record the tested revision in
-validation evidence. Do not pin bundle or module source declarations. Register through the host's real
-skill-source configuration when that is preferable to copying. Namespaced bundle
-sources are resolved through Foundation; relative `./skills` is unsafe when the
-host starts elsewhere. Refresh discovery through the supported tool or a fresh
-session, then call `load_skill` for every installed name and verify resources.
+validation evidence. Do not pin bundle or module source declarations. Register
+through the host's real skill-source configuration when preferable to copying.
+Namespaced bundle sources are resolved through Foundation; relative `./skills`
+is unsafe when the host starts elsewhere.
+
+Finish the authorized installation in the current conversation:
+
+1. Confirm the guarded writes succeeded. A saved permission or file-existence
+   check alone does not prove installation; keep refused or unknown effects explicit.
+2. Refresh the destination source with `load_skill(source="/absolute/skills")`,
+   using its resolved path. An already configured directory can need this refresh
+   after a new skill is written. Check current catalog collisions first: source
+   discovery can shadow a same-named runtime-overlay skill. Do not require a chat
+   reload or another user Go.
+3. Use `load_skill(info="installed-name")` to verify the winning path and inspect
+   the installed files and resources. Source refresh adds names absent from the
+   source-discovered catalog and preserves its existing entries; it does not
+   refresh their cached metadata. Report shadowing rather than replacing a winner.
+4. Verify catalog visibility. For an inline skill, load its full content when
+   needed to verify the installation. Read the winning `SKILL.md` frontmatter to
+   identify `context: fork`; `info` does not expose it. For a fork skill, inspect
+   files instead: do not invoke it merely to test installation. Installing a
+   skill does not authorize executing it.
+
 Report the destination, revision, invocation, dependencies, and validation. Do
 not claim that skill installation also installed its external services.
