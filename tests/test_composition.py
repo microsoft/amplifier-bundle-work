@@ -66,7 +66,7 @@ async def test_local_session_is_complete_without_an_enclosing_root(tmp_path, mon
     assert bundle.session["orchestrator"] == {
         "module": "loop-live",
         "source": "git+https://github.com/microsoft/amplifier-module-loop-live@main",
-        "config": {"background_delegate": False, "background_tools": ["delegate"],
+        "config": {"native_provider": True, "background_delegate": False, "background_tools": ["delegate"],
                    "max_background_jobs": 4, "inherit_effective_model": True},
     }
     assert {tool["module"] for tool in bundle.tools} == {"tool-transcript"}

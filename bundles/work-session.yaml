@@ -24,6 +24,7 @@ session:
     source: git+https://github.com/microsoft/amplifier-module-loop-live@main
     config:
       background_delegate: false
+      native_provider: true
       background_tools: [delegate]
       max_background_jobs: 4
       inherit_effective_model: true
