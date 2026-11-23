@@ -100,3 +100,26 @@ async def test_actual_root_and_delegated_prompts_preserve_instruction_once(tmp_p
     assert "selected interface, authorized scope, constraints, required evidence" not in " ".join(child_prompt.split())
     assert (ROOT / "context/system.md").read_text().strip() not in child_prompt
     assert "host conventions sentinel" not in child_prompt
+
+@pytest.mark.asyncio
+async def test_python_dev_adds_only_fast_edit_feedback(tmp_path, monkeypatch):
+    from amplifier_foundation import BundleRegistry
+
+    candidate = os.environ.get("WORK_PYTHON_DEV_BUNDLE")
+    source = "git+https://github.com/microsoft/amplifier-bundle-python-dev@main#subdirectory=behaviors/python-edit-feedback.yaml"
+
+    def resolve(uri):
+        if candidate and uri == source:
+            return str(Path(candidate).resolve() / "behaviors/python-edit-feedback.yaml")
+        return None
+
+    monkeypatch.setenv("AMPLIFIER_HOME", str(tmp_path / "shared"))
+    registry = BundleRegistry(home=tmp_path / "registry", strict=True, include_source_resolver=resolve)
+    base = await load_bundle(str(ROOT / "bundle.md"), registry=registry)
+    dev = await load_bundle(str(ROOT / "bundles/work-python-dev.md"), registry=registry)
+    assert dev.session == base.session and dev.providers == base.providers
+    assert dev.tools == base.tools and dev.instruction == base.instruction
+    quality = [row for row in dev.hooks if row["module"] == "hooks-python-check"]
+    assert [row for row in dev.hooks if row not in quality] == base.hooks
+    assert len(quality) == 1
+    assert quality[0]["config"] == {"checks": ["lint", "complexity", "structure"], "show_clean": False}
