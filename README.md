@@ -54,8 +54,10 @@ Work include.
 
 ## Work with Python edit feedback
 
-Select this optional root for sessions that should see lint, complexity and
-source-size findings immediately after editing Python files.
+To see lint, complexity and source-size findings immediately after editing
+Python files, first install the shared checker in the Python environment that
+runs Amplifier. Follow the [Python development bundle's setup instructions](https://github.com/microsoft/amplifier-bundle-python-dev#quick-start).
+Then select this optional Work root.
 
 ```text
 git+https://github.com/microsoft/amplifier-bundle-work@main#subdirectory=bundles/work-python-dev.md
