@@ -57,10 +57,11 @@ Work include.
 To see lint, complexity and source-size findings immediately after editing
 Python files, first install the shared checker in the Python environment that
 runs Amplifier. Follow the [Python development bundle's setup instructions](https://github.com/microsoft/amplifier-bundle-python-dev#quick-start).
-Then select this optional Work root.
+In the Amplifier CLI, register this optional root and select it for a chat.
 
-```text
-git+https://github.com/microsoft/amplifier-bundle-work@main#subdirectory=bundles/work-python-dev.md
+```bash
+amplifier bundle add 'git+https://github.com/microsoft/amplifier-bundle-work@main#subdirectory=bundles/work-python-dev.md'
+amplifier run --bundle work-python-dev
 ```
 
 The Python development bundle owns the checks, thresholds and exclusions. Clean
