@@ -52,6 +52,21 @@ local candidates with explicit source overrides, including `WORK_UI_USE_BUNDLE`
 for composition tests. Publish those dependencies before merging this canonical
 Work include.
 
+## Work with Python edit feedback
+
+To see lint, complexity and source-size findings immediately after editing
+Python files, first install the shared checker in the Python environment that
+runs Amplifier. Follow the [Python development bundle's setup instructions](https://github.com/microsoft/amplifier-bundle-python-dev#quick-start).
+In the Amplifier CLI, register this optional root and select it for a chat.
+
+```bash
+amplifier bundle add 'git+https://github.com/microsoft/amplifier-bundle-work@main#subdirectory=bundles/work-python-dev.md'
+amplifier run --bundle work-python-dev
+```
+
+The Python development bundle owns the checks, thresholds and exclusions. Clean
+edits stay quiet. The profile keeps Work's configured provider and editing tools.
+
 ## Work + Amplifier development
 
 Use the independent Work-based development root:
