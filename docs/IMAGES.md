@@ -21,11 +21,10 @@ Follow those sources for capability discovery, generation/editing, preserved
 originals, stable request IDs, unknown-effect reconciliation, and exact saved
 artifact inspection. Work does not duplicate that policy.
 
-Opting into `work-images` enables requested paid image calls through the logical
-`images` backend. The consuming host must separately configure and explicitly
-enable that backend and supply account credentials and model selection. Compose
-host-specific image settings after the behavior to retain that host's selected
-backend and paid-call policy. Installing the behavior grants no account
+Opting into `work-images` enables requested paid image calls through the
+`image-gen` model role. The host supplies a configured provider for that role.
+A host with a saved explicit image backend can continue to use it. Compose the
+host's settings after the behavior to preserve its backend and paid-call policy. Installing the behavior grants no account
 entitlements and does not change the conversation provider. Keep credentials in
 host configuration, never in this bundle or saved task prompts.
 
